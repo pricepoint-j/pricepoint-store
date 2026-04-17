@@ -306,7 +306,6 @@
                 <div class="sale-badge sold-out-badge">Sold Out</div>
                 <div class="image-container">
                     <img src="heart-presidential-chain.jpg" class="product-image" style="opacity: 0.7;">
-                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
                 </div>
                 <h3 class="product-title">Heart Centerpiece Chain</h3>
                 <p class="product-price">$55.00</p>
@@ -317,6 +316,16 @@
     <h2 id="rings" class="section-header">Rings</h2>
     <section class="collection">
         <div class="grid">
+            <div class="product-card" data-price="25" data-stock="in" data-sales="140" onclick="openModal('modal-chopper')">
+                <div class="sale-badge">Sale</div>
+                <div class="image-container">
+                    <img src="chopper-hand.png" class="product-image">
+                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
+                </div>
+                <h3 class="product-title">14K Gold Chopper Ring</h3>
+                <p class="product-price"><span class="original-price">$45.00</span>$25.00</p>
+            </div>
+
             <div class="product-card" data-price="30" data-stock="out" data-sales="210" onclick="openModal('modal-betty-ring')">
                 <div class="sale-badge sold-out-badge">Sold Out</div>
                 <div class="image-container">
@@ -462,7 +471,7 @@
     <section class="faq-section">
         <div class="faq-item" onclick="toggleFAQ(this)">
             <div class="faq-q">Will this turn my neck green? <span class="faq-icon">+</span></div>
-            <div class="faq-a">No. We use premium 14-18k gold filled plating over solid 316L stainless steel. It won't rust, fade, or leave green marks on your skin.</div>
+            <div class="faq-a">No. We use premium 14-18k gold filled plating. It won't rust, fade, or leave green marks on your skin.</div>
         </div>
         <div class="faq-item" onclick="toggleFAQ(this)">
             <div class="faq-q">Can I wear it in the shower? <span class="faq-icon">+</span></div>
@@ -477,6 +486,37 @@
     <section class="collection" style="text-align:center; padding-top: 10px; padding-bottom: 20px;">
         <a href="mailto:contactpricepointjewelry@gmail.com" style="color:var(--text-dark); font-weight:900; font-size: 1rem; text-decoration: none;">contactpricepointjewelry@gmail.com</a>
     </section>
+
+    <div id="modal-chopper" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-chopper')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="chopper-hand.png" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="chopper-black.png" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                    <img src="chopper-box.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">14K Gold Chopper Ring</h2>
+                <p id="chopper-price" class="product-price" style="font-size: 1.6rem;"><span class="original-price" style="font-size: 1rem;">$45.00</span>$25.00</p>
+                <p class="modal-desc">14k gold plated. Features a gritty diamond-cut texture. Solid weight and won't fade or turn your finger green.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="chopper-s" onchange="updatePrice('chopper-s', 'chopper-price', 25)">
+                        <option value="6" data-add="0">6</option>
+                        <option value="7" data-add="0">7</option>
+                        <option value="8" data-add="0">8</option>
+                        <option value="9" data-add="0">9</option>
+                        <option value="10" disabled>10 (Out of Stock)</option>
+                    </select>
+                </div>
+                <div id="paypal-chopper"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
+            </div>
+        </div>
+    </div>
 
     <div id="modal-hk-rope-new" class="modal">
         <span class="close-btn" onclick="closeModal('modal-hk-rope-new')">&times;</span>
@@ -501,6 +541,33 @@
                     </select>
                 </div>
                 <div id="paypal-hk-rope-new"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-betty-ring" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-betty-ring')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="betty-box.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="betty-hand.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Betty Boop Ring</h2>
+                <p id="betty-ring-price" class="product-price" style="font-size: 1.6rem;">$30.00</p>
+                <p class="modal-desc">Gold filled Betty Boop ring with a gritty nugget texture. Solid weight, won't tarnish.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="betty-ring-s">
+                        <option value="7" disabled>7 (Sold Out)</option>
+                        <option value="8" disabled>8 (Sold Out)</option>
+                    </select>
+                </div>
+                <button class="sold-out-btn-modal">Out of Stock</button>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -634,33 +701,6 @@
                     </select>
                 </div>
                 <button class="sold-out-btn-modal">Out of Stock</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-betty-ring" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-betty-ring')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="betty-box.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="betty-hand.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Betty Boop Ring</h2>
-                <p id="betty-ring-price" class="product-price" style="font-size: 1.6rem;">$30.00</p>
-                <p class="modal-desc">Gold filled Betty Boop ring with a gritty nugget texture. Solid weight, won't tarnish.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="betty-ring-s">
-                        <option value="7" disabled>7 (Sold Out)</option>
-                        <option value="8" disabled>8 (Sold Out)</option>
-                    </select>
-                </div>
-                <button class="sold-out-btn-modal">Out of Stock</button>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
     </div>
@@ -1042,7 +1082,7 @@
 
     <footer>
         <a href="mailto:contactpricepointjewelry@gmail.com" class="footer-email">contactpricepointjewelry@gmail.com</a>
-        <p>© 2026 Pricepoint Jewelry.</p>
+        <p>© 2026 Westcoast Gold.</p>
         <a href="#" onclick="openModal('modal-tos'); return false;" class="tos-link">Terms & Conditions</a>
     </footer>
 
@@ -1159,6 +1199,7 @@
             }).render('#' + id);
         };
 
+        renderPP('paypal-chopper', '14K Gold Chopper Ring', 'chopper-price');
         renderPP('paypal-hk-rope-new', '18K Gold Filled HK Rope Chain', 'hk-rope-new-price');
         renderPP('paypal-cuban', 'Cuban Link', 'cuban-price');
         renderPP('paypal-rope', '3mm Rope', 'rope-price');
