@@ -1318,8 +1318,11 @@
 
         /* =========================================
            CUSTOM CART LOGIC & PAYPAL INTEGRATION
+           (UPGRADED WITH LOCAL STORAGE PERSISTENCE)
            ========================================= */
-        let cart = [];
+        
+        // PULL CART FROM BROWSER MEMORY SO IT DOES NOT DELETE ON REFRESH
+        let cart = JSON.parse(localStorage.getItem('westcoast_cart')) || [];
 
         function toggleCart() {
             let sidebar = document.getElementById('cart-sidebar');
@@ -1349,7 +1352,6 @@
             if (isBuyNow) {
                 toggleCart();
             } else {
-                // Visual pop on the cart icon to show it worked
                 let badge = document.getElementById('cart-badge');
                 badge.style.transform = 'scale(1.5)';
                 setTimeout(() => badge.style.transform = 'scale(1)', 300);
@@ -1383,6 +1385,9 @@
         }
 
         function updateCart() {
+            // SAVE CART TO BROWSER MEMORY
+            localStorage.setItem('westcoast_cart', JSON.stringify(cart));
+            
             let itemsHtml = '';
             let total = 0;
             
@@ -1430,6 +1435,11 @@
                 toggleCart();
             })
         }).render('#paypal-button-container');
+
+        // INITIALIZE CART ON LOAD SO IT SHOWS CORRECT BADGE NUMBER
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCart();
+        });
 
     </script>
 </body>
