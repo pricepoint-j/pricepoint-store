@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Westcoast Gold</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
     
@@ -33,7 +33,7 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--text-dark); }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg-off-white); color: var(--text-dark); overflow-x: hidden; }
+        body { background-color: var(--bg-off-white); color: var(--text-dark); overflow-x: hidden; overscroll-behavior: none; }
         
         /* SCROLLING MARQUEE */
         .marquee-container { background-color: var(--text-dark); color: var(--gold); overflow: hidden; padding: 12px 0; white-space: nowrap; display: flex; border-bottom: 1px solid #333; }
@@ -52,7 +52,7 @@
         .nav-cart-icon { position: relative; cursor: pointer; display: flex; align-items: center; margin-left: 5px; }
         .nav-cart-icon svg { width: 22px; height: 22px; color: var(--text-dark); transition: 0.2s; }
         .nav-cart-icon:hover svg { color: var(--gold); }
-        .cart-badge { position: absolute; top: -8px; right: -10px; background: var(--pink-accent); color: #fff; font-size: 0.6rem; font-weight: 700; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; border-radius: 50%; }
+        .cart-badge { position: absolute; top: -8px; right: -10px; background: var(--pink-accent); color: #fff; font-size: 0.6rem; font-weight: 700; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; border-radius: 50%; transition: transform 0.2s ease; }
 
         /* NON-TARNISH BANNER TEXT */
         .announcement-text { text-align: center; font-size: 0.65rem; font-weight: 800; color: var(--pink-accent); letter-spacing: 0.5px; margin-top: 10px; text-transform: uppercase; width: 100%; }
@@ -104,8 +104,13 @@
         .sale-badge { position: absolute; top: 10px; left: 10px; background: var(--pink-accent); color: white; padding: 4px 8px; font-size: 0.6rem; font-weight: 700; border-radius: 2px; z-index: 5; text-transform: uppercase; letter-spacing: 0.5px; }
         .sold-out-badge { background: #1A1A1A; }
         
-        .view-btn { background: var(--gold); color: #fff; border: none; border-radius: 4px; padding: 16px; width: 100%; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.2s; margin-top: 15px; }
-        .view-btn:hover { background: var(--text-dark); }
+        /* NEW DUAL BUTTON CHECKOUT UI */
+        .action-buttons { display: flex; gap: 10px; margin-top: 15px; width: 100%; }
+        .add-cart-btn, .buy-now-btn { flex: 1; border-radius: 4px; padding: 15px 5px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.2s; text-align: center; border: none; }
+        .add-cart-btn { background: transparent; border: 2px solid var(--gold); color: var(--text-dark); }
+        .add-cart-btn:hover { background: #f9f9f9; }
+        .buy-now-btn { background: var(--gold); color: #fff; border: 2px solid var(--gold); }
+        .buy-now-btn:hover { background: var(--text-dark); border-color: var(--text-dark); }
 
         /* FAQ SECTION */
         .faq-section { max-width: 800px; margin: 20px auto 60px; padding: 0 5%; }
@@ -116,7 +121,7 @@
 
         /* FULL SCREEN PRODUCT MODAL */
         @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: #fff; overflow-y: auto; animation: slideUpFade 0.3s ease; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: #fff; overflow-y: auto; -webkit-overflow-scrolling: touch; animation: slideUpFade 0.3s ease; }
         .close-btn { position: fixed; top: 15px; right: 20px; font-size: 35px; color: var(--text-dark); cursor: pointer; z-index: 1010; line-height: 1; transition: 0.2s; background: rgba(255,255,255,0.9); backdrop-filter: blur(5px); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .modal-layout { max-width: 1400px; margin: 0 auto; padding: 60px 5% 40px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
         .modal-gallery { flex: 1.2; min-width: 300px; }
@@ -167,7 +172,7 @@
         
         #modal-tos { background: rgba(0,0,0,0.5); }
         #modal-tos .modal-content { max-width: 600px; margin: 10vh auto; border-radius: 8px; padding: 30px; background: #fff; }
-        #modal-tos .close-btn { position: absolute; top: 10px; right: 15px; background: none; box-shadow: none; width: auto; height: auto; }
+        #modal-tos .close-btn-tos { position: absolute; top: 10px; right: 15px; background: none; box-shadow: none; width: auto; height: auto; font-size: 30px; color: #999; cursor: pointer; }
 
         /* =========================================
            MOBILE OPTIMIZATION (EDGE-TO-EDGE BIG IMAGES)
@@ -202,6 +207,10 @@
             .modal-desc { font-size: 0.9rem; }
             .close-btn { top: 15px; right: 15px; width: 40px; height: 40px; font-size: 32px; background: rgba(255,255,255,0.75); color: #000; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
             .modal-header-logo { display: none; }
+            
+            /* MOBILE DUAL BUTTONS */
+            .action-buttons { flex-direction: row; gap: 8px; margin-top: 10px; }
+            .add-cart-btn, .buy-now-btn { padding: 14px 4px; font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -504,16 +513,6 @@
         </div>
     </section>
 
-    <section class="about-section">
-        <div class="about-us-container">
-            <img src="pricepoint-logo.png" alt="Westcoast Gold" class="about-us-avatar">
-            <div>
-                <h3>About us</h3>
-                <p>We're tired of people overpaying for jewelry at the mall. Our goal is to provide everyday daily pieces that actually last, at a fair price. We use premium 14-18KT Gold Filled materials to make sure you don't have to worry about fading or green necks. Just clean, quality jewelry.</p>
-            </div>
-        </div>
-    </section>
-
     <h2 class="section-header" style="text-align: center; padding-top: 20px; font-size: 1.2rem;">FAQ</h2>
     <section class="faq-section">
         <div class="faq-item" onclick="toggleFAQ(this)">
@@ -578,7 +577,10 @@
                         <option value="10" disabled>10 (Out of Stock)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('14K Gold Chopper Ring', 'chopper-price', 'chopper-s', 'chopper-hand.png')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('14K Gold Chopper Ring', 'chopper-price', 'chopper-s', 'chopper-hand.png', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('14K Gold Chopper Ring', 'chopper-price', 'chopper-s', 'chopper-hand.png', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -606,7 +608,10 @@
                         <option value="22" data-add="4">22" ($29.00)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('18K Gold Filled HK Rope Chain', 'hk-rope-new-price', 'hk-rope-new-s', 'hk-rope-black.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('18K Gold Filled HK Rope Chain', 'hk-rope-new-price', 'hk-rope-new-s', 'hk-rope-black.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('18K Gold Filled HK Rope Chain', 'hk-rope-new-price', 'hk-rope-new-s', 'hk-rope-black.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -661,7 +666,10 @@
                         <option value="12" data-add="10">12mm ($35)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('Cuban Link', 'cuban-price', 'cuban-w', 'cuban-link.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('Cuban Link', 'cuban-price', 'cuban-w', 'cuban-link.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('Cuban Link', 'cuban-price', 'cuban-w', 'cuban-link.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -687,7 +695,10 @@
                         <option value="24" data-add="6">24" ($14)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('3mm Rope Chain', 'rope-price', 'rope-s', 'rope.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('3mm Rope Chain', 'rope-price', 'rope-s', 'rope.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('3mm Rope Chain', 'rope-price', 'rope-s', 'rope.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -713,7 +724,10 @@
                         <option value="30mm" data-add="0">Pendant & Chain ($30)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('Betty Boop Pendant', 'betty-pendant-price', 'betty-pendant-s', 'betty-necklace-white.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('Betty Boop Pendant', 'betty-pendant-price', 'betty-pendant-s', 'betty-necklace-white.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('Betty Boop Pendant', 'betty-pendant-price', 'betty-pendant-s', 'betty-necklace-white.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -741,7 +755,10 @@
                         <option value="20" data-add="0">20" ($60)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('HK Rollie Chain', 'hk-chain-price', 'hk-chain-s', 'hk-bust.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('HK Rollie Chain', 'hk-chain-price', 'hk-chain-s', 'hk-bust.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('HK Rollie Chain', 'hk-chain-price', 'hk-chain-s', 'hk-bust.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -791,7 +808,10 @@
                         <option value="10" data-add="0">10</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('HK 2-Finger Ring', 'hk-price', 'hk-s', 'hellokitty-ring.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('HK 2-Finger Ring', 'hk-price', 'hk-s', 'hellokitty-ring.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('HK 2-Finger Ring', 'hk-price', 'hk-s', 'hellokitty-ring.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -817,7 +837,10 @@
                         <option value="10" data-add="0">10</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('Nugget 2-Finger Ring', 'nugget-price', 'nugget-s', 'nugget-ring.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('Nugget 2-Finger Ring', 'nugget-price', 'nugget-s', 'nugget-ring.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('Nugget 2-Finger Ring', 'nugget-price', 'nugget-s', 'nugget-ring.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -843,7 +866,10 @@
                         <option value="9" data-add="0">9</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('Halo Heart Nugget Ring', 'heart-ring-price', 'heart-ring-s', 'heart-nugget-ring.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('Halo Heart Nugget Ring', 'heart-ring-price', 'heart-ring-s', 'heart-nugget-ring.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('Halo Heart Nugget Ring', 'heart-ring-price', 'heart-ring-s', 'heart-nugget-ring.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -869,7 +895,10 @@
                         <option value="9" data-add="0">9</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('Diamond-Cut Heart Ring', 'heart-ring-2-price', 'heart-ring-2-s', 'heart3-ring.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('Diamond-Cut Heart Ring', 'heart-ring-2-price', 'heart-ring-2-s', 'heart3-ring.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('Diamond-Cut Heart Ring', 'heart-ring-2-price', 'heart-ring-2-s', 'heart3-ring.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -895,7 +924,10 @@
                         <option value="9" data-add="0">9</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('Solid Edge Heart Ring', 'heart-ring-3-price', 'heart-ring-3-s', 'heart1-ring.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('Solid Edge Heart Ring', 'heart-ring-3-price', 'heart-ring-3-s', 'heart1-ring.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('Solid Edge Heart Ring', 'heart-ring-3-price', 'heart-ring-3-s', 'heart1-ring.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -921,7 +953,10 @@
                         <option value="9" data-add="0">9</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('HK Nugget Ring', 'hk-body-ring-price', 'hk-body-ring-s', 'hk-fullbody-ring.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('HK Nugget Ring', 'hk-body-ring-price', 'hk-body-ring-s', 'hk-fullbody-ring.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('HK Nugget Ring', 'hk-body-ring-price', 'hk-body-ring-s', 'hk-fullbody-ring.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -947,7 +982,10 @@
                         <option value="Standard" data-add="0">Standard Stud ($15)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('HK Enamel Studs', 'hk-earrings-price', 'hk-earrings-s', 'hellokitty-earrings.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('HK Enamel Studs', 'hk-earrings-price', 'hk-earrings-s', 'hellokitty-earrings.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('HK Enamel Studs', 'hk-earrings-price', 'hk-earrings-s', 'hellokitty-earrings.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -966,14 +1004,17 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">HK Gold Studs</h2>
                 <p id="hk-velvet-price" class="product-price" style="font-size: 1.6rem;">$10.00</p>
-                <p class="modal-desc">14-18KT Gold Filled HK studs. Comes in a velvet box. Clean shine that stays.</p>
+                <p class="modal-desc">Solid 14-18KT Gold Filled HK studs. Comes in a velvet box. Clean shine that stays.</p>
                 <div class="size-selector">
                     <label>Style</label>
                     <select id="hk-velvet-s" onchange="updatePrice('hk-velvet-s', 'hk-velvet-price', 10)">
                         <option value="Standard" data-add="0">Standard Stud ($10)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('HK Gold Studs', 'hk-velvet-price', 'hk-velvet-s', 'hk-textured-gold.png')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('HK Gold Studs', 'hk-velvet-price', 'hk-velvet-s', 'hk-textured-gold.png', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('HK Gold Studs', 'hk-velvet-price', 'hk-velvet-s', 'hk-textured-gold.png', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -996,7 +1037,10 @@
                         <option value="18mm" data-add="0">18mm Stud ($25)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('Globe Studs', 'world-earrings-price', 'world-earrings-s', 'world-is-yours-earrings.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('Globe Studs', 'world-earrings-price', 'world-earrings-s', 'world-is-yours-earrings.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('Globe Studs', 'world-earrings-price', 'world-earrings-s', 'world-is-yours-earrings.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -1022,7 +1066,10 @@
                         <option value="14mm" data-add="6">14mm ($26)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('Heart Nugget Studs', 'heart-earrings-price', 'heart-earrings-s', 'heart-nugget-earrings.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('Heart Nugget Studs', 'heart-earrings-price', 'heart-earrings-s', 'heart-nugget-earrings.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('Heart Nugget Studs', 'heart-earrings-price', 'heart-earrings-s', 'heart-nugget-earrings.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -1053,7 +1100,10 @@
                         <option value="8" data-add="0">8.0" ($45)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('Butterfly Bracelet', 'butterfly-bracelet-price', 'butterfly-bracelet-s', 'butterfly-bracelet-main.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('Butterfly Bracelet', 'butterfly-bracelet-price', 'butterfly-bracelet-s', 'butterfly-bracelet-main.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('Butterfly Bracelet', 'butterfly-bracelet-price', 'butterfly-bracelet-s', 'butterfly-bracelet-main.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -1084,7 +1134,10 @@
                         <option value="8" disabled>8.0" (Out of Stock)</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCart('Triple Heart Bracelet', 'heart-bracelet-price', 'heart-bracelet-s', 'triple-heart-bracelet.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('Triple Heart Bracelet', 'heart-bracelet-price', 'heart-bracelet-s', 'triple-heart-bracelet.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('Triple Heart Bracelet', 'heart-bracelet-price', 'heart-bracelet-s', 'triple-heart-bracelet.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -1127,17 +1180,42 @@
                         <option value="17" data-add="0">iPhone 17 Series</option>
                     </select>
                 </div>
-                <button class="view-btn" onclick="addToCartCase('3D HK Silicone Case', 'hk-case-price', 'hk-case-color', 'hk-case-model', 'hk-case-white.jpg')">Add To Cart</button>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCartCase('3D HK Silicone Case', 'hk-case-price', 'hk-case-color', 'hk-case-model', 'hk-case-white.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCartCase('3D HK Silicone Case', 'hk-case-price', 'hk-case-color', 'hk-case-model', 'hk-case-white.jpg', true)">Buy Now</button>
+                </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>⚡ Tracked Shipping</span></div>
             </div>
         </div>
     </div>
 
+    <div id="modal-tos" class="modal">
+        <span class="close-btn-tos" onclick="closeModal('modal-tos')">&times;</span>
+        <div class="modal-content">
+            <h2 class="modal-title" style="font-size: 1.5rem; margin-bottom: 20px;">Terms & Conditions</h2>
+            <div style="font-size: 0.85rem; color: #555; line-height: 1.6;">
+                <p><strong>1. Sales are Final:</strong> All sales are final. We don't do returns if you pick the wrong size or change your mind.</p><br>
+                <p><strong>2. Shipping & Lost Packages:</strong> If the tracking number says your package was delivered, we are not legally responsible if it gets lost or stolen from your porch. Make sure your shipping address is secure.</p><br>
+                <p><strong>3. Fake Chargebacks:</strong> If you receive your item and file a fake chargeback with your bank or PayPal saying you didn't, we will submit your IP address, order history, and tracking delivery confirmation to dispute it.</p><br>
+                <p><strong>4. Stock Issues:</strong> If you buy something and it sells out from our vendor before we can update the site, we will send you a full refund right away.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="mailto:contactpricepointjewelry@gmail.com" class="footer-email">contactpricepointjewelry@gmail.com</a>
+        <p>© 2026 Westcoast Gold.</p>
+        <a href="#" onclick="openModal('modal-tos'); return false;" class="tos-link">Terms & Conditions</a>
+    </footer>
+
     <script>
         function openModal(id) { 
             document.body.style.overflow = "hidden";
-            document.getElementById(id).style.display = "block"; 
+            let modal = document.getElementById(id);
+            modal.style.display = "block"; 
+            modal.scrollTop = 0; // Reset scroll to top when opening
         }
+        
         function closeModal(id) { 
             document.body.style.overflow = "auto";
             document.getElementById(id).style.display = "none"; 
@@ -1146,6 +1224,11 @@
         function switchModal(newId) {
             document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
             openModal(newId);
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+            document.body.style.overflow = "auto";
         }
 
         function toggleFAQ(element) {
@@ -1251,7 +1334,7 @@
             }
         }
 
-        function addToCart(name, priceId, selectId, imageSrc) {
+        function addToCart(name, priceId, selectId, imageSrc, isBuyNow) {
             let priceText = document.getElementById(priceId).innerText.split('$').pop().trim();
             let price = parseFloat(priceText);
             let option = '';
@@ -1261,12 +1344,20 @@
             }
             cart.push({name, price, option, imageSrc});
             updateCart();
-            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-            toggleCart();
+            closeAllModals();
+            
+            if (isBuyNow) {
+                toggleCart();
+            } else {
+                // Visual pop on the cart icon to show it worked
+                let badge = document.getElementById('cart-badge');
+                badge.style.transform = 'scale(1.5)';
+                setTimeout(() => badge.style.transform = 'scale(1)', 300);
+            }
         }
 
         // Special function for the case since it has two dropdowns
-        function addToCartCase(name, priceId, colorId, modelId, imageSrc) {
+        function addToCartCase(name, priceId, colorId, modelId, imageSrc, isBuyNow) {
             let priceText = document.getElementById(priceId).innerText.split('$').pop().trim();
             let price = parseFloat(priceText);
             let cSelect = document.getElementById(colorId);
@@ -1275,8 +1366,15 @@
             
             cart.push({name, price, option, imageSrc});
             updateCart();
-            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-            toggleCart();
+            closeAllModals();
+            
+            if (isBuyNow) {
+                toggleCart();
+            } else {
+                let badge = document.getElementById('cart-badge');
+                badge.style.transform = 'scale(1.5)';
+                setTimeout(() => badge.style.transform = 'scale(1)', 300);
+            }
         }
 
         function removeFromCart(index) {
