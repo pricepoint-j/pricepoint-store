@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricepoint Jewelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-YOUR_MEASUREMENT_ID');
+    </script>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+    <style>
+        :root { 
+            --bg-off-white: #F8F9FA;
+            --card-white: #FFFFFF;
+            --gold: #C5A021; 
+            --text-dark: #1A1A1A;
+            --text-muted: #666666;
+            --accent-gradient: linear-gradient(180deg, #FFFFFF 0%, #F2EBE1 100%);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-off-white); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-dark); }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-off-white); color: var(--text-dark); overflow-x: hidden; }
+        
+        /* SCROLLING MARQUEE */
+        .marquee-container { background-color: var(--text-dark); color: var(--gold); overflow: hidden; padding: 12px 0; white-space: nowrap; display: flex; border-bottom: 1px solid #333; }
+        .marquee-content { animation: scroll 20s linear infinite; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; display: flex; gap: 40px; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 15px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 100; padding: 18px 5%; transition: 0.3s; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; flex-wrap: wrap; gap: 15px; }
+        .logo { font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: var(--text-dark); text-decoration: none; letter-spacing: 1px; }
+        .logo span { color: var(--gold); }
+        .nav-links { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+
+        .hero { height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 5%; background: var(--accent-gradient); position: relative; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-content { z-index: 2; animation: fadeUp 1s ease forwards; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; text-transform: uppercase; line-height: 1.1; color: var(--gold); margin-bottom: 20px; }
+        .hero p { color: var(--text-dark); font-weight: 600; max-width: 600px; margin: 0 auto; font-size: 1rem; line-height: 1.5; }
+
+        .promo-section { display: flex; flex-wrap: wrap; max-width: 1200px; margin: 80px auto; background: var(--card-white); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .promo-img { flex: 1; min-width: 300px; min-height: 400px; }
+        .promo-img img { width: 100%; height: 100%; object-fit: cover; }
+        .promo-text { flex: 1; min-width: 300px; padding: 50px 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .promo-text h2 { font-size: 2rem; font-weight: 900; text-transform: uppercase; color: var(--gold); margin-bottom: 15px; }
+        .promo-text p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; max-width: 400px; }
+        
+        /* CLEAN FILTER SYSTEM UI */
+        .filter-section { max-width: 1400px; margin: 40px auto 20px; padding: 0 5%; }
+        .filter-container { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; justify-content: space-between; background: transparent; border-bottom: 2px solid var(--text-dark); padding-bottom: 20px; }
+        .filter-group { display: flex; gap: 20px; flex-wrap: wrap; flex: 1; }
+        .filter-box { display: flex; flex-direction: column; gap: 8px; min-width: 150px; }
+        .filter-box label { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: var(--text-dark); letter-spacing: 1px; }
+        .filter-box select { padding: 12px; background: transparent; border: 1px solid #ccc; border-radius: 0; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 700; cursor: pointer; outline: none; color: var(--text-dark); width: 100%; transition: 0.2s; }
+        .filter-box select:focus { border-color: var(--gold); }
+        
+        /* PRICE TYPING INPUT */
+        .price-input-wrapper { display: flex; align-items: center; position: relative; width: 100%; max-width: 200px; }
+        .currency-symbol { position: absolute; left: 12px; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); pointer-events: none; }
+        .price-input-wrapper input { width: 100%; padding: 12px 12px 12px 28px; background: transparent; border: 1px solid #ccc; border-radius: 0; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 700; outline: none; color: var(--text-dark); transition: 0.2s; }
+        .price-input-wrapper input:focus { border-color: var(--gold); }
+        .price-input-wrapper input::-webkit-outer-spin-button, .price-input-wrapper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        
+        .clear-btn { background: transparent; color: var(--text-muted); border: 1px solid #ccc; padding: 12px 25px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 0; cursor: pointer; transition: 0.2s; height: 42px; margin-top: auto; }
+        .clear-btn:hover { background: var(--text-dark); color: #fff; border-color: var(--text-dark); }
+
+        .section-header { text-align: center; padding: 60px 0 20px; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; color: var(--text-dark); font-size: 1.5rem; transition: 0.3s; }
+        
+        .collection { padding: 20px 5% 60px; max-width: 1400px; margin: 0 auto; transition: 0.3s; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        
+        .product-card { background-color: var(--card-white); border-radius: 8px; padding: 15px; transition: all 0.3s; cursor: pointer; text-align: center; position: relative; overflow: hidden; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .product-image { width: 100%; height: 320px; object-fit: cover; margin-bottom: 15px; border-radius: 4px; background: #f9f9f9; }
+        .product-title { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; color: var(--text-dark); }
+        
+        .product-price { color: var(--gold); font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; }
+        .original-price { color: #aaa; text-decoration: line-through; font-size: 0.85rem; font-weight: 500; margin-right: 8px; }
+        .sale-badge { position: absolute; top: 15px; left: 15px; background: #1A1A1A; color: white; padding: 4px 10px; font-size: 0.65rem; font-weight: 700; border-radius: 3px; z-index: 5; text-transform: uppercase; }
+
+        .view-btn { background: var(--gold); color: #fff; border: none; border-radius: 4px; padding: 14px; width: 100%; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.2s; }
+        .view-btn:hover { background: var(--text-dark); }
+        .sold-out-btn { background: #eee !important; color: #888 !important; cursor: not-allowed !important; }
+
+        /* POLICIES SECTION */
+        .policies-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 0 5%; }
+        .policy-box { background: var(--card-white); padding: 25px; border-radius: 8px; text-align: left; }
+        .policy-box h3 { color: var(--gold); font-size: 0.95rem; margin-bottom: 10px; text-transform: uppercase; font-weight: 700; }
+        .policy-box p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; }
+
+        /* FAQ SECTION */
+        .faq-section { max-width: 800px; margin: 20px auto 60px; padding: 0 5%; }
+        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; cursor: pointer; }
+        .faq-q { font-weight: 700; font-size: 0.95rem; color: var(--text-dark); display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; }
+        .faq-a { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-top: 15px; display: none; font-weight: 500; }
+        .faq-icon { color: var(--gold); font-size: 1.2rem; font-weight: 900; }
+
+        /* ABOUT US */
+        .about-section { max-width: 800px; margin: 40px auto; padding: 40px 5%; text-align: center; background: var(--card-white); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        .about-us-container { display: flex; align-items: center; text-align: left; gap: 20px; }
+        .about-us-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: contain; flex-shrink: 0; }
+        .about-section h3 { font-size: 1.2rem; font-weight: 900; text-transform: uppercase; color: var(--text-dark); margin-bottom: 10px; letter-spacing: 1px; }
+        .about-section p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; font-weight: 500; }
+
+        /* =========================================
+           FULL SCREEN PRODUCT MODAL
+           ========================================= */
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: #fff; overflow-y: auto; animation: slideUpFade 0.3s ease; }
+        
+        .close-btn { position: fixed; top: 20px; right: 30px; font-size: 40px; color: var(--text-dark); cursor: pointer; z-index: 1010; line-height: 1; transition: 0.2s; background: rgba(255,255,255,0.8); border-radius: 50%; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .close-btn:hover { color: var(--gold); transform: scale(1.05); }
+
+        .modal-layout { max-width: 1400px; margin: 0 auto; padding: 80px 5% 40px; display: flex; flex-wrap: wrap; gap: 50px; align-items: flex-start; }
+        
+        .modal-gallery { flex: 1.2; min-width: 320px; }
+        .modal-info { flex: 1; min-width: 320px; padding-top: 10px; position: sticky; top: 80px; }
+        
+        .modal-header-logo { width: 140px; height: auto; margin-bottom: 20px; display: block; object-fit: contain; }
+        
+        .modal-img { width: 100%; height: auto; max-height: 600px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; background: #f9f9f9; cursor: zoom-in; }
+        .thumb-container { display: flex; gap: 15px; flex-wrap: wrap; }
+        .modal-img-secondary { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; cursor: zoom-in; opacity: 0.6; transition: 0.2s; border: 2px solid transparent; }
+        .modal-img-secondary:hover { opacity: 1; border-color: var(--gold); }
+        
+        .modal-title { font-size: 2.5rem; text-transform: uppercase; margin-bottom: 10px; color: var(--text-dark); font-weight: 900; line-height: 1.1; }
+        .modal-desc { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; }
+        
+        .size-selector { margin-bottom: 30px; }
+        .size-selector label { display: block; color: var(--text-dark); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
+        .size-selector select { width: 100%; padding: 15px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; color: var(--text-dark); outline: none; transition: 0.2s; }
+        .size-selector select:focus { border-color: var(--gold); }
+        .size-selector select option:disabled { color: #aaa; }
+
+        .trust-badges { display: flex; justify-content: flex-start; gap: 20px; margin-top: 25px; font-size: 0.7rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+        .related-products-wrapper { max-width: 1400px; margin: 20px auto 60px; padding: 0 5%; border-top: 1px solid #eee; padding-top: 40px; }
+        .related-products-wrapper h3 { font-size: 1rem; text-transform: uppercase; margin-bottom: 20px; color: var(--text-dark); font-weight: 900; letter-spacing: 1px; }
+        .related-grid { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px; }
+        .related-card { min-width: 140px; flex: 1; cursor: pointer; text-align: left; transition: 0.2s; }
+        .related-card:hover { transform: translateY(-4px); }
+        .related-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; background: #f9f9f9; }
+        .related-card h4 { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; text-transform: uppercase; }
+        .related-card p { font-size: 0.9rem; font-weight: 700; color: var(--gold); }
+
+        #lightbox { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+        #lightbox img { max-width: 95%; max-height: 95%; border-radius: 4px; }
+        #lightbox-close { position: absolute; top: 20px; right: 30px; font-size: 50px; cursor: pointer; color: #fff; }
+
+        footer { background: var(--text-dark); padding: 50px 5% 30px; text-align: center; margin-top: 50px; color: #fff; }
+        footer p { font-size: 0.8rem; color: #aaa; margin-bottom: 10px; }
+        .footer-email { color: var(--gold); font-weight: 700; font-size: 0.9rem; text-decoration: none; display: block; margin-bottom: 20px; }
+        .tos-link { color: #666; text-decoration: none; font-size: 0.7rem; margin: 0 10px; transition: 0.2s; display: inline-block; }
+        .tos-link:hover { color: #fff; }
+        
+        #modal-tos { background: rgba(0,0,0,0.5); }
+        #modal-tos .modal-content { max-width: 600px; margin: 10vh auto; border-radius: 12px; }
+        #modal-tos .close-btn { position: absolute; top: 15px; right: 20px; background: none; box-shadow: none; width: auto; height: auto; }
+    </style>
+</head>
+<body>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>PRICEPOINT</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>SOLID STAINLESS STEEL</span> ✦ <span>PRICEPOINT</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>SOLID STAINLESS STEEL</span> ✦ <span>PRICEPOINT</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>SOLID STAINLESS STEEL</span>
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" style="height: 40px; width: auto; display: block; object-fit: contain;">
+            </a>
+            <div class="nav-links">
+                <a href="#necklaces">Chains</a>
+                <a href="#rings">Rings</a>
+                <a href="#earrings">Earrings</a>
+                <a href="#bracelets">Bracelets</a>
+                <a href="#cases">Accessories</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Heavy Pieces.<br>Built to <span class="italic-style">Last.</span></h1>
+            <p>Solid stainless steel and heavy gold plating. Quality everyday pieces without the mall markups.</p>
+        </div>
+    </section>
+
+    <section class="promo-section">
+        <div class="promo-img">
+            <img src="hk-lifestyle.jpg" alt="Hello Kitty Matching Set">
+        </div>
+        <div class="promo-text">
+            <h2>The HK<br>Set</h2>
+            <p>Get the matching ring, chain, and phone case.</p>
+            <a href="#rings" class="view-btn" style="text-decoration: none; display: inline-block; padding: 15px 25px; width: auto;">Shop The Collection</a>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="filter-group">
+                <div class="filter-box">
+                    <label>Sort By</label>
+                    <select id="sortFilter">
+                        <option value="relevant">Relevant</option>
+                        <option value="bestSelling">Best Selling</option>
+                        <option value="lowHigh">Price: Low to High</option>
+                        <option value="highLow">Price: High to Low</option>
+                    </select>
+                </div>
+                <div class="filter-box">
+                    <label>Availability</label>
+                    <select id="stockFilter">
+                        <option value="all">All Items</option>
+                        <option value="in">In Stock</option>
+                        <option value="out">Out of Stock</option>
+                    </select>
+                </div>
+                <div class="filter-box price-box">
+                    <label>Max Budget</label>
+                    <div class="price-input-wrapper">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" id="priceFilter" placeholder="No Limit" min="0">
+                    </div>
+                </div>
+            </div>
+            <div class="filter-group" style="justify-content: flex-end; flex: 0;">
+                <button class="clear-btn" onclick="clearFilters()">Clear All</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="lightbox"><span id="lightbox-close" onclick="closeLightbox()">&times;</span><img id="lightbox-img" src=""></div>
+
+    <h2 id="necklaces" class="section-header" style="font-size: 1.2rem;">Chains</h2>
+    <section class="collection">
+        <div class="grid">
+            <div class="product-card" data-price="25" data-stock="in" data-sales="120" onclick="openModal('modal-cuban')">
+                <img src="cuban-link.jpg" class="product-image">
+                <h3 class="product-title">Cuban Link</h3>
+                <p class="product-price">From $25.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="8" data-stock="in" data-sales="90" onclick="openModal('modal-rope')">
+                <img src="rope.jpg" class="product-image">
+                <h3 class="product-title">3mm Rope Chain</h3>
+                <p class="product-price">From $8.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="30" data-stock="in" data-sales="20" onclick="openModal('modal-betty-pendant')">
+                <img src="betty-necklace-white.jpg" class="product-image">
+                <h3 class="product-title">Betty Boop Pendant</h3>
+                <p class="product-price">$30.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="60" data-stock="in" data-sales="65" onclick="openModal('modal-hk-chain')">
+                <img src="hk-bust.jpg" class="product-image">
+                <h3 class="product-title">HK Rollie Chain</h3>
+                <p class="product-price">$60.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="55" data-stock="out" data-sales="200" onclick="openModal('modal-heart-chain')">
+                <img src="heart-presidential-chain.jpg" class="product-image">
+                <h3 class="product-title">Heart Centerpiece Chain</h3>
+                <p class="product-price">$55.00</p>
+                <button class="view-btn sold-out-btn">Out of Stock</button>
+            </div>
+        </div>
+    </section>
+
+    <h2 id="rings" class="section-header" style="font-size: 1.2rem;">Rings</h2>
+    <section class="collection">
+        <div class="grid">
+            <div class="product-card" data-price="30" data-stock="out" data-sales="210" onclick="openModal('modal-betty-ring')">
+                <img src="betty-box.jpg" class="product-image">
+                <h3 class="product-title">Betty Boop Ring</h3>
+                <p class="product-price">$30.00</p>
+                <button class="view-btn sold-out-btn">Out of Stock</button>
+            </div>
+            <div class="product-card" data-price="25" data-stock="in" data-sales="95" onclick="openModal('modal-money-bag')">
+                <img src="money-bag-ring.jpg" class="product-image">
+                <h3 class="product-title">Money Bag Ring</h3>
+                <p class="product-price">$25.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="45" data-stock="in" data-sales="80" onclick="openModal('modal-hk')">
+                <img src="hellokitty-ring.jpg" class="product-image">
+                <h3 class="product-title">HK 2-Finger Ring</h3>
+                <p class="product-price">$45.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="45" data-stock="in" data-sales="50" onclick="openModal('modal-nugget')">
+                <img src="nugget-ring.jpg" class="product-image">
+                <h3 class="product-title">Nugget 2-Finger Ring</h3>
+                <p class="product-price">$45.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="25" data-stock="in" data-sales="110" onclick="openModal('modal-heart-ring')">
+                <div class="sale-badge">Sale</div>
+                <img src="heart-nugget-ring.jpg" class="product-image">
+                <h3 class="product-title">Halo Heart Nugget Ring</h3>
+                <p class="product-price"><span class="original-price">$55.00</span>$25.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="25" data-stock="in" data-sales="30" onclick="openModal('modal-heart-ring-2')">
+                <img src="heart3-ring.jpg" class="product-image">
+                <h3 class="product-title">Diamond-Cut Heart Ring</h3>
+                <p class="product-price">$25.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="25" data-stock="in" data-sales="40" onclick="openModal('modal-heart-ring-3')">
+                <div class="sale-badge">Sale</div>
+                <img src="heart1-ring.jpg" class="product-image">
+                <h3 class="product-title">Solid Edge Heart Ring</h3>
+                <p class="product-price"><span class="original-price">$55.00</span>$25.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="25" data-stock="in" data-sales="55" onclick="openModal('modal-hk-body-ring')">
+                <img src="hk-fullbody-ring.jpg" class="product-image">
+                <h3 class="product-title">HK Nugget Ring</h3>
+                <p class="product-price">$25.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+        </div>
+    </section>
+
+    <h2 id="earrings" class="section-header" style="font-size: 1.2rem;">Earrings</h2>
+    <section class="collection">
+        <div class="grid">
+            <div class="product-card" data-price="15" data-stock="in" data-sales="35" onclick="openModal('modal-hk-earrings')">
+                <img src="hellokitty-earrings.jpg" class="product-image">
+                <h3 class="product-title">HK Enamel Studs</h3>
+                <p class="product-price">$15.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="10" data-stock="in" data-sales="25" onclick="openModal('modal-hk-velvet')">
+                <img src="hk-textured-gold.png" class="product-image">
+                <h3 class="product-title">HK Gold Studs</h3>
+                <p class="product-price">$10.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="25" data-stock="in" data-sales="70" onclick="openModal('modal-world-earrings')">
+                <img src="world-is-yours-earrings.jpg" class="product-image">
+                <h3 class="product-title">Globe Studs</h3>
+                <p class="product-price">$25.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="20" data-stock="in" data-sales="60" onclick="openModal('modal-heart-earrings')">
+                <img src="heart-nugget-earrings.jpg" class="product-image">
+                <h3 class="product-title">Heart Nugget Studs</h3>
+                <p class="product-price">From $20.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+        </div>
+    </section>
+
+    <h2 id="bracelets" class="section-header" style="font-size: 1.2rem;">Bracelets</h2>
+    <section class="collection">
+        <div class="grid">
+            <div class="product-card" data-price="45" data-stock="in" data-sales="45" onclick="openModal('modal-butterfly-bracelet')">
+                <img src="butterfly-bracelet-main.jpg" class="product-image">
+                <h3 class="product-title">Butterfly Bracelet</h3>
+                <p class="product-price">From $45.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+            <div class="product-card" data-price="35" data-stock="in" data-sales="15" onclick="openModal('modal-heart-bracelet')">
+                <img src="triple-heart-bracelet.jpg" class="product-image">
+                <h3 class="product-title">Triple Heart Bracelet</h3>
+                <p class="product-price">$35.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+        </div>
+    </section>
+
+    <h2 id="cases" class="section-header" style="font-size: 1.2rem;">Accessories</h2>
+    <section class="collection">
+        <div class="grid">
+            <div class="product-card" data-price="20" data-stock="in" data-sales="150" onclick="openModal('modal-hk-case')">
+                <img src="hk-case-white.jpg" class="product-image">
+                <h3 class="product-title">3D HK Silicone Case</h3>
+                <p class="product-price">$20.00</p>
+                <button class="view-btn">View Details</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="about-us-container">
+            <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="about-us-avatar">
+            <div>
+                <h3>About us</h3>
+                <p>We're tired of people overpaying for jewelry at the mall. Our goal is to provide everyday daily pieces that actually last, at a fair price. We use solid 316L stainless steel as the base for our pieces, so you don't have to worry about rust, fading, or green necks. Just clean, quality jewelry.</p>
+            </div>
+        </div>
+    </section>
+
+    <h2 id="policies" class="section-header" style="font-size: 1.2rem; padding-top: 0;">Info & Policies</h2>
+    <section class="policies-container">
+        <div class="policy-box">
+            <h3>Shipping & Delivery</h3>
+            <p>Most orders arrive in about 7-14 business days. We will send you a tracking number as soon as your order leaves the warehouse. Once the carrier marks your package as "Delivered", it's officially in your hands. We are not responsible for packages stolen from porches or mailboxes.</p>
+        </div>
+        <div class="policy-box">
+            <h3>Returns & Refunds</h3>
+            <p>All sales are final to keep our drops exclusive. We don't do returns for wrong sizes or changed minds. If a piece actually arrives damaged on our end, hit us up with a clear photo within 48 hours of delivery and we will make it right.</p>
+        </div>
+    </section>
+
+    <h2 class="section-header" style="font-size: 1.2rem; padding-top: 40px;">FAQ</h2>
+    <section class="faq-section">
+        <div class="faq-item" onclick="toggleFAQ(this)">
+            <div class="faq-q">Will this turn my neck green? <span class="faq-icon">+</span></div>
+            <div class="faq-a">No. We use solid 316L stainless steel as the base for our pieces. It won't rust, fade, or leave green marks on your skin.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFAQ(this)">
+            <div class="faq-q">Can I wear it in the shower? <span class="faq-icon">+</span></div>
+            <div class="faq-a">Yeah. The plating is heavy and water-resistant. Just keep it away from harsh chemicals like bleach or pool chlorine so the shine stays looking new.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFAQ(this)">
+            <div class="faq-q">How fast is shipping? <span class="faq-icon">+</span></div>
+            <div class="faq-a">Most orders arrive in about 7-14 business days. We will send you a tracking number as soon as your order leaves the warehouse.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFAQ(this)">
+            <div class="faq-q">Do you accept returns? <span class="faq-icon">+</span></div>
+            <div class="faq-a">To keep our prices low, all sales are final. We do not do returns if you change your mind or order the wrong size. However, if your piece arrives broken or damaged, just email us a picture within 48 hours and we will replace it or refund you.</div>
+        </div>
+    </section>
+
+    <section class="collection" style="text-align:center; padding-top: 20px; padding-bottom: 20px;">
+        <a href="mailto:contactpricepointjewelry@gmail.com" style="color:var(--text-dark); font-weight:900; font-size: 1.1rem; text-decoration: none;">contactpricepointjewelry@gmail.com</a>
+    </section>
+
+    <div id="modal-betty-ring" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-betty-ring')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="betty-box.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="betty-hand.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Betty Boop Ring</h2>
+                <p id="betty-ring-price" class="product-price" style="font-size: 1.8rem;">$30.00</p>
+                <p class="modal-desc">Classic aesthetic. High demand piece. Features heavy nugget detailing.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="betty-ring-s">
+                        <option value="7" disabled>7 (Sold Out)</option>
+                        <option value="8" disabled>8 (Sold Out)</option>
+                    </select>
+                </div>
+                <button class="view-btn sold-out-btn" style="padding: 18px; font-size: 0.9rem;">Out of Stock</button>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Also Look At</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-hk')"><img src="hellokitty-ring.jpg"><h4>HK Ring</h4><p>$45.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-nugget')"><img src="nugget-ring.jpg"><h4>Nugget Ring</h4><p>$45.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-money-bag" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-money-bag')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="money-bag-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Money Bag Ring</h2>
+                <p id="money-bag-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
+                <p class="modal-desc">Detailed money bag nugget ring. Solid weight and clean shine.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="money-bag-s" onchange="updatePrice('money-bag-s', 'money-bag-price', 25)">
+                        <option value="7" data-add="0">7</option>
+                        <option value="8" data-add="0">8</option>
+                        <option value="9" data-add="0">9</option>
+                    </select>
+                </div>
+                <div id="paypal-money-bag"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Also Look At</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-nugget')"><img src="nugget-ring.jpg"><h4>Nugget Ring</h4><p>$45.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-hk-body-ring')"><img src="hk-fullbody-ring.jpg"><h4>HK Nugget</h4><p>$25.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-cuban" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-cuban')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="cuban-link.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="cuban-clasp.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Cuban Link</h2>
+                <p id="cuban-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
+                <p class="modal-desc">Solid everyday chain. Waterproof and won't fade or turn your neck green.</p>
+                <div class="size-selector">
+                    <label>Width</label>
+                    <select id="cuban-w" onchange="updatePrice('cuban-w', 'cuban-price', 25)">
+                        <option value="8" data-add="0">8mm ($25)</option>
+                        <option value="10" data-add="5">10mm ($30)</option>
+                        <option value="12" data-add="10">12mm ($35)</option>
+                    </select>
+                </div>
+                <div id="paypal-cuban"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Also Look At</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-rope')"><img src="rope.jpg"><h4>Rope Chain</h4><p>$8.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-nugget')"><img src="nugget-ring.jpg"><h4>Nugget Ring</h4><p>$45.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-rope" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-rope')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="rope.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">3mm Rope Chain</h2>
+                <p id="rope-price" class="product-price" style="font-size: 1.8rem;">$8.00</p>
+                <p class="modal-desc">Clean 3mm rope chain. Good for wearing by itself or stacking.</p>
+                <div class="size-selector">
+                    <label>Length</label>
+                    <select id="rope-s" onchange="updatePrice('rope-s', 'rope-price', 8)">
+                        <option value="18" data-add="0">18" ($8)</option>
+                        <option value="20" data-add="2">20" ($10)</option>
+                        <option value="22" data-add="4">22" ($12)</option>
+                        <option value="24" data-add="6">24" ($14)</option>
+                    </select>
+                </div>
+                <div id="paypal-rope"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Also Look At</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-cuban')"><img src="cuban-link.jpg"><h4>Cuban Link</h4><p>$25.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-betty-pendant')"><img src="betty-necklace-white.jpg"><h4>Betty Boop</h4><p>$30.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-betty-pendant" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-betty-pendant')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="betty-necklace-white.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="betty-necklace-black.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Betty Boop Pendant</h2>
+                <p id="betty-pendant-price" class="product-price" style="font-size: 1.8rem;">$30.00</p>
+                <p class="modal-desc">Classic aesthetic. Comes with the matching chain.</p>
+                <div class="size-selector">
+                    <label>Style</label>
+                    <select id="betty-pendant-s" onchange="updatePrice('betty-pendant-s', 'betty-pendant-price', 30)">
+                        <option value="30mm" data-add="0">Pendant & Chain ($30)</option>
+                    </select>
+                </div>
+                <div id="paypal-betty-pendant"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Also Look At</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-rope')"><img src="rope.jpg"><h4>Rope Chain</h4><p>$8.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hk-chain" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-hk-chain')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="hk-bust.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="hk-pendant.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">HK Rollie Chain</h2>
+                <p id="hk-chain-price" class="product-price" style="font-size: 1.8rem;">$60.00</p>
+                <p class="modal-desc">Thick rollie chain with an iced HK pendant.</p>
+                <div class="size-selector">
+                    <label>Length</label>
+                    <select id="hk-chain-s" onchange="updatePrice('hk-chain-s', 'hk-chain-price', 60)">
+                        <option value="16" disabled>16" (Out of Stock)</option>
+                        <option value="18" disabled>18" (Out of Stock)</option>
+                        <option value="20" data-add="0">20" ($60)</option>
+                    </select>
+                </div>
+                <div id="paypal-hk-chain"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Matches With</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-hk')"><img src="hellokitty-ring.jpg"><h4>HK Ring</h4><p>$45.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-hk-case')"><img src="hk-case-white.jpg"><h4>HK Case</h4><p>$20.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-heart-chain" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-heart-chain')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="heart-presidential-chain.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Heart Centerpiece Chain</h2>
+                <p id="heart-chain-price" class="product-price" style="font-size: 1.8rem;">$55.00</p>
+                <p class="modal-desc">Thick chain with a clear heart centerpiece. Currently sold out.</p>
+                <div class="size-selector">
+                    <label>Length</label>
+                    <select id="heart-chain-s">
+                        <option value="16" disabled>16" (Sold Out)</option>
+                        <option value="18" disabled>18" (Sold Out)</option>
+                        <option value="20" disabled>20" (Sold Out)</option>
+                    </select>
+                </div>
+                <button class="view-btn sold-out-btn" style="padding: 18px; font-size: 0.9rem;">Sold Out</button>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Also Look At</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-butterfly-bracelet')"><img src="butterfly-bracelet-main.jpg"><h4>Butterfly</h4><p>$45.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-heart-bracelet')"><img src="triple-heart-bracelet.jpg"><h4>Triple Heart</h4><p>$35.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hk" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-hk')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="hellokitty-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">HK 2-Finger Ring</h2>
+                <p id="hk-price" class="product-price" style="font-size: 1.8rem;">$45.00</p>
+                <p class="modal-desc">Solid two-finger HK ring. Heavy and detailed.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="hk-s" onchange="updatePrice('hk-s', 'hk-price', 45)">
+                        <option value="7" data-add="0">7</option>
+                        <option value="8" data-add="0">8</option>
+                        <option value="9" data-add="0">9</option>
+                        <option value="10" data-add="0">10</option>
+                    </select>
+                </div>
+                <div id="paypal-hk"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Matches With</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-hk-chain')"><img src="hk-rollie-chain.jpg"><h4>HK Chain</h4><p>$60.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-hk-case')"><img src="hk-case-white.jpg"><h4>HK Case</h4><p>$20.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-nugget" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-nugget')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="nugget-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Nugget 2-Finger Ring</h2>
+                <p id="nugget-price" class="product-price" style="font-size: 1.8rem;">$45.00</p>
+                <p class="modal-desc">Classic two-finger nugget ring.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="nugget-s" onchange="updatePrice('nugget-s', 'nugget-price', 45)">
+                        <option value="7" data-add="0">7</option>
+                        <option value="8" data-add="0">8</option>
+                        <option value="9" data-add="0">9</option>
+                        <option value="10" data-add="0">10</option>
+                    </select>
+                </div>
+                <div id="paypal-nugget"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Also Look At</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-cuban')"><img src="cuban-link.jpg"><h4>Cuban Link</h4><p>$25.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-world-earrings')"><img src="world-is-yours-earrings.jpg"><h4>Globe Studs</h4><p>$25.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-heart-ring" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-heart-ring')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="heart-nugget-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Halo Heart Nugget Ring</h2>
+                <p id="heart-ring-price" class="product-price" style="font-size: 1.8rem;"><span class="original-price">$55.00</span>$25.00</p>
+                <p class="modal-desc">Heart shaped nugget ring with a halo border.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="heart-ring-s" onchange="updatePrice('heart-ring-s', 'heart-ring-price', 25)">
+                        <option value="6" data-add="0">6</option>
+                        <option value="7" data-add="0">7</option>
+                        <option value="8" data-add="0">8</option>
+                        <option value="9" data-add="0">9</option>
+                    </select>
+                </div>
+                <div id="paypal-heart-ring"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Matches With</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-heart-earrings')"><img src="heart-nugget-earrings.jpg"><h4>Heart Studs</h4><p>$20.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-heart-bracelet')"><img src="triple-heart-bracelet.jpg"><h4>Heart Bracelet</h4><p>$35.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-heart-ring-2" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-heart-ring-2')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="heart3-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Diamond-Cut Heart Ring</h2>
+                <p id="heart-ring-2-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
+                <p class="modal-desc">Standard diamond-cut heart nugget ring.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="heart-ring-2-s" onchange="updatePrice('heart-ring-2-s', 'heart-ring-2-price', 25)">
+                        <option value="6" data-add="0">6</option>
+                        <option value="7" data-add="0">7</option>
+                        <option value="8" data-add="0">8</option>
+                        <option value="9" data-add="0">9</option>
+                    </select>
+                </div>
+                <div id="paypal-heart-ring-2"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Matches With</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-heart-bracelet')"><img src="triple-heart-bracelet.jpg"><h4>Heart Bracelet</h4><p>$35.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-heart-ring-3" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-heart-ring-3')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="heart1-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Solid Edge Heart Ring</h2>
+                <p id="heart-ring-3-price" class="product-price" style="font-size: 1.8rem;"><span class="original-price">$55.00</span>$25.00</p>
+                <p class="modal-desc">Textured heart nugget ring with a clean, solid edge.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="heart-ring-3-s" onchange="updatePrice('heart-ring-3-s', 'heart-ring-3-price', 25)">
+                        <option value="6" data-add="0">6</option>
+                        <option value="7" data-add="0">7</option>
+                        <option value="8" data-add="0">8</option>
+                        <option value="9" data-add="0">9</option>
+                    </select>
+                </div>
+                <div id="paypal-heart-ring-3"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Also Look At</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-heart-earrings')"><img src="heart-nugget-earrings.jpg"><h4>Heart Studs</h4><p>$20.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-heart-chain')"><img src="heart-presidential-chain.jpg"><h4>Heart Chain</h4><p>$55.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hk-body-ring" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-hk-body-ring')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="hk-fullbody-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">HK Nugget Ring</h2>
+                <p id="hk-body-ring-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
+                <p class="modal-desc">Full body HK design with a nugget texture.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="hk-body-ring-s" onchange="updatePrice('hk-body-ring-s', 'hk-body-ring-price', 25)">
+                        <option value="6" data-add="0">6</option>
+                        <option value="7" data-add="0">7</option>
+                        <option value="8" data-add="0">8</option>
+                        <option value="9" data-add="0">9</option>
+                    </select>
+                </div>
+                <div id="paypal-hk-body-ring"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Matches With</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-hk-velvet')"><img src="hk-textured-gold.png"><h4>HK Studs</h4><p>$10.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-hk-case')"><img src="hk-case-white.jpg"><h4>HK Case</h4><p>$20.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hk-earrings" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-hk-earrings')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="hellokitty-earrings.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="hellokitty-earrings-box.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">HK Enamel Studs</h2>
+                <p id="hk-earrings-price" class="product-price" style="font-size: 1.8rem;">$15.00</p>
+                <p class="modal-desc">Small gold-plated HK studs with red enamel.</p>
+                <div class="size-selector">
+                    <label>Style</label>
+                    <select id="hk-earrings-s" onchange="updatePrice('hk-earrings-s', 'hk-earrings-price', 15)">
+                        <option value="Standard" data-add="0">Standard Stud ($15)</option>
+                    </select>
+                </div>
+                <div id="paypal-hk-earrings"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Matches With</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-hk')"><img src="hellokitty-ring.jpg"><h4>HK 2-Finger</h4><p>$45.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-hk-chain')"><img src="hk-rollie-chain.jpg"><h4>HK Rollie</h4><p>$60.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hk-velvet" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-hk-velvet')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="hk-textured-gold.png" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="hk-velvet-box.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">HK Gold Studs</h2>
+                <p id="hk-velvet-price" class="product-price" style="font-size: 1.8rem;">$10.00</p>
+                <p class="modal-desc">All-gold textured studs. Comes in a small velvet box.</p>
+                <div class="size-selector">
+                    <label>Style</label>
+                    <select id="hk-velvet-s" onchange="updatePrice('hk-velvet-s', 'hk-velvet-price', 10)">
+                        <option value="Standard" data-add="0">Standard Stud ($10)</option>
+                    </select>
+                </div>
+                <div id="paypal-hk-velvet"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Matches With</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-hk-body-ring')"><img src="hk-fullbody-ring.jpg"><h4>HK Nugget</h4><p>$25.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-hk-chain')"><img src="hk-rollie-chain.jpg"><h4>HK Rollie</h4><p>$60.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-world-earrings" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-world-earrings')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="world-is-yours-earrings.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Globe Studs</h2>
+                <p id="world-earrings-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
+                <p class="modal-desc">The World Is Yours globe design on a clean stud earring.</p>
+                <div class="size-selector">
+                    <label>Style</label>
+                    <select id="world-earrings-s" onchange="updatePrice('world-earrings-s', 'world-earrings-price', 25)">
+                        <option value="18mm" data-add="0">18mm Stud ($25)</option>
+                    </select>
+                </div>
+                <div id="paypal-world-earrings"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Also Look At</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-cuban')"><img src="cuban-link.jpg"><h4>Cuban Link</h4><p>$25.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-nugget')"><img src="nugget-ring.jpg"><h4>Vegas Nugget</h4><p>$45.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-heart-earrings" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-heart-earrings')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="heart-nugget-earrings.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Heart Nugget Studs</h2>
+                <p id="heart-earrings-price" class="product-price" style="font-size: 1.8rem;">From $20.00</p>
+                <p class="modal-desc">Textured nugget heart studs. A good match for any of the heart rings.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="heart-earrings-s" onchange="updatePrice('heart-earrings-s', 'heart-earrings-price', 20)">
+                        <option value="8mm" data-add="0">8mm ($20)</option>
+                        <option value="10mm" data-add="2">10mm ($22)</option>
+                        <option value="12mm" data-add="4">12mm ($24)</option>
+                        <option value="14mm" data-add="6">14mm ($26)</option>
+                    </select>
+                </div>
+                <div id="paypal-heart-earrings"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Matches With</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-heart-ring')"><img src="heart-nugget-ring.jpg"><h4>Halo Ring</h4><p>$25.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-heart-bracelet')"><img src="triple-heart-bracelet.jpg"><h4>Heart Bracelet</h4><p>$35.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-butterfly-bracelet" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-butterfly-bracelet')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="butterfly-bracelet-main.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="butterfly-bracelet-2.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                    <img src="butterfly-bracelet-3.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                    <img src="butterfly-bracelet-4.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Butterfly Bracelet</h2>
+                <p id="butterfly-bracelet-price" class="product-price" style="font-size: 1.8rem;">$45.00</p>
+                <p class="modal-desc">Link bracelet with a butterfly centerpiece.</p>
+                <div class="size-selector">
+                    <label>Length</label>
+                    <select id="butterfly-bracelet-s" onchange="updatePrice('butterfly-bracelet-s', 'butterfly-bracelet-price', 45)">
+                        <option value="6.5" data-add="0">6.5" ($45)</option>
+                        <option value="7" data-add="0">7.0" ($45)</option>
+                        <option value="7.5" data-add="0">7.5" ($45)</option>
+                        <option value="8" data-add="0">8.0" ($45)</option>
+                    </select>
+                </div>
+                <div id="paypal-butterfly-bracelet"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Also Look At</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-heart-chain')"><img src="heart-presidential-chain.jpg"><h4>Heart Chain</h4><p>$55.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-heart-bracelet')"><img src="triple-heart-bracelet.jpg"><h4>Triple Heart</h4><p>$35.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-heart-bracelet" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-heart-bracelet')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="triple-heart-bracelet.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="heart-bracelet-angle.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                    <img src="heart-bracelet-flat.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                    <img src="heart-bracelet-clasp.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Triple Heart Bracelet</h2>
+                <p id="heart-bracelet-price" class="product-price" style="font-size: 1.8rem;">$35.00</p>
+                <p class="modal-desc">Bracelet featuring three textured nugget hearts.</p>
+                <div class="size-selector">
+                    <label>Length</label>
+                    <select id="heart-bracelet-s" onchange="updatePrice('heart-bracelet-s', 'heart-bracelet-price', 35)">
+                        <option value="6.5" disabled>6.5" (Out of Stock)</option>
+                        <option value="7" data-add="0">7.0" ($35)</option>
+                        <option value="7.5" disabled>7.5" (Out of Stock)</option>
+                        <option value="8" disabled>8.0" (Out of Stock)</option>
+                    </select>
+                </div>
+                <div id="paypal-heart-bracelet"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Matches With</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-heart-chain')"><img src="heart-presidential-chain.jpg"><h4>Heart Chain</h4><p>$55.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-heart-ring-2')"><img src="heart3-ring.jpg"><h4>Heart Ring</h4><p>$25.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hk-case" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-hk-case')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="hk-case-white.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="hk-case-brown.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                    <img src="hk-case-black.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">3D HK Silicone Case</h2>
+                <p id="hk-case-price" class="product-price" style="font-size: 1.8rem;">$20.00</p>
+                <p class="modal-desc">3D silicone case. Protects your phone and looks good doing it.</p>
+                <div class="size-selector">
+                    <label>Color</label>
+                    <select id="hk-case-color">
+                        <option value="White/Pink">White / Pink</option>
+                        <option value="Brown/Blue">Mocha / Blue</option>
+                        <option value="Black/Pink">Midnight / Pink</option>
+                    </select>
+                </div>
+                <div class="size-selector">
+                    <label>Phone Model</label>
+                    <select id="hk-case-model" onchange="updatePrice('hk-case-model', 'hk-case-price', 20)">
+                        <option value="13" data-add="0">iPhone 13 / 14 / 15</option>
+                        <option value="13Pro" data-add="0">iPhone 13 Pro</option>
+                        <option value="13ProMax" data-add="0">iPhone 13 Pro Max</option>
+                        <option value="14Pro" data-add="0">iPhone 14 Pro</option>
+                        <option value="14ProMax" data-add="0">iPhone 14 Pro Max</option>
+                        <option value="15Pro" data-add="0">iPhone 15 Pro</option>
+                        <option value="15ProMax" data-add="0">iPhone 15 Pro Max</option>
+                        <option value="16" data-add="0">iPhone 16 Series</option>
+                        <option value="17" data-add="0">iPhone 17 Series</option>
+                    </select>
+                </div>
+                <div id="paypal-hk-case"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>⚡ Tracked Shipping</span></div>
+            </div>
+        </div>
+        <div class="related-products-wrapper">
+            <h3>Complete The Set</h3>
+            <div class="related-grid">
+                <div class="related-card" onclick="switchModal('modal-hk-chain')"><img src="hk-rollie-chain.jpg"><h4>HK Chain</h4><p>$60.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-hk')"><img src="hellokitty-ring.jpg"><h4>HK Ring</h4><p>$45.00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { 
+            document.body.style.overflow = "hidden";
+            document.getElementById(id).style.display = "block"; 
+        }
+        function closeModal(id) { 
+            document.body.style.overflow = "auto";
+            document.getElementById(id).style.display = "none"; 
+        }
+        
+        function switchModal(newId) {
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+            openModal(newId);
+        }
+
+        function toggleFAQ(element) {
+            let answer = element.querySelector('.faq-a');
+            let icon = element.querySelector('.faq-icon');
+            if (answer.style.display === "block") { answer.style.display = "none"; icon.innerText = "+"; } 
+            else { answer.style.display = "block"; icon.innerText = "−"; }
+        }
+
+        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = "flex"; }
+        function closeLightbox() { document.getElementById('lightbox').style.display = "none"; }
+
+        function updatePrice(selectId, priceId, base) {
+            let s = document.getElementById(selectId);
+            let o = s.options[s.selectedIndex];
+            let p = o.getAttribute('data-special') || (base + parseInt(o.getAttribute('data-add')));
+            document.getElementById(priceId).innerHTML = "$" + p + ".00";
+        }
+
+        /* FILTER SYSTEM JAVASCRIPT */
+        const sortFilter = document.getElementById('sortFilter');
+        const stockFilter = document.getElementById('stockFilter');
+        const priceFilter = document.getElementById('priceFilter');
+
+        let globalIndex = 0;
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.setAttribute('data-index', globalIndex++);
+        });
+
+        function applyFilters() {
+            const priceVal = priceFilter.value;
+            const maxPrice = priceVal === '' ? Infinity : parseInt(priceVal);
+            const stockStatus = stockFilter.value;
+            const sortType = sortFilter.value;
+
+            document.querySelectorAll('.grid').forEach(grid => {
+                let cards = Array.from(grid.querySelectorAll('.product-card'));
+                let visibleCount = 0;
+                
+                cards.forEach(card => {
+                    const price = parseInt(card.getAttribute('data-price'));
+                    const stock = card.getAttribute('data-stock');
+                    let show = true;
+                    
+                    if (price > maxPrice) show = false;
+                    if (stockStatus !== 'all' && stock !== stockStatus) show = false;
+
+                    card.style.display = show ? 'block' : 'none';
+                    if (show) visibleCount++;
+                });
+
+                const section = grid.closest('.collection');
+                const header = section.previousElementSibling;
+                if(header && header.tagName.toLowerCase() === 'h2') {
+                    header.style.display = visibleCount === 0 ? 'none' : 'block';
+                    section.style.display = visibleCount === 0 ? 'none' : 'block';
+                }
+
+                cards.sort((a, b) => {
+                    if (sortType === 'relevant') {
+                        return parseInt(a.getAttribute('data-index')) - parseInt(b.getAttribute('data-index'));
+                    }
+                    if (sortType === 'bestSelling') {
+                        return parseInt(b.getAttribute('data-sales')) - parseInt(a.getAttribute('data-sales'));
+                    }
+                    const priceA = parseInt(a.getAttribute('data-price'));
+                    const priceB = parseInt(b.getAttribute('data-price'));
+                    if (sortType === 'lowHigh') return priceA - priceB;
+                    if (sortType === 'highLow') return priceB - priceA;
+                    return 0; 
+                });
+
+                cards.forEach(card => grid.appendChild(card));
+            });
+        }
+
+        function clearFilters() {
+            sortFilter.value = 'relevant';
+            stockFilter.value = 'all';
+            priceFilter.value = '';
+            applyFilters();
+        }
+
+        sortFilter.addEventListener('change', applyFilters);
+        stockFilter.addEventListener('change', applyFilters);
+        priceFilter.addEventListener('input', applyFilters);
+
+        const renderPP = (id, desc, pId) => {
+            let el = document.getElementById(id);
+            if (!el) return;
+            paypal.Buttons({
+                createOrder: (d, a) => {
+                    let priceText = document.getElementById(pId).innerText.replace('$', '');
+                    let finalPrice = priceText.split('\n').pop().trim();
+                    return a.order.create({ purchase_units: [{ description: desc, amount: { value: finalPrice } }] });
+                },
+                onApprove: (d, a) => a.order.capture().then(x => alert('SUCCESS'))
+            }).render('#' + id);
+        };
+
+        renderPP('paypal-cuban', 'Cuban Link', 'cuban-price');
+        renderPP('paypal-rope', '3mm Rope', 'rope-price');
+        renderPP('paypal-betty-pendant', 'Betty Boop Pendant', 'betty-pendant-price');
+        renderPP('paypal-hk-chain', 'HK Rollie Chain', 'hk-chain-price');
+        renderPP('paypal-hk', 'Hello Kitty Ring', 'hk-price');
+        renderPP('paypal-nugget', 'Nugget Ring', 'nugget-price');
+        renderPP('paypal-heart-ring', 'Halo Heart Nugget Ring', 'heart-ring-price');
+        renderPP('paypal-heart-ring-2', 'Diamond-Cut Heart Ring', 'heart-ring-2-price');
+        renderPP('paypal-heart-ring-3', 'Solid Edge Heart Ring', 'heart-ring-3-price');
+        renderPP('paypal-hk-body-ring', 'HK Nugget Ring', 'hk-body-ring-price');
+        renderPP('paypal-hk-earrings', 'HK Enamel Studs', 'hk-earrings-price');
+        renderPP('paypal-hk-velvet', 'HK Gold Studs', 'hk-velvet-price');
+        renderPP('paypal-world-earrings', 'Globe Studs', 'world-earrings-price');
+        renderPP('paypal-heart-earrings', 'Heart Nugget Studs', 'heart-earrings-price');
+        renderPP('paypal-butterfly-bracelet', 'Butterfly Bracelet', 'butterfly-bracelet-price');
+        renderPP('paypal-heart-bracelet', 'Triple Heart Bracelet', 'heart-bracelet-price');
+        renderPP('paypal-hk-case', '3D HK Phone Case', 'hk-case-price');
+        renderPP('paypal-money-bag', 'Money Bag Ring', 'money-bag-price');
+    </script>
+</body>
+</html>
