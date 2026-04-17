@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricepoint Jewelry</title>
+    <title>Westcoast Gold</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
@@ -14,7 +14,7 @@
       gtag('config', 'G-YOUR_MEASUREMENT_ID');
     </script>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AV_4HlrgyD0Bc8vVhHoc30VpXeWcwHDXtyCddTkjDyvcu82fHY8T0enBh4E4ESUlfatJ83BB6Y7Kykt-&currency=USD"></script>
 
     <style>
         :root { 
@@ -74,6 +74,7 @@
         .currency-symbol { position: absolute; left: 12px; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); pointer-events: none; }
         .price-input-wrapper input { width: 100%; padding: 12px 12px 12px 28px; background: transparent; border: 1px solid #ccc; border-radius: 0; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 700; outline: none; color: var(--text-dark); transition: 0.2s; }
         .price-input-wrapper input:focus { border-color: var(--gold); }
+        /* Hide spin buttons on numbers */
         .price-input-wrapper input::-webkit-outer-spin-button, .price-input-wrapper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         
         .clear-btn { background: transparent; color: var(--text-muted); border: 1px solid #ccc; padding: 12px 25px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 0; cursor: pointer; transition: 0.2s; height: 42px; margin-top: auto; }
@@ -178,14 +179,14 @@
 
     <div class="marquee-container">
         <div class="marquee-content">
-            <span>PRICEPOINT</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>SOLID STAINLESS STEEL</span> ✦ <span>PRICEPOINT</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>SOLID STAINLESS STEEL</span> ✦ <span>PRICEPOINT</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>SOLID STAINLESS STEEL</span>
+            <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>SOLID STAINLESS STEEL</span> ✦ <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>SOLID STAINLESS STEEL</span> ✦ <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>SOLID STAINLESS STEEL</span>
         </div>
     </div>
 
     <nav>
         <div class="nav-container">
             <a href="#" class="logo">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" style="height: 40px; width: auto; display: block; object-fit: contain;">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" style="height: 40px; width: auto; display: block; object-fit: contain;">
             </a>
             <div class="nav-links">
                 <a href="#necklaces">Chains</a>
@@ -296,12 +297,6 @@
                 <p class="product-price">$30.00</p>
                 <button class="view-btn sold-out-btn">Out of Stock</button>
             </div>
-            <div class="product-card" data-price="25" data-stock="in" data-sales="95" onclick="openModal('modal-money-bag')">
-                <img src="money-bag-ring.jpg" class="product-image">
-                <h3 class="product-title">Money Bag Ring</h3>
-                <p class="product-price">$25.00</p>
-                <button class="view-btn">View Details</button>
-            </div>
             <div class="product-card" data-price="45" data-stock="in" data-sales="80" onclick="openModal('modal-hk')">
                 <img src="hellokitty-ring.jpg" class="product-image">
                 <h3 class="product-title">HK 2-Finger Ring</h3>
@@ -405,7 +400,7 @@
 
     <section class="about-section">
         <div class="about-us-container">
-            <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="about-us-avatar">
+            <img src="pricepoint-logo.png" alt="Westcoast Gold" class="about-us-avatar">
             <div>
                 <h3>About us</h3>
                 <p>We're tired of people overpaying for jewelry at the mall. Our goal is to provide everyday daily pieces that actually last, at a fair price. We use solid 316L stainless steel as the base for our pieces, so you don't have to worry about rust, fading, or green necks. Just clean, quality jewelry.</p>
@@ -459,7 +454,7 @@
                 </div>
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Betty Boop Ring</h2>
                 <p id="betty-ring-price" class="product-price" style="font-size: 1.8rem;">$30.00</p>
                 <p class="modal-desc">Classic aesthetic. High demand piece. Features heavy nugget detailing.</p>
@@ -478,39 +473,7 @@
             <h3>Also Look At</h3>
             <div class="related-grid">
                 <div class="related-card" onclick="switchModal('modal-hk')"><img src="hellokitty-ring.jpg"><h4>HK Ring</h4><p>$45.00</p></div>
-                <div class="related-card" onclick="switchModal('modal-nugget')"><img src="nugget-ring.jpg"><h4>Nugget Ring</h4><p>$45.00</p></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-money-bag" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-money-bag')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="money-bag-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Money Bag Ring</h2>
-                <p id="money-bag-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
-                <p class="modal-desc">Detailed money bag nugget ring. Solid weight and clean shine.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="money-bag-s" onchange="updatePrice('money-bag-s', 'money-bag-price', 25)">
-                        <option value="7" data-add="0">7</option>
-                        <option value="8" data-add="0">8</option>
-                        <option value="9" data-add="0">9</option>
-                    </select>
-                </div>
-                <div id="paypal-money-bag"></div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Waterproof</span></div>
-            </div>
-        </div>
-        <div class="related-products-wrapper">
-            <h3>Also Look At</h3>
-            <div class="related-grid">
-                <div class="related-card" onclick="switchModal('modal-nugget')"><img src="nugget-ring.jpg"><h4>Nugget Ring</h4><p>$45.00</p></div>
-                <div class="related-card" onclick="switchModal('modal-hk-body-ring')"><img src="hk-fullbody-ring.jpg"><h4>HK Nugget</h4><p>$25.00</p></div>
+                <div class="related-card" onclick="switchModal('modal-cuban')"><img src="cuban-link.jpg"><h4>Cuban Link</h4><p>$25.00</p></div>
             </div>
         </div>
     </div>
@@ -525,7 +488,7 @@
                 </div>
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Cuban Link</h2>
                 <p id="cuban-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
                 <p class="modal-desc">Solid everyday chain. Waterproof and won't fade or turn your neck green.</p>
@@ -557,7 +520,7 @@
                 <img src="rope.jpg" class="modal-img" onclick="openLightbox(this.src)">
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">3mm Rope Chain</h2>
                 <p id="rope-price" class="product-price" style="font-size: 1.8rem;">$8.00</p>
                 <p class="modal-desc">Clean 3mm rope chain. Good for wearing by itself or stacking.</p>
@@ -593,7 +556,7 @@
                 </div>
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Betty Boop Pendant</h2>
                 <p id="betty-pendant-price" class="product-price" style="font-size: 1.8rem;">$30.00</p>
                 <p class="modal-desc">Classic aesthetic. Comes with the matching chain.</p>
@@ -625,7 +588,7 @@
                 </div>
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">HK Rollie Chain</h2>
                 <p id="hk-chain-price" class="product-price" style="font-size: 1.8rem;">$60.00</p>
                 <p class="modal-desc">Thick rollie chain with an iced HK pendant.</p>
@@ -657,7 +620,7 @@
                 <img src="heart-presidential-chain.jpg" class="modal-img" onclick="openLightbox(this.src)">
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Heart Centerpiece Chain</h2>
                 <p id="heart-chain-price" class="product-price" style="font-size: 1.8rem;">$55.00</p>
                 <p class="modal-desc">Thick chain with a clear heart centerpiece. Currently sold out.</p>
@@ -688,7 +651,7 @@
                 <img src="hellokitty-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">HK 2-Finger Ring</h2>
                 <p id="hk-price" class="product-price" style="font-size: 1.8rem;">$45.00</p>
                 <p class="modal-desc">Solid two-finger HK ring. Heavy and detailed.</p>
@@ -721,7 +684,7 @@
                 <img src="nugget-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Nugget 2-Finger Ring</h2>
                 <p id="nugget-price" class="product-price" style="font-size: 1.8rem;">$45.00</p>
                 <p class="modal-desc">Classic two-finger nugget ring.</p>
@@ -754,7 +717,7 @@
                 <img src="heart-nugget-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Halo Heart Nugget Ring</h2>
                 <p id="heart-ring-price" class="product-price" style="font-size: 1.8rem;"><span class="original-price">$55.00</span>$25.00</p>
                 <p class="modal-desc">Heart shaped nugget ring with a halo border.</p>
@@ -787,7 +750,7 @@
                 <img src="heart3-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Diamond-Cut Heart Ring</h2>
                 <p id="heart-ring-2-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
                 <p class="modal-desc">Standard diamond-cut heart nugget ring.</p>
@@ -819,7 +782,7 @@
                 <img src="heart1-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Solid Edge Heart Ring</h2>
                 <p id="heart-ring-3-price" class="product-price" style="font-size: 1.8rem;"><span class="original-price">$55.00</span>$25.00</p>
                 <p class="modal-desc">Textured heart nugget ring with a clean, solid edge.</p>
@@ -852,7 +815,7 @@
                 <img src="hk-fullbody-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">HK Nugget Ring</h2>
                 <p id="hk-body-ring-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
                 <p class="modal-desc">Full body HK design with a nugget texture.</p>
@@ -888,7 +851,7 @@
                 </div>
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">HK Enamel Studs</h2>
                 <p id="hk-earrings-price" class="product-price" style="font-size: 1.8rem;">$15.00</p>
                 <p class="modal-desc">Small gold-plated HK studs with red enamel.</p>
@@ -921,7 +884,7 @@
                 </div>
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">HK Gold Studs</h2>
                 <p id="hk-velvet-price" class="product-price" style="font-size: 1.8rem;">$10.00</p>
                 <p class="modal-desc">All-gold textured studs. Comes in a small velvet box.</p>
@@ -951,7 +914,7 @@
                 <img src="world-is-yours-earrings.jpg" class="modal-img" onclick="openLightbox(this.src)">
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Globe Studs</h2>
                 <p id="world-earrings-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
                 <p class="modal-desc">The World Is Yours globe design on a clean stud earring.</p>
@@ -981,7 +944,7 @@
                 <img src="heart-nugget-earrings.jpg" class="modal-img" onclick="openLightbox(this.src)">
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Heart Nugget Studs</h2>
                 <p id="heart-earrings-price" class="product-price" style="font-size: 1.8rem;">From $20.00</p>
                 <p class="modal-desc">Textured nugget heart studs. A good match for any of the heart rings.</p>
@@ -1019,7 +982,7 @@
                 </div>
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Butterfly Bracelet</h2>
                 <p id="butterfly-bracelet-price" class="product-price" style="font-size: 1.8rem;">$45.00</p>
                 <p class="modal-desc">Link bracelet with a butterfly centerpiece.</p>
@@ -1057,7 +1020,7 @@
                 </div>
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Triple Heart Bracelet</h2>
                 <p id="heart-bracelet-price" class="product-price" style="font-size: 1.8rem;">$35.00</p>
                 <p class="modal-desc">Bracelet featuring three textured nugget hearts.</p>
@@ -1094,7 +1057,7 @@
                 </div>
             </div>
             <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">3D HK Silicone Case</h2>
                 <p id="hk-case-price" class="product-price" style="font-size: 1.8rem;">$20.00</p>
                 <p class="modal-desc">3D silicone case. Protects your phone and looks good doing it.</p>
@@ -1132,6 +1095,25 @@
             </div>
         </div>
     </div>
+
+    <div id="modal-tos" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-tos')">&times;</span>
+        <div class="modal-content" style="margin: 10vh auto; max-width: 600px; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: auto; min-height: unset; background: #fff;">
+            <h2 class="modal-title" style="font-size: 1.5rem; margin-bottom: 20px;">Terms & Conditions</h2>
+            <div style="font-size: 0.85rem; color: #555; line-height: 1.6;">
+                <p><strong>1. Sales are Final:</strong> All sales are final. We don't do returns if you pick the wrong size or change your mind.</p><br>
+                <p><strong>2. Shipping & Lost Packages:</strong> If the tracking number says your package was delivered, we are not legally responsible if it gets lost or stolen from your porch. Make sure your shipping address is secure.</p><br>
+                <p><strong>3. Fake Chargebacks:</strong> If you receive your item and file a fake chargeback with your bank or PayPal saying you didn't, we will submit your IP address, order history, and tracking delivery confirmation to dispute it.</p><br>
+                <p><strong>4. Stock Issues:</strong> If you buy something and it sells out from our vendor before we can update the site, we will send you a full refund right away.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="mailto:contactpricepointjewelry@gmail.com" class="footer-email">contactpricepointjewelry@gmail.com</a>
+        <p>© 2026 Westcoast Gold.</p>
+        <a href="#" onclick="openModal('modal-tos'); return false;" class="tos-link">Terms & Conditions</a>
+    </footer>
 
     <script>
         function openModal(id) { 
@@ -1263,7 +1245,6 @@
         renderPP('paypal-butterfly-bracelet', 'Butterfly Bracelet', 'butterfly-bracelet-price');
         renderPP('paypal-heart-bracelet', 'Triple Heart Bracelet', 'heart-bracelet-price');
         renderPP('paypal-hk-case', '3D HK Phone Case', 'hk-case-price');
-        renderPP('paypal-money-bag', 'Money Bag Ring', 'money-bag-price');
     </script>
 </body>
 </html>
