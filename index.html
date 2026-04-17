@@ -1082,7 +1082,7 @@
 
     <footer>
         <a href="mailto:contactpricepointjewelry@gmail.com" class="footer-email">contactpricepointjewelry@gmail.com</a>
-        <p>© 2026 Westcoast Gold.</p>
+        <p>© 2026 Pricepoint Jewelry.</p>
         <a href="#" onclick="openModal('modal-tos'); return false;" class="tos-link">Terms & Conditions</a>
     </footer>
 
@@ -1186,13 +1186,15 @@
         stockFilter.addEventListener('change', applyFilters);
         priceFilter.addEventListener('input', applyFilters);
 
+        /* PAYPAL RENDER ENGINE - FIXED PRICE PARSING */
         const renderPP = (id, desc, pId) => {
             let el = document.getElementById(id);
             if (!el) return;
             paypal.Buttons({
                 createOrder: (d, a) => {
-                    let priceText = document.getElementById(pId).innerText.replace('$', '');
-                    let finalPrice = priceText.split('\n').pop().trim();
+                    let priceText = document.getElementById(pId).innerText;
+                    let priceParts = priceText.split('$');
+                    let finalPrice = priceParts[priceParts.length - 1].trim();
                     return a.order.create({ purchase_units: [{ description: desc, amount: { value: finalPrice } }] });
                 },
                 onApprove: (d, a) => a.order.capture().then(x => alert('SUCCESS'))
