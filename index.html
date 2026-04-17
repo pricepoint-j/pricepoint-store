@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricepoint Jewelry</title>
+    <title>Westcoast Gold</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
@@ -56,7 +56,7 @@
         .hero-content { z-index: 2; animation: fadeUp 1s ease forwards; }
         .hero h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; text-transform: uppercase; line-height: 1.1; color: var(--gold); margin-bottom: 15px; }
         .hero p { color: var(--text-dark); font-weight: 600; max-width: 600px; margin: 0 auto; font-size: 0.95rem; line-height: 1.5; }
-
+        
         /* CLEAN FILTER SYSTEM UI */
         .filter-section { max-width: 1400px; margin: 20px auto; padding: 0 2%; }
         .filter-container { display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; justify-content: space-between; background: transparent; border-bottom: 1px solid #eee; padding-bottom: 15px; }
@@ -86,7 +86,7 @@
         .product-card { background: transparent; padding: 0; transition: all 0.3s; cursor: pointer; text-align: left; position: relative; }
         .product-card:hover .product-image { opacity: 0.9; }
         
-        .image-container { position: relative; width: 100%; aspect-ratio: 4/5; margin-bottom: 12px; overflow: hidden; background: #f4f4f4; border-radius: 0px; } /* Zero border radius looks larger */
+        .image-container { position: relative; width: 100%; aspect-ratio: 4/5; margin-bottom: 12px; overflow: hidden; background: #f4f4f4; border-radius: 0px; } 
         .product-image { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
         
         .quick-add-btn { position: absolute; bottom: 10px; right: 10px; width: 36px; height: 36px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); color: var(--text-dark); transition: 0.2s; z-index: 10; }
@@ -144,7 +144,7 @@
            MOBILE OPTIMIZATION (EDGE-TO-EDGE BIG IMAGES)
            ========================================= */
         @media (max-width: 768px) {
-            .collection { padding: 0 2% 40px; } /* Tiny side margins to maximize picture size */
+            .collection { padding: 0 2% 40px; }
             .grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } 
             
             .image-container { margin-bottom: 5px; border-radius: 0; }
@@ -172,7 +172,7 @@
             .modal-title { font-size: 1.8rem; }
             .modal-desc { font-size: 0.9rem; }
             .close-btn { top: 15px; right: 15px; width: 40px; height: 40px; font-size: 32px; background: rgba(255,255,255,0.75); color: #000; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
-            .modal-header-logo { display: none; } /* Hide logo inside mobile modal for more space */
+            .modal-header-logo { display: none; }
         }
     </style>
 </head>
@@ -180,14 +180,14 @@
 
     <div class="marquee-container">
         <div class="marquee-content">
-            <span>PRICEPOINT JEWELRY</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>18K GOLD FILLED</span> ✦ <span>PRICEPOINT JEWELRY</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>18K GOLD FILLED</span>
+            <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>18K GOLD FILLED</span> ✦ <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>18K GOLD FILLED</span>
         </div>
     </div>
 
     <nav>
         <div class="nav-container">
             <a href="#" class="logo">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" style="height: 55px; width: auto; display: block; object-fit: contain;">
+                <img src="pricepoint-logo.png" alt="Westcoast Gold" style="height: 55px; width: auto; display: block; object-fit: contain;">
             </a>
             <div class="announcement-text">
                 NON TARNISH 14-18KT GOLD FILLED JEWELRY FAST SHIPPING 💗
@@ -201,6 +201,13 @@
             </div>
         </div>
     </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Heavy Pieces.<br>Built to <span class="italic-style">Last.</span></h1>
+            <p>18k Gold Filled & Solid 316L Stainless Steel. Quality everyday pieces without the mall markups.</p>
+        </div>
+    </section>
 
     <section class="filter-section">
         <div class="filter-container">
@@ -284,6 +291,25 @@
                 </div>
                 <h3 class="product-title">Betty Boop Pendant</h3>
                 <p class="product-price">$30.00</p>
+            </div>
+
+            <div class="product-card" data-price="60" data-stock="in" data-sales="65" onclick="openModal('modal-hk-chain')">
+                <div class="image-container">
+                    <img src="hk-bust.jpg" class="product-image">
+                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
+                </div>
+                <h3 class="product-title">HK Rollie Chain</h3>
+                <p class="product-price">$60.00</p>
+            </div>
+
+            <div class="product-card" data-price="55" data-stock="out" data-sales="200" onclick="openModal('modal-heart-chain')">
+                <div class="sale-badge sold-out-badge">Sold Out</div>
+                <div class="image-container">
+                    <img src="heart-presidential-chain.jpg" class="product-image" style="opacity: 0.7;">
+                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
+                </div>
+                <h3 class="product-title">Heart Centerpiece Chain</h3>
+                <p class="product-price">$55.00</p>
             </div>
         </div>
     </section>
@@ -440,7 +466,7 @@
         </div>
         <div class="faq-item" onclick="toggleFAQ(this)">
             <div class="faq-q">Can I wear it in the shower? <span class="faq-icon">+</span></div>
-            <div class="faq-a">Yeah. The PVD plating is heavy and water-resistant. Just keep it away from harsh chemicals like bleach or pool chlorine so the shine stays looking new.</div>
+            <div class="faq-a">Yeah. The gold plating is heavy and water-resistant. Just keep it away from harsh chemicals like bleach or pool chlorine so the shine stays looking new.</div>
         </div>
         <div class="faq-item" onclick="toggleFAQ(this)">
             <div class="faq-q">How fast is shipping? <span class="faq-icon">+</span></div>
@@ -465,7 +491,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">18K Gold Filled HK Rope Chain</h2>
                 <p id="hk-rope-new-price" class="product-price" style="font-size: 1.6rem;"><span class="original-price" style="font-size: 1rem;">$45.00</span>$25.00</p>
-                <p class="modal-desc">14-18KT Gold Filled over a solid base. Features a clean, diamond-cut rope chain and a highly detailed full-body HK pendant. 5x PVD dipped to guarantee it never fades or turns your neck green. Sweat-proof and water resistant.</p>
+                <p class="modal-desc">18k gold filled. Clean rope chain with a solid HK pendant. Won't fade or turn your neck green. Water resistant.</p>
                 <div class="size-selector">
                     <label>Chain Length</label>
                     <select id="hk-rope-new-s" onchange="updatePrice('hk-rope-new-s', 'hk-rope-new-price', 25)">
@@ -475,33 +501,6 @@
                     </select>
                 </div>
                 <div id="paypal-hk-rope-new"></div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-betty-ring" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-betty-ring')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="betty-box.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="betty-hand.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Betty Boop Ring</h2>
-                <p id="betty-ring-price" class="product-price" style="font-size: 1.6rem;">$30.00</p>
-                <p class="modal-desc">14-18KT Gold Filled over a premium solid 316L stainless steel base. Features a heavy, gritty nugget texture detailing. Fade-resistant, non-tarnish, and sweat-proof.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="betty-ring-s">
-                        <option value="7" disabled>7 (Sold Out)</option>
-                        <option value="8" disabled>8 (Sold Out)</option>
-                    </select>
-                </div>
-                <button class="sold-out-btn-modal">Out of Stock</button>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -520,7 +519,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Cuban Link</h2>
                 <p id="cuban-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">14-18KT Gold PVD dipped over solid 316L Stainless Steel. 5x plated to prevent fading. Non-tarnish, sweat-proof and guaranteed not to turn your neck green.</p>
+                <p class="modal-desc">18k gold dipped over stainless steel. Solid weight, won't fade or tarnish. Safe to wear in the water.</p>
                 <div class="size-selector">
                     <label>Width</label>
                     <select id="cuban-w" onchange="updatePrice('cuban-w', 'cuban-price', 25)">
@@ -545,7 +544,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">3mm Rope Chain</h2>
                 <p id="rope-price" class="product-price" style="font-size: 1.6rem;">$8.00</p>
-                <p class="modal-desc">Premium 14-18KT gold-filled finish over a solid stainless steel core. Clean 3mm cut, perfect for wearing solo or stacking with a heavy piece.</p>
+                <p class="modal-desc">3mm gold filled rope chain. Perfect for wearing by itself or stacking with other pieces.</p>
                 <div class="size-selector">
                     <label>Length</label>
                     <select id="rope-s" onchange="updatePrice('rope-s', 'rope-price', 8)">
@@ -574,7 +573,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Betty Boop Pendant</h2>
                 <p id="betty-pendant-price" class="product-price" style="font-size: 1.6rem;">$30.00</p>
-                <p class="modal-desc">14-18KT Gold PVD plated pendant and chain set. Heavy 316L base metal to completely prevent tarnishing or fading. Classic vintage aesthetic.</p>
+                <p class="modal-desc">Gold dipped Betty Boop pendant and chain. Solid base metal so it doesn't fade or lose its shine.</p>
                 <div class="size-selector">
                     <label>Style</label>
                     <select id="betty-pendant-s" onchange="updatePrice('betty-pendant-s', 'betty-pendant-price', 30)">
@@ -582,6 +581,85 @@
                     </select>
                 </div>
                 <div id="paypal-betty-pendant"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hk-chain" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-hk-chain')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="hk-bust.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="hk-pendant.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">HK Rollie Chain</h2>
+                <p id="hk-chain-price" class="product-price" style="font-size: 1.6rem;">$60.00</p>
+                <p class="modal-desc">Thick rollie chain with an iced out HK pendant. Doesn't fade or leave green marks.</p>
+                <div class="size-selector">
+                    <label>Length</label>
+                    <select id="hk-chain-s" onchange="updatePrice('hk-chain-s', 'hk-chain-price', 60)">
+                        <option value="16" disabled>16" (Out of Stock)</option>
+                        <option value="18" disabled>18" (Out of Stock)</option>
+                        <option value="20" data-add="0">20" ($60)</option>
+                    </select>
+                </div>
+                <div id="paypal-hk-chain"></div>
+                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-heart-chain" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-heart-chain')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="heart-presidential-chain.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Heart Centerpiece Chain</h2>
+                <p id="heart-chain-price" class="product-price" style="font-size: 1.6rem;">$55.00</p>
+                <p class="modal-desc">Presidential style links with a clear heart centerpiece. Gold dipped so it lasts and won't tarnish.</p>
+                <div class="size-selector">
+                    <label>Length</label>
+                    <select id="heart-chain-s">
+                        <option value="16" disabled>16" (Sold Out)</option>
+                        <option value="18" disabled>18" (Sold Out)</option>
+                        <option value="20" disabled>20" (Sold Out)</option>
+                    </select>
+                </div>
+                <button class="sold-out-btn-modal">Out of Stock</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-betty-ring" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-betty-ring')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="betty-box.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="betty-hand.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Betty Boop Ring</h2>
+                <p id="betty-ring-price" class="product-price" style="font-size: 1.6rem;">$30.00</p>
+                <p class="modal-desc">Gold filled Betty Boop ring with a gritty nugget texture. Solid weight, won't tarnish.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="betty-ring-s">
+                        <option value="7" disabled>7 (Sold Out)</option>
+                        <option value="8" disabled>8 (Sold Out)</option>
+                    </select>
+                </div>
+                <button class="sold-out-btn-modal">Out of Stock</button>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -597,7 +675,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">HK 2-Finger Ring</h2>
                 <p id="hk-price" class="product-price" style="font-size: 1.6rem;">$45.00</p>
-                <p class="modal-desc">14-18KT Gold Filled two-finger ring. Heavy base material with deep, precise detailing. Built to handle daily wear without fading.</p>
+                <p class="modal-desc">Gold filled two-finger HK ring. Solid weight and clean details. Doesn't fade.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="hk-s" onchange="updatePrice('hk-s', 'hk-price', 45)">
@@ -623,7 +701,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Nugget 2-Finger Ring</h2>
                 <p id="nugget-price" class="product-price" style="font-size: 1.6rem;">$45.00</p>
-                <p class="modal-desc">14-18KT Gold Filled with a raw, gritty nugget texture. Heavy solid 316L base metal. Sweat-proof and guaranteed not to turn your fingers green.</p>
+                <p class="modal-desc">Classic nugget two-finger ring. Gold plated and heavy, won't fade or leave marks.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="nugget-s" onchange="updatePrice('nugget-s', 'nugget-price', 45)">
@@ -649,7 +727,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Halo Heart Nugget Ring</h2>
                 <p id="heart-ring-price" class="product-price" style="font-size: 1.6rem;"><span class="original-price" style="font-size: 1rem;">$55.00</span>$25.00</p>
-                <p class="modal-desc">14-18KT Gold filled finish over a solid 316L stainless steel base. Heart-shaped with a gritty nugget texture and halo border. Fade-resistant.</p>
+                <p class="modal-desc">Gold filled heart ring with a nugget texture and halo border. Real solid feel, won't turn fingers green.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-ring-s" onchange="updatePrice('heart-ring-s', 'heart-ring-price', 25)">
@@ -675,7 +753,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Diamond-Cut Heart Ring</h2>
                 <p id="heart-ring-2-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">14-18KT Gold PVD dipped with deep diamond-cut engraving for maximum shine. Solid stainless steel base, guaranteed sweat-proof.</p>
+                <p class="modal-desc">Gold dipped heart ring with diamond cuts for extra shine. Doesn't fade or turn fingers green.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-ring-2-s" onchange="updatePrice('heart-ring-2-s', 'heart-ring-2-price', 25)">
@@ -701,7 +779,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Solid Edge Heart Ring</h2>
                 <p id="heart-ring-3-price" class="product-price" style="font-size: 1.6rem;"><span class="original-price" style="font-size: 1rem;">$55.00</span>$25.00</p>
-                <p class="modal-desc">Heavy 14-18KT gold-filled finish over a 316L base. Features a gritty nugget interior with a clean, solid polished edge.</p>
+                <p class="modal-desc">Gold filled heart ring with a solid edge and nugget center. Built heavy and clean.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-ring-3-s" onchange="updatePrice('heart-ring-3-s', 'heart-ring-3-price', 25)">
@@ -727,7 +805,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">HK Nugget Ring</h2>
                 <p id="hk-body-ring-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">14-18KT Gold Filled plating. Full body design featuring heavy, gritty nugget texture detailing throughout. Fade-resistant and built for daily wear.</p>
+                <p class="modal-desc">Full body HK ring with a nugget texture. Gold dipped and made to last everyday wear.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="hk-body-ring-s" onchange="updatePrice('hk-body-ring-s', 'hk-body-ring-price', 25)">
@@ -756,7 +834,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">HK Enamel Studs</h2>
                 <p id="hk-earrings-price" class="product-price" style="font-size: 1.6rem;">$15.00</p>
-                <p class="modal-desc">14-18KT Gold plated studs detailed with premium red enamel. Hypoallergenic posts, guaranteed not to irritate.</p>
+                <p class="modal-desc">Gold plated HK studs with red enamel details. Safe for ears and won't turn them green.</p>
                 <div class="size-selector">
                     <label>Style</label>
                     <select id="hk-earrings-s" onchange="updatePrice('hk-earrings-s', 'hk-earrings-price', 15)">
@@ -782,7 +860,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">HK Gold Studs</h2>
                 <p id="hk-velvet-price" class="product-price" style="font-size: 1.6rem;">$10.00</p>
-                <p class="modal-desc">Solid 14-18KT gold-filled finish over a 316L base. Features a micro-nugget texture. Comes in a small velvet display box.</p>
+                <p class="modal-desc">Solid gold filled HK studs. Comes in a velvet box. Clean shine that stays.</p>
                 <div class="size-selector">
                     <label>Style</label>
                     <select id="hk-velvet-s" onchange="updatePrice('hk-velvet-s', 'hk-velvet-price', 10)">
@@ -805,7 +883,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Globe Studs</h2>
                 <p id="world-earrings-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">14-18KT Gold PVD plated 'The World Is Yours' globe design. 5x dipped to guarantee long-lasting shine and zero fading.</p>
+                <p class="modal-desc">Gold dipped 'The World Is Yours' studs. Clean shine, doesn't fade or rust.</p>
                 <div class="size-selector">
                     <label>Style</label>
                     <select id="world-earrings-s" onchange="updatePrice('world-earrings-s', 'world-earrings-price', 25)">
@@ -828,7 +906,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Heart Nugget Studs</h2>
                 <p id="heart-earrings-price" class="product-price" style="font-size: 1.6rem;">From $20.00</p>
-                <p class="modal-desc">14-18KT Gold PVD plated over hypoallergenic stainless steel. Features a highly detailed, gritty nugget texture. Sweat-proof.</p>
+                <p class="modal-desc">Gold plated heart nugget studs. Perfect match for the rings. Doesn't fade.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-earrings-s" onchange="updatePrice('heart-earrings-s', 'heart-earrings-price', 20)">
@@ -859,7 +937,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Butterfly Bracelet</h2>
                 <p id="butterfly-bracelet-price" class="product-price" style="font-size: 1.6rem;">$45.00</p>
-                <p class="modal-desc">14-18KT Gold PVD dipped link bracelet with a premium butterfly centerpiece. 5x plated to completely prevent fading or skin reactions.</p>
+                <p class="modal-desc">Gold dipped link bracelet with a butterfly center. Won't turn your wrist green.</p>
                 <div class="size-selector">
                     <label>Length</label>
                     <select id="butterfly-bracelet-s" onchange="updatePrice('butterfly-bracelet-s', 'butterfly-bracelet-price', 45)">
@@ -890,7 +968,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Triple Heart Bracelet</h2>
                 <p id="heart-bracelet-price" class="product-price" style="font-size: 1.6rem;">$35.00</p>
-                <p class="modal-desc">14-18KT Gold Filled over a solid 316L base. Features three thick, gritty textured nugget hearts. Heavy clasp, built to last.</p>
+                <p class="modal-desc">Gold plated bracelet with 3 nugget hearts. Solid clasp and won't fade.</p>
                 <div class="size-selector">
                     <label>Length</label>
                     <select id="heart-bracelet-s" onchange="updatePrice('heart-bracelet-s', 'heart-bracelet-price', 35)">
@@ -920,7 +998,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">3D HK Silicone Case</h2>
                 <p id="hk-case-price" class="product-price" style="font-size: 1.6rem;">$20.00</p>
-                <p class="modal-desc">Heavy-duty 3D silicone case. Provides massive shock-absorption and protects your phone while perfectly matching the collection.</p>
+                <p class="modal-desc">3D silicone HK case. Protects your phone and matches the jewelry perfectly.</p>
                 <div class="size-selector">
                     <label>Color</label>
                     <select id="hk-case-color">
@@ -1087,6 +1165,7 @@
         renderPP('paypal-betty-pendant', 'Betty Boop Pendant', 'betty-pendant-price');
         renderPP('paypal-hk-chain', 'HK Rollie Chain', 'hk-chain-price');
         renderPP('paypal-hk', 'Hello Kitty Ring', 'hk-price');
+        renderPP('paypal-nugget', 'Nugget Ring', 'nugget-price');
         renderPP('paypal-heart-ring', 'Halo Heart Nugget Ring', 'heart-ring-price');
         renderPP('paypal-heart-ring-2', 'Diamond-Cut Heart Ring', 'heart-ring-2-price');
         renderPP('paypal-heart-ring-3', 'Solid Edge Heart Ring', 'heart-ring-3-price');
