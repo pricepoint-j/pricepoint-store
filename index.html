@@ -173,6 +173,33 @@
         #modal-tos { background: rgba(0,0,0,0.5); }
         #modal-tos .modal-content { max-width: 600px; margin: 10vh auto; border-radius: 12px; }
         #modal-tos .close-btn { position: absolute; top: 15px; right: 20px; background: none; box-shadow: none; width: auto; height: auto; }
+
+        /* =========================================
+           MOBILE OPTIMIZATION (2-COLUMN GRID)
+           ========================================= */
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .product-card { padding: 10px; }
+            .product-image { height: 160px; margin-bottom: 10px; }
+            .product-title { font-size: 0.75rem; }
+            .product-price { font-size: 0.9rem; margin-bottom: 8px; }
+            .view-btn { padding: 10px; font-size: 0.65rem; }
+            
+            .hero h1 { font-size: 2.2rem; }
+            
+            .filter-container { flex-direction: column; align-items: stretch; gap: 12px; padding-bottom: 15px; }
+            .filter-group { flex-direction: column; gap: 12px; }
+            .filter-box { min-width: 100%; }
+            .price-input-wrapper { max-width: 100%; }
+            
+            .modal-layout { padding: 50px 5% 20px; gap: 25px; flex-direction: column; }
+            .modal-gallery, .modal-info { min-width: 100%; }
+            .modal-info { position: relative; top: 0; }
+            .modal-img { max-height: 400px; }
+            .modal-title { font-size: 1.8rem; }
+            .modal-desc { font-size: 0.95rem; }
+            .close-btn { top: 10px; right: 15px; width: 40px; height: 40px; font-size: 30px; }
+        }
     </style>
 </head>
 <body>
@@ -457,7 +484,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Betty Boop Ring</h2>
                 <p id="betty-ring-price" class="product-price" style="font-size: 1.8rem;">$30.00</p>
-                <p class="modal-desc">Classic aesthetic. High demand piece. Features heavy nugget detailing.</p>
+                <p class="modal-desc">14k Gold PVD plated over a premium solid 316L stainless steel base. Features a heavy, gritty nugget texture detailing. Fade-resistant and sweat-proof.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="betty-ring-s">
@@ -491,7 +518,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Cuban Link</h2>
                 <p id="cuban-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
-                <p class="modal-desc">Solid everyday chain. Waterproof and won't fade or turn your neck green.</p>
+                <p class="modal-desc">18k Gold PVD dipped over solid 316L Stainless Steel. 5x plated to prevent fading. Sweat-proof and guaranteed not to turn your neck green.</p>
                 <div class="size-selector">
                     <label>Width</label>
                     <select id="cuban-w" onchange="updatePrice('cuban-w', 'cuban-price', 25)">
@@ -523,7 +550,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">3mm Rope Chain</h2>
                 <p id="rope-price" class="product-price" style="font-size: 1.8rem;">$8.00</p>
-                <p class="modal-desc">Clean 3mm rope chain. Good for wearing by itself or stacking.</p>
+                <p class="modal-desc">Premium gold-filled finish over a solid stainless steel core. Clean 3mm cut, perfect for wearing solo or stacking with a heavy piece.</p>
                 <div class="size-selector">
                     <label>Length</label>
                     <select id="rope-s" onchange="updatePrice('rope-s', 'rope-price', 8)">
@@ -559,7 +586,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Betty Boop Pendant</h2>
                 <p id="betty-pendant-price" class="product-price" style="font-size: 1.8rem;">$30.00</p>
-                <p class="modal-desc">Classic aesthetic. Comes with the matching chain.</p>
+                <p class="modal-desc">14k Gold PVD plated pendant and chain set. Heavy base metal to prevent tarnishing. Classic vintage aesthetic.</p>
                 <div class="size-selector">
                     <label>Style</label>
                     <select id="betty-pendant-s" onchange="updatePrice('betty-pendant-s', 'betty-pendant-price', 30)">
@@ -591,7 +618,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">HK Rollie Chain</h2>
                 <p id="hk-chain-price" class="product-price" style="font-size: 1.8rem;">$60.00</p>
-                <p class="modal-desc">Thick rollie chain with an iced HK pendant.</p>
+                <p class="modal-desc">18k Gold PVD plated finish. Thick, high-shine Rollie-style links featuring a heavy iced-out HK centerpiece. Built on a premium 316L stainless steel core.</p>
                 <div class="size-selector">
                     <label>Length</label>
                     <select id="hk-chain-s" onchange="updatePrice('hk-chain-s', 'hk-chain-price', 60)">
@@ -623,7 +650,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Heart Centerpiece Chain</h2>
                 <p id="heart-chain-price" class="product-price" style="font-size: 1.8rem;">$55.00</p>
-                <p class="modal-desc">Thick chain with a clear heart centerpiece. Currently sold out.</p>
+                <p class="modal-desc">Heavy gold-plated presidential style links with a clear heart centerpiece. 5x PVD dipped to guarantee it never leaves a green mark.</p>
                 <div class="size-selector">
                     <label>Length</label>
                     <select id="heart-chain-s">
@@ -654,7 +681,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">HK 2-Finger Ring</h2>
                 <p id="hk-price" class="product-price" style="font-size: 1.8rem;">$45.00</p>
-                <p class="modal-desc">Solid two-finger HK ring. Heavy and detailed.</p>
+                <p class="modal-desc">18k Gold PVD plated two-finger ring. Heavy base material with deep, precise detailing. Built to handle daily wear without fading.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="hk-s" onchange="updatePrice('hk-s', 'hk-price', 45)">
@@ -687,7 +714,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Nugget 2-Finger Ring</h2>
                 <p id="nugget-price" class="product-price" style="font-size: 1.8rem;">$45.00</p>
-                <p class="modal-desc">Classic two-finger nugget ring.</p>
+                <p class="modal-desc">14k Gold plated with a raw, gritty nugget texture. Heavy solid base metal. Sweat-proof and guaranteed not to turn your fingers green.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="nugget-s" onchange="updatePrice('nugget-s', 'nugget-price', 45)">
@@ -720,7 +747,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Halo Heart Nugget Ring</h2>
                 <p id="heart-ring-price" class="product-price" style="font-size: 1.8rem;"><span class="original-price">$55.00</span>$25.00</p>
-                <p class="modal-desc">Heart shaped nugget ring with a halo border.</p>
+                <p class="modal-desc">14k Gold plated finish over a solid 316L stainless steel base. Heart-shaped with a gritty nugget texture and halo border. Fade-resistant.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-ring-s" onchange="updatePrice('heart-ring-s', 'heart-ring-price', 25)">
@@ -753,7 +780,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Diamond-Cut Heart Ring</h2>
                 <p id="heart-ring-2-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
-                <p class="modal-desc">Standard diamond-cut heart nugget ring.</p>
+                <p class="modal-desc">18k Gold PVD dipped with deep diamond-cut engraving for maximum shine. Solid stainless steel base, guaranteed sweat-proof.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-ring-2-s" onchange="updatePrice('heart-ring-2-s', 'heart-ring-2-price', 25)">
@@ -785,7 +812,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Solid Edge Heart Ring</h2>
                 <p id="heart-ring-3-price" class="product-price" style="font-size: 1.8rem;"><span class="original-price">$55.00</span>$25.00</p>
-                <p class="modal-desc">Textured heart nugget ring with a clean, solid edge.</p>
+                <p class="modal-desc">Heavy gold-filled finish over a 316L base. Features a gritty nugget interior with a clean, solid polished edge.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-ring-3-s" onchange="updatePrice('heart-ring-3-s', 'heart-ring-3-price', 25)">
@@ -818,7 +845,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">HK Nugget Ring</h2>
                 <p id="hk-body-ring-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
-                <p class="modal-desc">Full body HK design with a nugget texture.</p>
+                <p class="modal-desc">14k Gold PVD plating. Full body design featuring heavy, gritty nugget texture detailing throughout. Fade-resistant and built for daily wear.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="hk-body-ring-s" onchange="updatePrice('hk-body-ring-s', 'hk-body-ring-price', 25)">
@@ -854,7 +881,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">HK Enamel Studs</h2>
                 <p id="hk-earrings-price" class="product-price" style="font-size: 1.8rem;">$15.00</p>
-                <p class="modal-desc">Small gold-plated HK studs with red enamel.</p>
+                <p class="modal-desc">18k Gold plated studs detailed with premium red enamel. Hypoallergenic posts, guaranteed not to irritate.</p>
                 <div class="size-selector">
                     <label>Style</label>
                     <select id="hk-earrings-s" onchange="updatePrice('hk-earrings-s', 'hk-earrings-price', 15)">
@@ -887,7 +914,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">HK Gold Studs</h2>
                 <p id="hk-velvet-price" class="product-price" style="font-size: 1.8rem;">$10.00</p>
-                <p class="modal-desc">All-gold textured studs. Comes in a small velvet box.</p>
+                <p class="modal-desc">Solid gold-filled finish over a 316L base. Features a micro-nugget texture. Comes in a small velvet display box.</p>
                 <div class="size-selector">
                     <label>Style</label>
                     <select id="hk-velvet-s" onchange="updatePrice('hk-velvet-s', 'hk-velvet-price', 10)">
@@ -917,7 +944,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Globe Studs</h2>
                 <p id="world-earrings-price" class="product-price" style="font-size: 1.8rem;">$25.00</p>
-                <p class="modal-desc">The World Is Yours globe design on a clean stud earring.</p>
+                <p class="modal-desc">18k Gold PVD plated 'The World Is Yours' globe design. 5x dipped to guarantee long-lasting shine and zero fading.</p>
                 <div class="size-selector">
                     <label>Style</label>
                     <select id="world-earrings-s" onchange="updatePrice('world-earrings-s', 'world-earrings-price', 25)">
@@ -947,7 +974,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Heart Nugget Studs</h2>
                 <p id="heart-earrings-price" class="product-price" style="font-size: 1.8rem;">From $20.00</p>
-                <p class="modal-desc">Textured nugget heart studs. A good match for any of the heart rings.</p>
+                <p class="modal-desc">14k Gold PVD plated over hypoallergenic stainless steel. Features a highly detailed, gritty nugget texture. Sweat-proof.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-earrings-s" onchange="updatePrice('heart-earrings-s', 'heart-earrings-price', 20)">
@@ -985,7 +1012,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Butterfly Bracelet</h2>
                 <p id="butterfly-bracelet-price" class="product-price" style="font-size: 1.8rem;">$45.00</p>
-                <p class="modal-desc">Link bracelet with a butterfly centerpiece.</p>
+                <p class="modal-desc">18k Gold PVD dipped link bracelet with a premium butterfly centerpiece. 5x plated to completely prevent fading or skin reactions.</p>
                 <div class="size-selector">
                     <label>Length</label>
                     <select id="butterfly-bracelet-s" onchange="updatePrice('butterfly-bracelet-s', 'butterfly-bracelet-price', 45)">
@@ -1023,7 +1050,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">Triple Heart Bracelet</h2>
                 <p id="heart-bracelet-price" class="product-price" style="font-size: 1.8rem;">$35.00</p>
-                <p class="modal-desc">Bracelet featuring three textured nugget hearts.</p>
+                <p class="modal-desc">14k Gold plated over a solid 316L base. Features three thick, gritty textured nugget hearts. Heavy clasp, built to last.</p>
                 <div class="size-selector">
                     <label>Length</label>
                     <select id="heart-bracelet-s" onchange="updatePrice('heart-bracelet-s', 'heart-bracelet-price', 35)">
@@ -1060,7 +1087,7 @@
                 <img src="pricepoint-logo.png" alt="Westcoast Gold" class="modal-header-logo">
                 <h2 class="modal-title">3D HK Silicone Case</h2>
                 <p id="hk-case-price" class="product-price" style="font-size: 1.8rem;">$20.00</p>
-                <p class="modal-desc">3D silicone case. Protects your phone and looks good doing it.</p>
+                <p class="modal-desc">Heavy-duty 3D silicone case. Provides massive shock-absorption and protects your phone while perfectly matching the collection.</p>
                 <div class="size-selector">
                     <label>Color</label>
                     <select id="hk-case-color">
@@ -1233,7 +1260,6 @@
         renderPP('paypal-betty-pendant', 'Betty Boop Pendant', 'betty-pendant-price');
         renderPP('paypal-hk-chain', 'HK Rollie Chain', 'hk-chain-price');
         renderPP('paypal-hk', 'Hello Kitty Ring', 'hk-price');
-        renderPP('paypal-nugget', 'Nugget Ring', 'nugget-price');
         renderPP('paypal-heart-ring', 'Halo Heart Nugget Ring', 'heart-ring-price');
         renderPP('paypal-heart-ring-2', 'Diamond-Cut Heart Ring', 'heart-ring-2-price');
         renderPP('paypal-heart-ring-3', 'Solid Edge Heart Ring', 'heart-ring-3-price');
