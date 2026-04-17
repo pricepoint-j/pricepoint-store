@@ -218,7 +218,7 @@
 
     <div class="marquee-container">
         <div class="marquee-content">
-            <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>18K GOLD FILLED</span> ✦ <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>18K GOLD FILLED</span>
+            <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>14-18KT GOLD FILLED</span> ✦ <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>14-18KT GOLD FILLED</span>
         </div>
     </div>
 
@@ -339,10 +339,10 @@
                 <p class="product-price">$30.00</p>
             </div>
 
-            <div class="product-card" data-price="60" data-stock="in" data-sales="65" onclick="openModal('modal-hk-chain')">
+            <div class="product-card" data-price="60" data-stock="out" data-sales="65" onclick="openModal('modal-hk-chain')">
+                <div class="sale-badge sold-out-badge">Sold Out</div>
                 <div class="image-container">
-                    <img src="hk-bust.jpg" class="product-image">
-                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
+                    <img src="hk-bust.jpg" class="product-image" style="opacity: 0.7;">
                 </div>
                 <h3 class="product-title">HK Rollie Chain</h3>
                 <p class="product-price">$60.00</p>
@@ -749,16 +749,13 @@
                 <p class="modal-desc">14-18KT Gold Filled. Thick rollie chain with an iced out HK pendant. Doesn't fade or leave green marks.</p>
                 <div class="size-selector">
                     <label>Length</label>
-                    <select id="hk-chain-s" onchange="updatePrice('hk-chain-s', 'hk-chain-price', 60)">
-                        <option value="16" disabled>16" (Out of Stock)</option>
-                        <option value="18" disabled>18" (Out of Stock)</option>
-                        <option value="20" data-add="0">20" ($60)</option>
+                    <select id="hk-chain-s">
+                        <option value="16" disabled>16" (Sold Out)</option>
+                        <option value="18" disabled>18" (Sold Out)</option>
+                        <option value="20" disabled>20" (Sold Out)</option>
                     </select>
                 </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('HK Rollie Chain', 'hk-chain-price', 'hk-chain-s', 'hk-bust.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('HK Rollie Chain', 'hk-chain-price', 'hk-chain-s', 'hk-bust.jpg', true)">Buy Now</button>
-                </div>
+                <button class="sold-out-btn-modal">Out of Stock</button>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
             </div>
         </div>
@@ -802,10 +799,13 @@
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="hk-s" onchange="updatePrice('hk-s', 'hk-price', 45)">
+                        <option value="5" data-add="0">5</option>
+                        <option value="6" data-add="0">6</option>
                         <option value="7" data-add="0">7</option>
                         <option value="8" data-add="0">8</option>
                         <option value="9" data-add="0">9</option>
-                        <option value="10" data-add="0">10</option>
+                        <option value="11" disabled>11 (Out of Stock)</option>
+                        <option value="12" disabled>12 (Out of Stock)</option>
                     </select>
                 </div>
                 <div class="action-buttons">
@@ -860,10 +860,14 @@
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-ring-s" onchange="updatePrice('heart-ring-s', 'heart-ring-price', 25)">
+                        <option value="5" disabled>5 (Out of Stock)</option>
                         <option value="6" data-add="0">6</option>
                         <option value="7" data-add="0">7</option>
                         <option value="8" data-add="0">8</option>
                         <option value="9" data-add="0">9</option>
+                        <option value="10" data-add="0">10</option>
+                        <option value="11" disabled>11 (Out of Stock)</option>
+                        <option value="12" disabled>12 (Out of Stock)</option>
                     </select>
                 </div>
                 <div class="action-buttons">
@@ -889,10 +893,14 @@
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-ring-2-s" onchange="updatePrice('heart-ring-2-s', 'heart-ring-2-price', 25)">
+                        <option value="5" disabled>5 (Out of Stock)</option>
                         <option value="6" data-add="0">6</option>
                         <option value="7" data-add="0">7</option>
                         <option value="8" data-add="0">8</option>
                         <option value="9" data-add="0">9</option>
+                        <option value="10" data-add="0">10</option>
+                        <option value="11" disabled>11 (Out of Stock)</option>
+                        <option value="12" disabled>12 (Out of Stock)</option>
                     </select>
                 </div>
                 <div class="action-buttons">
@@ -918,10 +926,14 @@
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="heart-ring-3-s" onchange="updatePrice('heart-ring-3-s', 'heart-ring-3-price', 25)">
+                        <option value="5" disabled>5 (Out of Stock)</option>
                         <option value="6" data-add="0">6</option>
                         <option value="7" data-add="0">7</option>
                         <option value="8" data-add="0">8</option>
                         <option value="9" data-add="0">9</option>
+                        <option value="10" data-add="0">10</option>
+                        <option value="11" disabled>11 (Out of Stock)</option>
+                        <option value="12" disabled>12 (Out of Stock)</option>
                     </select>
                 </div>
                 <div class="action-buttons">
@@ -947,10 +959,13 @@
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="hk-body-ring-s" onchange="updatePrice('hk-body-ring-s', 'hk-body-ring-price', 25)">
+                        <option value="5" data-add="0">5</option>
                         <option value="6" data-add="0">6</option>
                         <option value="7" data-add="0">7</option>
                         <option value="8" data-add="0">8</option>
                         <option value="9" data-add="0">9</option>
+                        <option value="11" disabled>11 (Out of Stock)</option>
+                        <option value="12" disabled>12 (Out of Stock)</option>
                     </select>
                 </div>
                 <div class="action-buttons">
