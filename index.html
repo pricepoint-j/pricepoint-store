@@ -165,7 +165,13 @@
         .empty-cart-msg { text-align: center; color: var(--text-muted); margin-top: 50px; font-weight: 600; }
         
         /* NEW BILLING WARNING CSS */
-        .billing-warning { font-size: 0.65rem; color: #d9534f; text-align: center; margin-bottom: 15px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.4; }
+        .billing-warning { font-size: 0.65rem; color: var(--text-dark); text-align: center; margin-bottom: 15px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.4; }
+
+        /* MODAL ORDER HISTORY CSS */
+        #modal-order-history .order-item { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
+        #modal-order-history .order-id { font-weight: 700; color: var(--gold); }
+        #modal-order-history .order-date { font-size: 0.8rem; color: var(--text-muted); }
+        #modal-order-history .order-total { font-weight: 700; margin-top: 5px; }
 
         #lightbox { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
         #lightbox img { max-width: 95%; max-height: 95%; border-radius: 4px; }
@@ -181,9 +187,7 @@
         #modal-tos .modal-content { max-width: 600px; margin: 10vh auto; border-radius: 8px; padding: 30px; background: #fff; }
         #modal-tos .close-btn-tos { position: absolute; top: 10px; right: 15px; background: none; box-shadow: none; width: auto; height: auto; font-size: 30px; color: #999; cursor: pointer; }
 
-        /* =========================================
-           MOBILE OPTIMIZATION (EDGE-TO-EDGE BIG IMAGES)
-           ========================================= */
+        /* MOBILE OPTIMIZATION */
         @media (max-width: 768px) {
             .collection { padding: 0 2% 40px; }
             .grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } 
@@ -243,7 +247,7 @@
                 <a href="#earrings">Earrings</a>
                 <a href="#bracelets">Bracelets</a>
                 <a href="#cases">Accessories</a>
-                <div class="nav-cart-icon" onclick="toggleCart()">
+                <a href="#" onclick="toggleOrderHistory()">Your Orders</a> <div class="nav-cart-icon" onclick="toggleCart()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
                         <circle cx="20" cy="21" r="1"></circle>
@@ -309,17 +313,17 @@
     <h2 id="necklaces" class="section-header">Chains</h2>
     <section class="collection">
         <div class="grid">
-            <div class="product-card" data-price="25" data-stock="in" data-sales="300" onclick="openModal('modal-hk-rope-new')">
+            <div id="p-hk-rope" class="product-card" data-price="25" data-stock="in" data-sales="300" onclick="openModal('modal-hk-rope-new')">
                 <div class="sale-badge">Sale</div>
                 <div class="image-container">
                     <img src="hk-rope-black.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
                 </div>
-                <h3 class="product-title">18K Gold Filled HK Rope</h3>
+                <h3 class="product-title">18K Gold Filled HK Rope Chain</h3>
                 <p class="product-price"><span class="original-price">$45.00</span>$25.00</p>
             </div>
 
-            <div class="product-card" data-price="25" data-stock="in" data-sales="120" onclick="openModal('modal-cuban')">
+            <div id="p-cuban" class="product-card" data-price="25" data-stock="in" data-sales="120" onclick="openModal('modal-cuban')">
                 <div class="image-container">
                     <img src="cuban-link.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
@@ -328,7 +332,7 @@
                 <p class="product-price">From $25.00</p>
             </div>
             
-            <div class="product-card" data-price="15" data-stock="in" data-sales="90" onclick="openModal('modal-rope')">
+            <div id="p-rope" class="product-card" data-price="15" data-stock="in" data-sales="90" onclick="openModal('modal-rope')">
                 <div class="image-container">
                     <img src="rope.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
@@ -337,7 +341,7 @@
                 <p class="product-price">From $15.00</p>
             </div>
 
-            <div class="product-card" data-price="30" data-stock="in" data-sales="20" onclick="openModal('modal-betty-pendant')">
+            <div id="p-betty-necklace" class="product-card" data-price="30" data-stock="in" data-sales="20" onclick="openModal('modal-betty-pendant')">
                 <div class="image-container">
                     <img src="betty-necklace-white.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
@@ -346,7 +350,7 @@
                 <p class="product-price">$30.00</p>
             </div>
 
-            <div class="product-card" data-price="60" data-stock="out" data-sales="65" onclick="openModal('modal-hk-chain')">
+            <div id="p-hk-rollie" class="product-card" data-price="60" data-stock="out" data-sales="65" onclick="openModal('modal-hk-chain')">
                 <div class="sale-badge sold-out-badge">Sold Out</div>
                 <div class="image-container">
                     <img src="hk-bust.jpg" class="product-image" style="opacity: 0.7;">
@@ -355,7 +359,7 @@
                 <p class="product-price">$60.00</p>
             </div>
 
-            <div class="product-card" data-price="55" data-stock="out" data-sales="200" onclick="openModal('modal-heart-chain')">
+            <div id="p-heart-p-chain" class="product-card" data-price="55" data-stock="out" data-sales="200" onclick="openModal('modal-heart-chain')">
                 <div class="sale-badge sold-out-badge">Sold Out</div>
                 <div class="image-container">
                     <img src="heart-presidential-chain.jpg" class="product-image" style="opacity: 0.7;">
@@ -369,7 +373,7 @@
     <h2 id="rings" class="section-header">Rings</h2>
     <section class="collection">
         <div class="grid">
-            <div class="product-card" data-price="25" data-stock="in" data-sales="140" onclick="openModal('modal-chopper')">
+            <div id="p-chopper" class="product-card" data-price="25" data-stock="in" data-sales="140" onclick="openModal('modal-chopper')">
                 <div class="sale-badge">Sale</div>
                 <div class="image-container">
                     <img src="chopper-hand.png" class="product-image">
@@ -379,7 +383,7 @@
                 <p class="product-price"><span class="original-price">$45.00</span>$25.00</p>
             </div>
 
-            <div class="product-card" data-price="30" data-stock="out" data-sales="210" onclick="openModal('modal-betty-ring')">
+            <div id="p-betty-ring" class="product-card" data-price="30" data-stock="out" data-sales="210" onclick="openModal('modal-betty-ring')">
                 <div class="sale-badge sold-out-badge">Sold Out</div>
                 <div class="image-container">
                     <img src="betty-box.jpg" class="product-image" style="opacity: 0.7;">
@@ -388,7 +392,7 @@
                 <p class="product-price">$30.00</p>
             </div>
 
-            <div class="product-card" data-price="45" data-stock="in" data-sales="80" onclick="openModal('modal-hk')">
+            <div id="p-hk-ring" class="product-card" data-price="45" data-stock="in" data-sales="80" onclick="openModal('modal-hk')">
                 <div class="image-container">
                     <img src="hellokitty-ring.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
@@ -397,7 +401,7 @@
                 <p class="product-price">$45.00</p>
             </div>
             
-            <div class="product-card" data-price="45" data-stock="in" data-sales="50" onclick="openModal('modal-nugget')">
+            <div id="p-nugget" class="product-card" data-price="45" data-stock="in" data-sales="50" onclick="openModal('modal-nugget')">
                 <div class="image-container">
                     <img src="nugget-ring.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
@@ -406,116 +410,42 @@
                 <p class="product-price">$45.00</p>
             </div>
 
-            <div class="product-card" data-price="25" data-stock="in" data-sales="110" onclick="openModal('modal-heart-ring')">
+            <div id="p-halo-heart" class="product-card" data-price="25" data-stock="in" data-sales="110" onclick="openModal('modal-heart-ring')">
                 <div class="sale-badge">Sale</div>
                 <div class="image-container">
                     <img src="heart-nugget-ring.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
                 </div>
-                <h3 class="product-title">Halo Heart Nugget</h3>
+                <h3 class="product-title">Halo Heart Nugget Ring</h3>
                 <p class="product-price"><span class="original-price">$55.00</span>$25.00</p>
             </div>
 
-            <div class="product-card" data-price="25" data-stock="in" data-sales="30" onclick="openModal('modal-heart-ring-2')">
+            <div id="p-d-cut-heart" class="product-card" data-price="25" data-stock="in" data-sales="30" onclick="openModal('modal-heart-ring-2')">
                 <div class="image-container">
                     <img src="heart3-ring.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
                 </div>
-                <h3 class="product-title">Diamond-Cut Heart</h3>
+                <h3 class="product-title">Diamond-Cut Heart Ring</h3>
                 <p class="product-price">$25.00</p>
             </div>
 
-            <div class="product-card" data-price="25" data-stock="in" data-sales="40" onclick="openModal('modal-heart-ring-3')">
+            <div id="p-s-edge-heart" class="product-card" data-price="25" data-stock="in" data-sales="40" onclick="openModal('modal-heart-ring-3')">
                 <div class="sale-badge">Sale</div>
                 <div class="image-container">
                     <img src="heart1-ring.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
                 </div>
-                <h3 class="product-title">Solid Edge Heart</h3>
+                <h3 class="product-title">Solid Edge Heart Ring</h3>
                 <p class="product-price"><span class="original-price">$55.00</span>$25.00</p>
             </div>
 
-            <div class="product-card" data-price="25" data-stock="in" data-sales="55" onclick="openModal('modal-hk-body-ring')">
+            <div id="p-hk-fullbody" class="product-card" data-price="25" data-stock="in" data-sales="55" onclick="openModal('modal-hk-body-ring')">
                 <div class="image-container">
                     <img src="hk-fullbody-ring.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
                 </div>
-                <h3 class="product-title">HK Nugget Ring</h3>
+                <h3 class="product-title">HK Fullbody Ring</h3>
                 <p class="product-price">$25.00</p>
-            </div>
-        </div>
-    </section>
-
-    <h2 id="earrings" class="section-header">Earrings</h2>
-    <section class="collection">
-        <div class="grid">
-            <div class="product-card" data-price="15" data-stock="in" data-sales="35" onclick="openModal('modal-hk-earrings')">
-                <div class="image-container">
-                    <img src="hellokitty-earrings.jpg" class="product-image">
-                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
-                </div>
-                <h3 class="product-title">HK Enamel Studs</h3>
-                <p class="product-price">$15.00</p>
-            </div>
-            <div class="product-card" data-price="10" data-stock="in" data-sales="25" onclick="openModal('modal-hk-velvet')">
-                <div class="image-container">
-                    <img src="hk-textured-gold.png" class="product-image">
-                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
-                </div>
-                <h3 class="product-title">HK Gold Studs</h3>
-                <p class="product-price">$10.00</p>
-            </div>
-            <div class="product-card" data-price="25" data-stock="in" data-sales="70" onclick="openModal('modal-world-earrings')">
-                <div class="image-container">
-                    <img src="world-is-yours-earrings.jpg" class="product-image">
-                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
-                </div>
-                <h3 class="product-title">Globe Studs</h3>
-                <p class="product-price">$25.00</p>
-            </div>
-            <div class="product-card" data-price="20" data-stock="in" data-sales="60" onclick="openModal('modal-heart-earrings')">
-                <div class="image-container">
-                    <img src="heart-nugget-earrings.jpg" class="product-image">
-                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
-                </div>
-                <h3 class="product-title">Heart Nugget Studs</h3>
-                <p class="product-price">From $20.00</p>
-            </div>
-        </div>
-    </section>
-
-    <h2 id="bracelets" class="section-header">Bracelets</h2>
-    <section class="collection">
-        <div class="grid">
-            <div class="product-card" data-price="45" data-stock="in" data-sales="45" onclick="openModal('modal-butterfly-bracelet')">
-                <div class="image-container">
-                    <img src="butterfly-bracelet-main.jpg" class="product-image">
-                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
-                </div>
-                <h3 class="product-title">Butterfly Bracelet</h3>
-                <p class="product-price">From $45.00</p>
-            </div>
-            <div class="product-card" data-price="35" data-stock="in" data-sales="15" onclick="openModal('modal-heart-bracelet')">
-                <div class="image-container">
-                    <img src="triple-heart-bracelet.jpg" class="product-image">
-                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
-                </div>
-                <h3 class="product-title">Triple Heart Bracelet</h3>
-                <p class="product-price">$35.00</p>
-            </div>
-        </div>
-    </section>
-
-    <h2 id="cases" class="section-header">Accessories</h2>
-    <section class="collection">
-        <div class="grid">
-            <div class="product-card" data-price="20" data-stock="in" data-sales="150" onclick="openModal('modal-hk-case')">
-                <div class="image-container">
-                    <img src="hk-case-white.jpg" class="product-image">
-                    <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
-                </div>
-                <h3 class="product-title">3D HK Silicone Case</h3>
-                <p class="product-price">$20.00</p>
             </div>
         </div>
     </section>
@@ -554,8 +484,20 @@
                 <span>Total</span>
                 <span id="cart-total-price">$0.00</span>
             </div>
-            <p class="billing-warning" id="billing-warning" style="display: none;">⚠️ <strong>Note:</strong> To avoid declined payments, you must enter the exact billing address linked to your card.</p>
+            <p class="billing-warning" id="billing-warning" style="display: none;"><strong>Note:</strong> To avoid declined payments, you must enter the exact billing address linked to your card.</p>
             <div id="paypal-button-container" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div id="modal-order-history" class="modal">
+        <span class="close-btn" onclick="toggleOrderHistory()">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-info" style="min-width: 100%; position: relative; top: 0; padding-top: 20px;">
+                <h2 class="modal-title" style="text-align: center; margin-bottom: 30px;">Your Orders</h2>
+                <div id="order-history-container" class="cart-items-container">
+                    <p class="empty-cart-msg">No orders found on this device.</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -586,628 +528,10 @@
                     </select>
                 </div>
                 <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('14K Gold Chopper Ring', 'chopper-price', 'chopper-s', 'chopper-hand.png', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('14K Gold Chopper Ring', 'chopper-price', 'chopper-s', 'chopper-hand.png', true)">Buy Now</button>
+                    <button class="add-cart-btn" onclick="addToCart('p-chopper', '14K Gold Chopper Ring', 'chopper-price', 'chopper-s', 'chopper-hand.png', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('p-chopper', '14K Gold Chopper Ring', 'chopper-price', 'chopper-s', 'chopper-hand.png', true)">Buy Now</button>
                 </div>
                 <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-hk-rope-new" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-hk-rope-new')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="hk-rope-black.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="hk-rope-pink.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">18K Gold Filled HK Rope Chain</h2>
-                <p id="hk-rope-new-price" class="product-price" style="font-size: 1.6rem;"><span class="original-price" style="font-size: 1rem;">$45.00</span>$25.00</p>
-                <p class="modal-desc">14-18KT Gold Filled. Clean rope chain with a solid HK pendant. Won't fade or turn your neck green. Water resistant.</p>
-                <div class="size-selector">
-                    <label>Chain Length</label>
-                    <select id="hk-rope-new-s" onchange="updatePrice('hk-rope-new-s', 'hk-rope-new-price', 25)">
-                        <option value="18" data-add="0">18" ($25.00)</option>
-                        <option value="20" data-add="2">20" ($27.00)</option>
-                        <option value="22" data-add="4">22" ($29.00)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('18K Gold Filled HK Rope Chain', 'hk-rope-new-price', 'hk-rope-new-s', 'hk-rope-black.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('18K Gold Filled HK Rope Chain', 'hk-rope-new-price', 'hk-rope-new-s', 'hk-rope-black.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-betty-ring" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-betty-ring')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="betty-box.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="betty-hand.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Betty Boop Ring</h2>
-                <p id="betty-ring-price" class="product-price" style="font-size: 1.6rem;">$30.00</p>
-                <p class="modal-desc">14-18KT Gold Filled. Features a heavy, gritty nugget texture detailing. Fade-resistant, non-tarnish, and sweat-proof.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="betty-ring-s">
-                        <option value="7" disabled>7 (Sold Out)</option>
-                        <option value="8" disabled>8 (Sold Out)</option>
-                    </select>
-                </div>
-                <button class="sold-out-btn-modal">Out of Stock</button>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-cuban" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-cuban')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="cuban-link.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="cuban-clasp.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Cuban Link</h2>
-                <p id="cuban-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">14-18KT Gold Filled. Solid weight, won't fade or tarnish. Safe to wear in the water.</p>
-                <div class="size-selector">
-                    <label>Width</label>
-                    <select id="cuban-w" onchange="updatePrice('cuban-w', 'cuban-price', 25)">
-                        <option value="8" data-add="0">8mm ($25)</option>
-                        <option value="10" data-add="5">10mm ($30)</option>
-                        <option value="12" data-add="10">12mm ($35)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('Cuban Link', 'cuban-price', 'cuban-w', 'cuban-link.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('Cuban Link', 'cuban-price', 'cuban-w', 'cuban-link.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-rope" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-rope')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="rope.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">3mm Rope Chain</h2>
-                <p id="rope-price" class="product-price" style="font-size: 1.6rem;">$15.00</p>
-                <p class="modal-desc">14-18KT Gold Filled. Clean 3mm cut, perfect for wearing solo or stacking with a heavy piece.</p>
-                <div class="size-selector">
-                    <label>Length</label>
-                    <select id="rope-s" onchange="updatePrice('rope-s', 'rope-price', 15)">
-                        <option value="18" data-add="0">18" ($15.00)</option>
-                        <option value="20" data-add="2">20" ($17.00)</option>
-                        <option value="22" data-add="4">22" ($19.00)</option>
-                        <option value="24" data-add="6">24" ($21.00)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('3mm Rope Chain', 'rope-price', 'rope-s', 'rope.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('3mm Rope Chain', 'rope-price', 'rope-s', 'rope.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-betty-pendant" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-betty-pendant')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="betty-necklace-white.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="betty-necklace-black.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Betty Boop Pendant</h2>
-                <p id="betty-pendant-price" class="product-price" style="font-size: 1.6rem;">$30.00</p>
-                <p class="modal-desc">14-18KT Gold Filled pendant and chain set. Classic vintage aesthetic that won't fade or lose its shine.</p>
-                <div class="size-selector">
-                    <label>Style</label>
-                    <select id="betty-pendant-s" onchange="updatePrice('betty-pendant-s', 'betty-pendant-price', 30)">
-                        <option value="30mm" data-add="0">Pendant & Chain ($30)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('Betty Boop Pendant', 'betty-pendant-price', 'betty-pendant-s', 'betty-necklace-white.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('Betty Boop Pendant', 'betty-pendant-price', 'betty-pendant-s', 'betty-necklace-white.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-hk-chain" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-hk-chain')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="hk-bust.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="hk-pendant.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">HK Rollie Chain</h2>
-                <p id="hk-chain-price" class="product-price" style="font-size: 1.6rem;">$60.00</p>
-                <p class="modal-desc">14-18KT Gold Filled. Thick rollie chain with an iced out HK pendant. Doesn't fade or leave green marks.</p>
-                <div class="size-selector">
-                    <label>Length</label>
-                    <select id="hk-chain-s">
-                        <option value="16" disabled>16" (Sold Out)</option>
-                        <option value="18" disabled>18" (Sold Out)</option>
-                        <option value="20" disabled>20" (Sold Out)</option>
-                    </select>
-                </div>
-                <button class="sold-out-btn-modal">Out of Stock</button>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-heart-chain" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-heart-chain')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="heart-presidential-chain.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Heart Centerpiece Chain</h2>
-                <p id="heart-chain-price" class="product-price" style="font-size: 1.6rem;">$55.00</p>
-                <p class="modal-desc">14-18KT Gold Filled presidential style links with a clear heart centerpiece. Lasts long and won't tarnish.</p>
-                <div class="size-selector">
-                    <label>Length</label>
-                    <select id="heart-chain-s">
-                        <option value="16" disabled>16" (Sold Out)</option>
-                        <option value="18" disabled>18" (Sold Out)</option>
-                        <option value="20" disabled>20" (Sold Out)</option>
-                    </select>
-                </div>
-                <button class="sold-out-btn-modal">Out of Stock</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-hk" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-hk')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="hellokitty-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">HK 2-Finger Ring</h2>
-                <p id="hk-price" class="product-price" style="font-size: 1.6rem;">$45.00</p>
-                <p class="modal-desc">14-18KT Gold Filled two-finger HK ring. Solid weight and clean details. Doesn't fade.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="hk-s" onchange="updatePrice('hk-s', 'hk-price', 45)">
-                        <option value="5" data-add="0">5</option>
-                        <option value="6" data-add="0">6</option>
-                        <option value="7" data-add="0">7</option>
-                        <option value="8" data-add="0">8</option>
-                        <option value="9" data-add="0">9</option>
-                        <option value="11" disabled>11 (Out of Stock)</option>
-                        <option value="12" disabled>12 (Out of Stock)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('HK 2-Finger Ring', 'hk-price', 'hk-s', 'hellokitty-ring.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('HK 2-Finger Ring', 'hk-price', 'hk-s', 'hellokitty-ring.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-nugget" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-nugget')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="nugget-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Nugget 2-Finger Ring</h2>
-                <p id="nugget-price" class="product-price" style="font-size: 1.6rem;">$45.00</p>
-                <p class="modal-desc">14-18KT Gold Filled classic nugget two-finger ring. Heavy weight, won't fade or leave marks.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="nugget-s" onchange="updatePrice('nugget-s', 'nugget-price', 45)">
-                        <option value="7" data-add="0">7</option>
-                        <option value="8" data-add="0">8</option>
-                        <option value="9" data-add="0">9</option>
-                        <option value="10" data-add="0">10</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('Nugget 2-Finger Ring', 'nugget-price', 'nugget-s', 'nugget-ring.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('Nugget 2-Finger Ring', 'nugget-price', 'nugget-s', 'nugget-ring.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-heart-ring" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-heart-ring')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="heart-nugget-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Halo Heart Nugget Ring</h2>
-                <p id="heart-ring-price" class="product-price" style="font-size: 1.6rem;"><span class="original-price" style="font-size: 1rem;">$55.00</span>$25.00</p>
-                <p class="modal-desc">14-18KT Gold Filled heart ring with a nugget texture and halo border. Real solid feel, won't turn fingers green.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="heart-ring-s" onchange="updatePrice('heart-ring-s', 'heart-ring-price', 25)">
-                        <option value="5" disabled>5 (Out of Stock)</option>
-                        <option value="6" data-add="0">6</option>
-                        <option value="7" data-add="0">7</option>
-                        <option value="8" data-add="0">8</option>
-                        <option value="9" data-add="0">9</option>
-                        <option value="10" data-add="0">10</option>
-                        <option value="11" disabled>11 (Out of Stock)</option>
-                        <option value="12" disabled>12 (Out of Stock)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('Halo Heart Nugget Ring', 'heart-ring-price', 'heart-ring-s', 'heart-nugget-ring.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('Halo Heart Nugget Ring', 'heart-ring-price', 'heart-ring-s', 'heart-nugget-ring.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-heart-ring-2" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-heart-ring-2')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="heart3-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Diamond-Cut Heart Ring</h2>
-                <p id="heart-ring-2-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">14-18KT Gold Filled heart ring with diamond cuts for extra shine. Doesn't fade or turn fingers green.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="heart-ring-2-s" onchange="updatePrice('heart-ring-2-s', 'heart-ring-2-price', 25)">
-                        <option value="5" disabled>5 (Out of Stock)</option>
-                        <option value="6" data-add="0">6</option>
-                        <option value="7" data-add="0">7</option>
-                        <option value="8" data-add="0">8</option>
-                        <option value="9" data-add="0">9</option>
-                        <option value="10" data-add="0">10</option>
-                        <option value="11" disabled>11 (Out of Stock)</option>
-                        <option value="12" disabled>12 (Out of Stock)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('Diamond-Cut Heart Ring', 'heart-ring-2-price', 'heart-ring-2-s', 'heart3-ring.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('Diamond-Cut Heart Ring', 'heart-ring-2-price', 'heart-ring-2-s', 'heart3-ring.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-heart-ring-3" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-heart-ring-3')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="heart1-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Solid Edge Heart Ring</h2>
-                <p id="heart-ring-3-price" class="product-price" style="font-size: 1.6rem;"><span class="original-price" style="font-size: 1rem;">$55.00</span>$25.00</p>
-                <p class="modal-desc">14-18KT Gold Filled heart ring with a solid edge and nugget center. Built heavy and clean.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="heart-ring-3-s" onchange="updatePrice('heart-ring-3-s', 'heart-ring-3-price', 25)">
-                        <option value="5" disabled>5 (Out of Stock)</option>
-                        <option value="6" data-add="0">6</option>
-                        <option value="7" data-add="0">7</option>
-                        <option value="8" data-add="0">8</option>
-                        <option value="9" data-add="0">9</option>
-                        <option value="10" data-add="0">10</option>
-                        <option value="11" disabled>11 (Out of Stock)</option>
-                        <option value="12" disabled>12 (Out of Stock)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('Solid Edge Heart Ring', 'heart-ring-3-price', 'heart-ring-3-s', 'heart1-ring.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('Solid Edge Heart Ring', 'heart-ring-3-price', 'heart-ring-3-s', 'heart1-ring.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-hk-body-ring" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-hk-body-ring')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="hk-fullbody-ring.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">HK Nugget Ring</h2>
-                <p id="hk-body-ring-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">14-18KT Gold Filled full body HK ring with a nugget texture. Made to last everyday wear.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="hk-body-ring-s" onchange="updatePrice('hk-body-ring-s', 'hk-body-ring-price', 25)">
-                        <option value="5" data-add="0">5</option>
-                        <option value="6" data-add="0">6</option>
-                        <option value="7" data-add="0">7</option>
-                        <option value="8" data-add="0">8</option>
-                        <option value="9" data-add="0">9</option>
-                        <option value="11" disabled>11 (Out of Stock)</option>
-                        <option value="12" disabled>12 (Out of Stock)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('HK Nugget Ring', 'hk-body-ring-price', 'hk-body-ring-s', 'hk-fullbody-ring.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('HK Nugget Ring', 'hk-body-ring-price', 'hk-body-ring-s', 'hk-fullbody-ring.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-hk-earrings" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-hk-earrings')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="hellokitty-earrings.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="hellokitty-earrings-box.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">HK Enamel Studs</h2>
-                <p id="hk-earrings-price" class="product-price" style="font-size: 1.6rem;">$15.00</p>
-                <p class="modal-desc">14-18KT Gold Filled HK studs with red enamel details. Safe for ears and won't turn them green.</p>
-                <div class="size-selector">
-                    <label>Style</label>
-                    <select id="hk-earrings-s" onchange="updatePrice('hk-earrings-s', 'hk-earrings-price', 15)">
-                        <option value="Standard" data-add="0">Standard Stud ($15)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('HK Enamel Studs', 'hk-earrings-price', 'hk-earrings-s', 'hellokitty-earrings.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('HK Enamel Studs', 'hk-earrings-price', 'hk-earrings-s', 'hellokitty-earrings.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-hk-velvet" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-hk-velvet')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="hk-textured-gold.png" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="hk-velvet-box.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">HK Gold Studs</h2>
-                <p id="hk-velvet-price" class="product-price" style="font-size: 1.6rem;">$10.00</p>
-                <p class="modal-desc">Solid 14-18KT Gold Filled HK studs. Comes in a velvet box. Clean shine that stays.</p>
-                <div class="size-selector">
-                    <label>Style</label>
-                    <select id="hk-velvet-s" onchange="updatePrice('hk-velvet-s', 'hk-velvet-price', 10)">
-                        <option value="Standard" data-add="0">Standard Stud ($10)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('HK Gold Studs', 'hk-velvet-price', 'hk-velvet-s', 'hk-textured-gold.png', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('HK Gold Studs', 'hk-velvet-price', 'hk-velvet-s', 'hk-textured-gold.png', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-world-earrings" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-world-earrings')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="world-is-yours-earrings.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Globe Studs</h2>
-                <p id="world-earrings-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">14-18KT Gold Filled 'The World Is Yours' studs. Clean shine, doesn't fade or rust.</p>
-                <div class="size-selector">
-                    <label>Style</label>
-                    <select id="world-earrings-s" onchange="updatePrice('world-earrings-s', 'world-earrings-price', 25)">
-                        <option value="18mm" data-add="0">18mm Stud ($25)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('Globe Studs', 'world-earrings-price', 'world-earrings-s', 'world-is-yours-earrings.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('Globe Studs', 'world-earrings-price', 'world-earrings-s', 'world-is-yours-earrings.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-heart-earrings" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-heart-earrings')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="heart-nugget-earrings.jpg" class="modal-img" onclick="openLightbox(this.src)">
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Heart Nugget Studs</h2>
-                <p id="heart-earrings-price" class="product-price" style="font-size: 1.6rem;">From $20.00</p>
-                <p class="modal-desc">14-18KT Gold Filled heart nugget studs. Perfect match for the rings. Doesn't fade.</p>
-                <div class="size-selector">
-                    <label>Size</label>
-                    <select id="heart-earrings-s" onchange="updatePrice('heart-earrings-s', 'heart-earrings-price', 20)">
-                        <option value="8mm" data-add="0">8mm ($20)</option>
-                        <option value="10mm" data-add="2">10mm ($22)</option>
-                        <option value="12mm" data-add="4">12mm ($24)</option>
-                        <option value="14mm" data-add="6">14mm ($26)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('Heart Nugget Studs', 'heart-earrings-price', 'heart-earrings-s', 'heart-nugget-earrings.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('Heart Nugget Studs', 'heart-earrings-price', 'heart-earrings-s', 'heart-nugget-earrings.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-butterfly-bracelet" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-butterfly-bracelet')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="butterfly-bracelet-main.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="butterfly-bracelet-2.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                    <img src="butterfly-bracelet-3.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                    <img src="butterfly-bracelet-4.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Butterfly Bracelet</h2>
-                <p id="butterfly-bracelet-price" class="product-price" style="font-size: 1.6rem;">$45.00</p>
-                <p class="modal-desc">14-18KT Gold Filled link bracelet with a butterfly center. Won't turn your wrist green.</p>
-                <div class="size-selector">
-                    <label>Length</label>
-                    <select id="butterfly-bracelet-s" onchange="updatePrice('butterfly-bracelet-s', 'butterfly-bracelet-price', 45)">
-                        <option value="6.5" data-add="0">6.5" ($45)</option>
-                        <option value="7" data-add="0">7.0" ($45)</option>
-                        <option value="7.5" data-add="0">7.5" ($45)</option>
-                        <option value="8" data-add="0">8.0" ($45)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('Butterfly Bracelet', 'butterfly-bracelet-price', 'butterfly-bracelet-s', 'butterfly-bracelet-main.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('Butterfly Bracelet', 'butterfly-bracelet-price', 'butterfly-bracelet-s', 'butterfly-bracelet-main.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-heart-bracelet" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-heart-bracelet')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="triple-heart-bracelet.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="heart-bracelet-angle.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                    <img src="heart-bracelet-flat.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                    <img src="heart-bracelet-clasp.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">Triple Heart Bracelet</h2>
-                <p id="heart-bracelet-price" class="product-price" style="font-size: 1.6rem;">$35.00</p>
-                <p class="modal-desc">14-18KT Gold Filled bracelet with 3 nugget hearts. Solid clasp and won't fade.</p>
-                <div class="size-selector">
-                    <label>Length</label>
-                    <select id="heart-bracelet-s" onchange="updatePrice('heart-bracelet-s', 'heart-bracelet-price', 35)">
-                        <option value="6.5" disabled>6.5" (Out of Stock)</option>
-                        <option value="7" data-add="0">7.0" ($35)</option>
-                        <option value="7.5" disabled>7.5" (Out of Stock)</option>
-                        <option value="8" disabled>8.0" (Out of Stock)</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCart('Triple Heart Bracelet', 'heart-bracelet-price', 'heart-bracelet-s', 'triple-heart-bracelet.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCart('Triple Heart Bracelet', 'heart-bracelet-price', 'heart-bracelet-s', 'triple-heart-bracelet.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>💧 Non-Tarnish</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-hk-case" class="modal">
-        <span class="close-btn" onclick="closeModal('modal-hk-case')">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-gallery">
-                <img src="hk-case-white.jpg" class="modal-img" onclick="openLightbox(this.src)">
-                <div class="thumb-container">
-                    <img src="hk-case-brown.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                    <img src="hk-case-black.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
-                </div>
-            </div>
-            <div class="modal-info">
-                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
-                <h2 class="modal-title">3D HK Silicone Case</h2>
-                <p id="hk-case-price" class="product-price" style="font-size: 1.6rem;">$20.00</p>
-                <p class="modal-desc">3D silicone HK case. Protects your phone and matches the jewelry perfectly.</p>
-                <div class="size-selector">
-                    <label>Color</label>
-                    <select id="hk-case-color">
-                        <option value="White/Pink">White / Pink</option>
-                        <option value="Brown/Blue">Mocha / Blue</option>
-                        <option value="Black/Pink">Midnight / Pink</option>
-                    </select>
-                </div>
-                <div class="size-selector">
-                    <label>Phone Model</label>
-                    <select id="hk-case-model" onchange="updatePrice('hk-case-model', 'hk-case-price', 20)">
-                        <option value="13" data-add="0">iPhone 13 / 14 / 15</option>
-                        <option value="13Pro" data-add="0">iPhone 13 Pro</option>
-                        <option value="13ProMax" data-add="0">iPhone 13 Pro Max</option>
-                        <option value="14Pro" data-add="0">iPhone 14 Pro</option>
-                        <option value="14ProMax" data-add="0">iPhone 14 Pro Max</option>
-                        <option value="15Pro" data-add="0">iPhone 15 Pro</option>
-                        <option value="15ProMax" data-add="0">iPhone 15 Pro Max</option>
-                        <option value="16" data-add="0">iPhone 16 Series</option>
-                        <option value="17" data-add="0">iPhone 17 Series</option>
-                    </select>
-                </div>
-                <div class="action-buttons">
-                    <button class="add-cart-btn" onclick="addToCartCase('3D HK Silicone Case', 'hk-case-price', 'hk-case-color', 'hk-case-model', 'hk-case-white.jpg', false)">Add To Cart</button>
-                    <button class="buy-now-btn" onclick="addToCartCase('3D HK Silicone Case', 'hk-case-price', 'hk-case-color', 'hk-case-model', 'hk-case-white.jpg', true)">Buy Now</button>
-                </div>
-                <div class="trust-badges"><span>🔒 Secure Checkout</span><span>⚡ Tracked Shipping</span></div>
             </div>
         </div>
     </div>
@@ -1244,11 +568,6 @@
             document.getElementById(id).style.display = "none"; 
         }
         
-        function switchModal(newId) {
-            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-            openModal(newId);
-        }
-
         function closeAllModals() {
             document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
             document.body.style.overflow = "auto";
@@ -1271,7 +590,7 @@
             document.getElementById(priceId).innerHTML = "$" + p + ".00";
         }
 
-        /* FILTER SYSTEM JAVASCRIPT */
+        /* FILTER SYSTEM */
         const sortFilter = document.getElementById('sortFilter');
         const stockFilter = document.getElementById('stockFilter');
         const priceFilter = document.getElementById('priceFilter');
@@ -1339,11 +658,8 @@
         stockFilter.addEventListener('change', applyFilters);
         priceFilter.addEventListener('input', applyFilters);
 
-        /* =========================================
-           CUSTOM CART LOGIC & PAYPAL INTEGRATION
-           ========================================= */
-        
-        let cart = JSON.parse(localStorage.getItem('westcoast_cart')) || [];
+        /* CART LOGIC */
+        let cart = JSON.parse(localStorage.getItem('pricepoint_cart')) || [];
 
         function toggleCart() {
             let sidebar = document.getElementById('cart-sidebar');
@@ -1358,7 +674,7 @@
             }
         }
 
-        function addToCart(name, priceId, selectId, imageSrc, isBuyNow) {
+        function addToCart(productId, name, priceId, selectId, imageSrc, isBuyNow) {
             let priceText = document.getElementById(priceId).innerText.split('$').pop().trim();
             let price = parseFloat(priceText);
             let option = '';
@@ -1366,27 +682,15 @@
                 let select = document.getElementById(selectId);
                 option = select.options[select.selectedIndex].text.split('(')[0].trim();
             }
-            cart.push({name, price, option, imageSrc});
-            updateCart();
-            closeAllModals();
-            
-            if (isBuyNow) {
-                toggleCart();
-            } else {
-                let badge = document.getElementById('cart-badge');
-                badge.style.transform = 'scale(1.5)';
-                setTimeout(() => badge.style.transform = 'scale(1)', 300);
-            }
-        }
 
-        function addToCartCase(name, priceId, colorId, modelId, imageSrc, isBuyNow) {
-            let priceText = document.getElementById(priceId).innerText.split('$').pop().trim();
-            let price = parseFloat(priceText);
-            let cSelect = document.getElementById(colorId);
-            let mSelect = document.getElementById(modelId);
-            let option = cSelect.options[cSelect.selectedIndex].text + " / " + mSelect.options[mSelect.selectedIndex].text.split('(')[0].trim();
-            
-            cart.push({name, price, option, imageSrc});
+            // Capture custom text (new feature already supported for customizable items)
+            let customText = '';
+            let customInput = document.querySelector(`#${productId} textarea, #${productId} input[type="text"]`);
+            if (customInput) {
+                customText = customInput.value.trim();
+            }
+
+            cart.push({productId, name, price, option, imageSrc, customText});
             updateCart();
             closeAllModals();
             
@@ -1405,7 +709,7 @@
         }
 
         function updateCart() {
-            localStorage.setItem('westcoast_cart', JSON.stringify(cart));
+            localStorage.setItem('pricepoint_cart', JSON.stringify(cart));
             
             let itemsHtml = '';
             let total = 0;
@@ -1413,7 +717,7 @@
             if (cart.length === 0) {
                 itemsHtml = '<p class="empty-cart-msg">Your cart is empty.</p>';
                 document.getElementById('paypal-button-container').style.display = 'none';
-                document.getElementById('billing-warning').style.display = 'none'; // HIDE WARNING IF EMPTY
+                document.getElementById('billing-warning').style.display = 'none';
             } else {
                 cart.forEach((item, i) => {
                     total += item.price;
@@ -1423,6 +727,7 @@
                             <div class="cart-item-info">
                                 <h4>${item.name}</h4>
                                 ${item.option ? `<p>${item.option}</p>` : ''}
+                                ${item.customText ? `<p><strong>Custom Text:</strong> ${item.customText}</p>` : ''}
                                 <div class="cart-price">$${item.price.toFixed(2)}</div>
                             </div>
                             <span class="remove-item" onclick="removeFromCart(${i})">&times;</span>
@@ -1430,7 +735,7 @@
                     `;
                 });
                 document.getElementById('paypal-button-container').style.display = 'block';
-                document.getElementById('billing-warning').style.display = 'block'; // SHOW WARNING WHEN READY TO PAY
+                document.getElementById('billing-warning').style.display = 'block';
             }
             
             document.getElementById('cart-items-container').innerHTML = itemsHtml;
@@ -1438,20 +743,68 @@
             document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        // INIT PAYPAL FOR THE CART
+        /* NEW ORDER HISTORY LOGIC */
+        function toggleOrderHistory() {
+            let modal = document.getElementById('modal-order-history');
+            if(modal.style.display === 'block') {
+                modal.style.display = 'none';
+                document.body.style.overflow = "auto";
+            } else {
+                updateOrderHistory(); // Refresh list before showing
+                modal.style.display = 'block';
+                modal.scrollTop = 0;
+                document.body.style.overflow = "hidden";
+            }
+        }
+
+        function updateOrderHistory() {
+            let orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
+            let container = document.getElementById('order-history-container');
+            
+            if (orders.length === 0) {
+                container.innerHTML = '<p class="empty-cart-msg">No orders found on this device.</p>';
+            } else {
+                let html = '';
+                orders.forEach(order => {
+                    html += `<div class="order-item">`;
+                    html += `<div class="order-header">`;
+                    html += `<span class="order-id">Order ID: ${order.id}</span>`;
+                    html += `<span class="order-date">${new Date(order.date).toLocaleDateString()}</span>`;
+                    html += `</div>`;
+                    
+                    order.items.forEach(item => {
+                        html += `
+                            <div class="cart-item">
+                                <img src="${item.imageSrc}">
+                                <div class="cart-item-info">
+                                    <h4>${item.name}</h4>
+                                    ${item.option ? `<p>${item.option}</p>` : ''}
+                                    ${item.customText ? `<p><strong>Custom Text:</strong> ${item.customText}</p>` : ''}
+                                    <div class="cart-price">$${item.price.toFixed(2)}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `<div class="order-total">Total: $${order.total.toFixed(2)}</div>`;
+                    html += `</div>`;
+                });
+                container.innerHTML = html;
+            }
+        }
+
+        // PAYPAL INTEGRATION
         paypal.Buttons({
             createOrder: (d, a) => {
                 let total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
                 
                 let paypalItems = cart.map(item => {
                     let itemName = item.option ? item.name + " (" + item.option + ")" : item.name;
+                    if (item.customText) itemName += ` - Text: ${item.customText}`;
                     if (itemName.length > 120) itemName = itemName.substring(0, 120);
                     return {
                         name: itemName,
-                        unit_amount: {
-                            currency_code: "USD",
-                            value: item.price.toFixed(2)
-                        },
+                        unit_amount: { currency_code: "USD", value: item.price.toFixed(2) },
                         quantity: "1"
                     };
                 });
@@ -1462,18 +815,24 @@
                         amount: { 
                             currency_code: "USD",
                             value: total,
-                            breakdown: {
-                                item_total: {
-                                    currency_code: "USD",
-                                    value: total
-                                }
-                            }
+                            breakdown: { item_total: { currency_code: "USD", value: total } }
                         },
                         items: paypalItems
                     }]
                 });
             },
             onApprove: (d, a) => a.order.capture().then(x => {
+                // NEW: RECORD THE ORDER
+                let orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
+                let total = cart.reduce((sum, item) => sum + item.price, 0);
+                orders.push({
+                    id: x.id, // PayPal Transaction ID
+                    date: new Date().toISOString(),
+                    total: total,
+                    items: cart
+                });
+                localStorage.setItem('pricepoint_orders', JSON.stringify(orders));
+                
                 alert('SUCCESS! Your order has been placed.');
                 cart = [];
                 updateCart();
@@ -1481,7 +840,6 @@
             })
         }).render('#paypal-button-container');
 
-        // INIT CART ON LOAD SO BADGE SHOWS CORRECT AMOUNT
         document.addEventListener('DOMContentLoaded', () => {
             updateCart();
         });
