@@ -466,7 +466,7 @@
                     <img src="hk-fullbody-ring.jpg" class="product-image">
                     <div class="quick-add-btn"><svg width="18" height="18"><use href="#cart-icon"></use></svg></div>
                 </div>
-                <h3 class="product-title">HK Fullbody Ring</h3>
+                <h3 class="product-title">HK Nugget Ring</h3>
                 <p class="product-price">$25.00</p>
             </div>
         </div>
@@ -567,7 +567,7 @@
             <h2>Join The Drop List</h2>
             <p>Enter your email below to get early access to new releases, limited restocks, and exclusive codes before anyone else.</p>
             
-            <form action="https://formspree.io/f/mqewqjlr" method="POST" class="vip-form">
+            <form class="vip-form ajax-vip-form">
                 <input type="email" name="email" placeholder="Enter your email address" required>
                 <button type="submit">Join List</button>
             </form>
@@ -593,7 +593,7 @@
                 <span>Total</span>
                 <span id="cart-total-price">$0.00</span>
             </div>
-            <p class="billing-warning" id="billing-warning" style="display: none;"><strong>Note:</strong> To avoid declined payments, you must enter the exact billing address linked to your card.</p>
+            <p class="billing-warning" id="billing-warning" style="display: none;">To avoid declined payments, you must enter the exact billing address linked to your card.</p>
             <div id="paypal-button-container" style="display: none;"></div>
         </div>
     </div>
@@ -1386,9 +1386,9 @@
             applyFilters();
         }
 
-        sortFilter.addEventListener('change', applyFilters);
-        stockFilter.addEventListener('change', applyFilters);
-        priceFilter.addEventListener('input', applyFilters);
+        if(sortFilter) sortFilter.addEventListener('change', applyFilters);
+        if(stockFilter) stockFilter.addEventListener('change', applyFilters);
+        if(priceFilter) priceFilter.addEventListener('input', applyFilters);
 
         /* CART LOGIC */
         let cart = JSON.parse(localStorage.getItem('pricepoint_cart')) || [];
@@ -1602,8 +1602,57 @@
             })
         }).render('#paypal-button-container');
 
+        // INJECT "YOU MAY ALSO LIKE" & VIP CAPTURE INTO ALL MODALS DYNAMICALLY
         document.addEventListener('DOMContentLoaded', () => {
             updateCart();
+
+            const modalInfos = document.querySelectorAll('.modal-info');
+            modalInfos.forEach(info => {
+                // Only inject if it's a product modal (has a trust badge section inside)
+                if(info.querySelector('.trust-badges')) {
+                    const ymlHTML = `
+                        <div class="modal-yml-section" style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">
+                            <h3 style="font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; color: var(--text-dark);">You May Also Like</h3>
+                            <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+                                <img src="hk-rope-black.jpg" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="switchModal('modal-hk-rope-new')">
+                                <img src="cuban-link.jpg" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="switchModal('modal-cuban')">
+                                <img src="world-is-yours-earrings.jpg" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="switchModal('modal-world-earrings')">
+                                <img src="hk-case-white.jpg" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="switchModal('modal-hk-case')">
+                            </div>
+                            
+                            <div class="mini-vip" style="background: #f9f9f9; padding: 15px; border-radius: 4px; text-align: center;">
+                                <p style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; color: var(--text-dark);">Get Early Access to Drops</p>
+                                <form class="ajax-vip-form" style="display: flex; gap: 5px;">
+                                    <input type="email" name="email" placeholder="Your email..." required style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; outline: none;">
+                                    <button type="submit" style="background: var(--text-dark); color: #fff; border: none; padding: 10px 15px; font-weight: 700; font-size: 0.7rem; border-radius: 4px; cursor: pointer; text-transform: uppercase;">Join</button>
+                                </form>
+                            </div>
+                        </div>
+                    `;
+                    info.insertAdjacentHTML('beforeend', ymlHTML);
+                }
+            });
+
+            // ATTACH INVISIBLE AJAX FORMSPREE SUBMISSION (NO REDIRECTS)
+            document.querySelectorAll('.ajax-vip-form').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault(); // STOPS THE PAGE FROM REDIRECTING
+                    let data = new FormData(form);
+                    fetch('https://formspree.io/f/mqewqjlr', {
+                        method: 'POST',
+                        body: data,
+                        headers: { 'Accept': 'application/json' }
+                    }).then(response => {
+                        if (response.ok) {
+                            form.innerHTML = '<p style="color: var(--gold); font-weight: 700; font-size: 0.85rem; margin: 0;">Successfully joined the drop list!</p>';
+                        } else {
+                            alert('Oops! There was a problem submitting your email.');
+                        }
+                    }).catch(error => {
+                        alert('Oops! There was a problem submitting your email.');
+                    });
+                });
+            });
         });
 
     </script>
