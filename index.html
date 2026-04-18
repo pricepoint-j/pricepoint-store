@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Westcoast Gold</title>
+    <title>Pricepoint Jewelry</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
@@ -222,14 +222,14 @@
 
     <div class="marquee-container">
         <div class="marquee-content">
-            <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>14-18KT GOLD FILLED</span> ✦ <span>WESTCOAST GOLD</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>14-18KT GOLD FILLED</span>
+            <span>PRICEPOINT JEWELRY</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>14-18KT GOLD FILLED</span> ✦ <span>PRICEPOINT JEWELRY</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>14-18KT GOLD FILLED</span>
         </div>
     </div>
 
     <nav>
         <div class="nav-container">
             <a href="#" class="logo">
-                <img src="pricepoint-logo.png" alt="Westcoast Gold" style="height: 55px; width: auto; display: block; object-fit: contain;">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" style="height: 55px; width: auto; display: block; object-fit: contain;">
             </a>
             <div class="announcement-text">
                 NON TARNISH 14-18KT GOLD FILLED 💗 WATERPROOF & FADE RESISTANT
@@ -1223,7 +1223,7 @@
 
     <footer>
         <a href="mailto:contactpricepointjewelry@gmail.com" class="footer-email">contactpricepointjewelry@gmail.com</a>
-        <p>© 2026 Westcoast Gold.</p>
+        <p>© 2026 Pricepoint Jewelry.</p>
         <a href="#" onclick="openModal('modal-tos'); return false;" class="tos-link">Terms & Conditions</a>
     </footer>
 
@@ -1377,7 +1377,6 @@
             }
         }
 
-        // Special function for the case since it has two dropdowns
         function addToCartCase(name, priceId, colorId, modelId, imageSrc, isBuyNow) {
             let priceText = document.getElementById(priceId).innerText.split('$').pop().trim();
             let price = parseFloat(priceText);
@@ -1437,17 +1436,39 @@
         }
 
         // INIT PAYPAL FOR THE CART
-        // EXPLICITLY DEFINING CURRENCY_CODE IN THE BACKEND TO PREVENT PAYPAL FORM ERRORS
+        // EXPLICITLY DEFINING CURRENCY_CODE & ITEMIZED BREAKDOWN TO PREVENT PAYPAL FORM ERRORS
         paypal.Buttons({
             createOrder: (d, a) => {
                 let total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+                
+                // Build the itemized list for PayPal receipt
+                let paypalItems = cart.map(item => {
+                    let itemName = item.option ? item.name + " (" + item.option + ")" : item.name;
+                    if (itemName.length > 120) itemName = itemName.substring(0, 120);
+                    return {
+                        name: itemName,
+                        unit_amount: {
+                            currency_code: "USD",
+                            value: item.price.toFixed(2)
+                        },
+                        quantity: "1"
+                    };
+                });
+
                 return a.order.create({
                     purchase_units: [{
-                        description: "Westcoast Gold Order",
+                        description: "Pricepoint Jewelry Order",
                         amount: { 
                             currency_code: "USD",
-                            value: total 
-                        }
+                            value: total,
+                            breakdown: {
+                                item_total: {
+                                    currency_code: "USD",
+                                    value: total
+                                }
+                            }
+                        },
+                        items: paypalItems
                     }]
                 });
             },
