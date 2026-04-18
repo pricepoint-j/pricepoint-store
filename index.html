@@ -157,7 +157,7 @@
         .sold-out-btn-modal { background: #eee !important; color: #888 !important; cursor: not-allowed !important; padding: 16px; width: 100%; border: none; border-radius: 4px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; }
 
         /* =========================================
-           SLIDING CART UI
+           SLIDING CART UI (FIXED SCROLLING FOR PAYPAL)
            ========================================= */
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: 0.3s; }
         
@@ -1504,7 +1504,7 @@
             document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        /* NEW ORDER HISTORY LOGIC */
+        /* ORDER HISTORY LOGIC */
         function toggleOrderHistory() {
             let modal = document.getElementById('modal-order-history');
             if(modal.style.display === 'block') {
@@ -1553,39 +1553,25 @@
             }
         }
 
-        // PAYPAL INTEGRATION WITH BULLETPROOF ERROR HANDLING
+        // PAYPAL INTEGRATION: REVERTED TO DIRECT MAPPING TO PREVENT FATAL API CLOSURES
         paypal.Buttons({
             createOrder: (d, a) => {
                 let total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
                 
-                // Group identical items and sanitize text to prevent PayPal API crashes
-                let itemCounts = {};
-                cart.forEach(item => {
-                    let name = item.option ? item.name + " (" + item.option + ")" : item.name;
-                    if (item.customText) name += ` - ${item.customText}`;
-                    
-                    // Strip weird symbols that crash PayPal API
-                    name = name.substring(0, 120).replace(/[^a-zA-Z0-9 \-\(\)\.]/g, "");
-                    
-                    let key = name + "|" + item.price;
-                    if(itemCounts[key]) {
-                        itemCounts[key].qty += 1;
-                    } else {
-                        itemCounts[key] = { name: name, price: item.price, qty: 1 };
-                    }
-                });
-
-                let paypalItems = Object.values(itemCounts).map(obj => {
+                let paypalItems = cart.map(item => {
+                    let itemName = item.name;
+                    if (item.option) itemName += " - " + item.option;
+                    if (item.customText) itemName += " - " + item.customText;
                     return {
-                        name: obj.name,
-                        unit_amount: { currency_code: "USD", value: obj.price.toFixed(2) },
-                        quantity: obj.qty.toString()
+                        name: itemName.substring(0, 120),
+                        unit_amount: { currency_code: "USD", value: item.price.toFixed(2) },
+                        quantity: "1"
                     };
                 });
 
                 return a.order.create({
                     purchase_units: [{
-                        description: "Pricepoint Jewelry",
+                        description: "Pricepoint Jewelry Order",
                         amount: { 
                             currency_code: "USD",
                             value: total,
@@ -1596,7 +1582,6 @@
                 });
             },
             onApprove: (d, a) => a.order.capture().then(x => {
-                // RECORD THE ORDER
                 let orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
                 let total = cart.reduce((sum, item) => sum + item.price, 0);
                 orders.push({
@@ -1611,14 +1596,10 @@
                 cart = [];
                 updateCart();
                 toggleCart();
-            }),
-            onError: function (err) {
-                console.error("PayPal Error:", err);
-                alert("PayPal checkout was blocked. If you are testing this from your local computer files, upload it to your live server first. Also, make sure you are not trying to pay using the exact same PayPal account or card connected to your business.");
-            }
+            })
         }).render('#paypal-button-container');
 
-        // INJECT "YOU MAY ALSO LIKE" & VIP CAPTURE INTO ALL MODALS DYNAMICALLY
+        // INJECT "YOU MAY ALSO LIKE" & VIP CAPTURE DYNAMICALLY
         document.addEventListener('DOMContentLoaded', () => {
             updateCart();
 
@@ -1661,11 +1642,7 @@
                     }).then(response => {
                         if (response.ok) {
                             form.innerHTML = '<p style="color: var(--gold); font-weight: 700; font-size: 0.85rem; margin: 0;">Successfully joined the drop list!</p>';
-                        } else {
-                            alert('Oops! There was a problem submitting your email.');
                         }
-                    }).catch(error => {
-                        alert('Oops! There was a problem submitting your email.');
                     });
                 });
             });
