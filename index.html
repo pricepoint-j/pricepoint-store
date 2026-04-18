@@ -1504,7 +1504,7 @@
             document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        /* ORDER HISTORY LOGIC */
+        /* NEW ORDER HISTORY LOGIC */
         function toggleOrderHistory() {
             let modal = document.getElementById('modal-order-history');
             if(modal.style.display === 'block') {
@@ -1553,37 +1553,50 @@
             }
         }
 
-        // BULLETPROOF PAYPAL MATH ENGINE
+        // PAYPAL INTEGRATION WITH BULLETPROOF ERROR HANDLING
         paypal.Buttons({
             createOrder: (d, a) => {
-                let totalFloat = 0;
-                let paypalItems = cart.map(item => {
-                    totalFloat += item.price;
-                    let itemName = item.option ? item.name + " (" + item.option + ")" : item.name;
-                    if (item.customText) itemName += ` - Text: ${item.customText}`;
-                    if (itemName.length > 120) itemName = itemName.substring(0, 120);
+                let total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+                
+                // Group identical items and sanitize text to prevent PayPal API crashes
+                let itemCounts = {};
+                cart.forEach(item => {
+                    let name = item.option ? item.name + " (" + item.option + ")" : item.name;
+                    if (item.customText) name += ` - ${item.customText}`;
+                    
+                    // Strip weird symbols that crash PayPal API
+                    name = name.substring(0, 120).replace(/[^a-zA-Z0-9 \-\(\)\.]/g, "");
+                    
+                    let key = name + "|" + item.price;
+                    if(itemCounts[key]) {
+                        itemCounts[key].qty += 1;
+                    } else {
+                        itemCounts[key] = { name: name, price: item.price, qty: 1 };
+                    }
+                });
+
+                let paypalItems = Object.values(itemCounts).map(obj => {
                     return {
-                        name: itemName,
-                        unit_amount: { currency_code: "USD", value: item.price.toFixed(2) },
-                        quantity: "1"
+                        name: obj.name,
+                        unit_amount: { currency_code: "USD", value: obj.price.toFixed(2) },
+                        quantity: obj.qty.toString()
                     };
                 });
 
-                let totalString = totalFloat.toFixed(2);
-
                 return a.order.create({
                     purchase_units: [{
-                        description: "Pricepoint Jewelry Order",
+                        description: "Pricepoint Jewelry",
                         amount: { 
                             currency_code: "USD",
-                            value: totalString,
-                            breakdown: { item_total: { currency_code: "USD", value: totalString } }
+                            value: total,
+                            breakdown: { item_total: { currency_code: "USD", value: total } }
                         },
                         items: paypalItems
                     }]
                 });
             },
             onApprove: (d, a) => a.order.capture().then(x => {
+                // RECORD THE ORDER
                 let orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
                 let total = cart.reduce((sum, item) => sum + item.price, 0);
                 orders.push({
@@ -1601,11 +1614,11 @@
             }),
             onError: function (err) {
                 console.error("PayPal Error:", err);
-                alert("PayPal security check blocked this test. Remember: You cannot test the checkout using the same debit card or PayPal account connected to your own store.");
+                alert("PayPal checkout was blocked. If you are testing this from your local computer files, upload it to your live server first. Also, make sure you are not trying to pay using the exact same PayPal account or card connected to your business.");
             }
         }).render('#paypal-button-container');
 
-        // INJECT "YOU MAY ALSO LIKE" & VIP CAPTURE DYNAMICALLY
+        // INJECT "YOU MAY ALSO LIKE" & VIP CAPTURE INTO ALL MODALS DYNAMICALLY
         document.addEventListener('DOMContentLoaded', () => {
             updateCart();
 
@@ -1636,6 +1649,7 @@
                 }
             });
 
+            // ATTACH INVISIBLE AJAX FORMSPREE SUBMISSION
             document.querySelectorAll('.ajax-vip-form').forEach(form => {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
