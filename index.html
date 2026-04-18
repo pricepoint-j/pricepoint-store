@@ -163,6 +163,9 @@
         
         .cart-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 900; color: var(--text-dark); margin-bottom: 15px; text-transform: uppercase; }
         .empty-cart-msg { text-align: center; color: var(--text-muted); margin-top: 50px; font-weight: 600; }
+        
+        /* NEW BILLING WARNING CSS */
+        .billing-warning { font-size: 0.65rem; color: #d9534f; text-align: center; margin-bottom: 15px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.4; }
 
         #lightbox { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
         #lightbox img { max-width: 95%; max-height: 95%; border-radius: 4px; }
@@ -551,6 +554,7 @@
                 <span>Total</span>
                 <span id="cart-total-price">$0.00</span>
             </div>
+            <p class="billing-warning" id="billing-warning" style="display: none;">⚠️ <strong>Note:</strong> To avoid declined payments, you must enter the exact billing address linked to your card.</p>
             <div id="paypal-button-container" style="display: none;"></div>
         </div>
     </div>
@@ -1337,10 +1341,8 @@
 
         /* =========================================
            CUSTOM CART LOGIC & PAYPAL INTEGRATION
-           (UPGRADED WITH LOCAL STORAGE PERSISTENCE)
            ========================================= */
         
-        // PULL CART FROM BROWSER MEMORY SO IT DOES NOT DELETE ON REFRESH
         let cart = JSON.parse(localStorage.getItem('westcoast_cart')) || [];
 
         function toggleCart() {
@@ -1403,7 +1405,6 @@
         }
 
         function updateCart() {
-            // SAVE CART TO BROWSER MEMORY
             localStorage.setItem('westcoast_cart', JSON.stringify(cart));
             
             let itemsHtml = '';
@@ -1412,6 +1413,7 @@
             if (cart.length === 0) {
                 itemsHtml = '<p class="empty-cart-msg">Your cart is empty.</p>';
                 document.getElementById('paypal-button-container').style.display = 'none';
+                document.getElementById('billing-warning').style.display = 'none'; // HIDE WARNING IF EMPTY
             } else {
                 cart.forEach((item, i) => {
                     total += item.price;
@@ -1428,6 +1430,7 @@
                     `;
                 });
                 document.getElementById('paypal-button-container').style.display = 'block';
+                document.getElementById('billing-warning').style.display = 'block'; // SHOW WARNING WHEN READY TO PAY
             }
             
             document.getElementById('cart-items-container').innerHTML = itemsHtml;
@@ -1436,12 +1439,10 @@
         }
 
         // INIT PAYPAL FOR THE CART
-        // EXPLICITLY DEFINING CURRENCY_CODE & ITEMIZED BREAKDOWN TO PREVENT PAYPAL FORM ERRORS
         paypal.Buttons({
             createOrder: (d, a) => {
                 let total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
                 
-                // Build the itemized list for PayPal receipt
                 let paypalItems = cart.map(item => {
                     let itemName = item.option ? item.name + " (" + item.option + ")" : item.name;
                     if (itemName.length > 120) itemName = itemName.substring(0, 120);
