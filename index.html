@@ -1462,7 +1462,6 @@
             
             if (isBuyNow) {
                 toggleCart();
-                // Auto trigger checkout if they clicked Buy Now
                 setTimeout(initStripeCheckout, 400); 
             } else {
                 let badge = document.getElementById('cart-badge');
@@ -1504,8 +1503,6 @@
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCart();
-            
-            // If they empty the cart while in checkout view, kick them back
             if(cart.length === 0 && document.getElementById('checkout-view-container').style.display === 'flex') {
                 backToCart();
             }
@@ -1544,7 +1541,7 @@
             document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        /* NEW STRIPE ELEMENTS LOGIC */
+        /* NEW STRIPE ELEMENTS LOGIC (WITH DIAGNOSTIC) */
         function backToCart() {
             document.getElementById('checkout-view-container').style.display = 'none';
             document.getElementById('cart-view-container').style.display = 'flex';
@@ -1557,21 +1554,29 @@
             btn.disabled = true;
 
             try {
-                // Call your Railway backend
                 const response = await fetch('/create-payment-intent', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ cart: cart })
                 });
                 
-                const { clientSecret, error } = await response.json();
+                let data;
+                const text = await response.text(); 
                 
-                if (error) {
-                    alert(error);
+                try {
+                    data = JSON.parse(text); 
+                } catch (parseErr) {
+                    throw new Error("Server returned HTML instead of secure data. Your server.js is likely disconnected or misconfigured. RAW HTML RESPONSE: " + text.substring(0, 150) + "...");
+                }
+                
+                if (data.error) {
+                    alert("STRIPE BACKEND ERROR: " + data.error);
                     btn.innerHTML = '<svg width="18" height="18"><use href="#lock-icon"></use></svg> Secure Checkout';
                     btn.disabled = false;
                     return;
                 }
+                
+                const clientSecret = data.clientSecret;
                 
                 // Switch the UI 
                 document.getElementById('cart-view-container').style.display = 'none';
@@ -1594,14 +1599,12 @@
                 
                 elements = stripe.elements({ appearance, clientSecret });
 
-                // 1. Mount the Address Element so you know where to ship
                 const addressElement = elements.create("address", {
                     mode: "shipping",
-                    allowedCountries: ['US', 'CA', 'GB', 'AU'], // Add countries you ship to
+                    allowedCountries: ['US', 'CA', 'GB', 'AU'], 
                 });
                 addressElement.mount("#shipping-address-element");
 
-                // 2. Mount the Credit Card Element
                 const paymentElementOptions = { layout: "tabs" };
                 const paymentElement = elements.create("payment", paymentElementOptions);
                 paymentElement.mount("#payment-element");
@@ -1610,8 +1613,8 @@
                 btn.disabled = false;
 
             } catch (err) {
-                console.error("Error:", err);
-                alert("Checkout failed to load. Make sure your Railway backend is running.");
+                console.error("Exact Error:", err);
+                alert("DIAGNOSTIC ERROR: " + err.message);
                 btn.innerHTML = '<svg width="18" height="18"><use href="#lock-icon"></use></svg> Secure Checkout';
                 btn.disabled = false;
             }
@@ -1627,7 +1630,6 @@
             const { error } = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
-                    // Stripe will automatically redirect here upon success
                     return_url: window.location.origin + "/?success=true",
                 },
             });
@@ -1709,55 +1711,6 @@
                 });
             });
         });
-
-        /* ORDER HISTORY LOGIC */
-        function toggleOrderHistory() {
-            let modal = document.getElementById('modal-order-history');
-            if(modal.style.display === 'block') {
-                modal.style.display = 'none';
-                document.body.style.overflow = "auto";
-            } else {
-                updateOrderHistory(); 
-                modal.style.display = 'block';
-                modal.scrollTop = 0;
-                document.body.style.overflow = "hidden";
-            }
-        }
-
-        function updateOrderHistory() {
-            let orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
-            let container = document.getElementById('order-history-container');
-            
-            if (orders.length === 0) {
-                container.innerHTML = '<p class="empty-cart-msg">No orders found on this device.</p>';
-            } else {
-                let html = '';
-                orders.forEach(order => {
-                    html += `<div class="order-item">`;
-                    html += `<div class="order-header" style="display:flex; justify-content:space-between; margin-bottom:10px;">`;
-                    html += `<span class="order-id">Order ID: ${order.id}</span>`;
-                    html += `<span class="order-date">${new Date(order.date).toLocaleDateString()}</span>`;
-                    html += `</div>`;
-                    
-                    order.items.forEach(item => {
-                        html += `
-                            <div class="cart-item" style="border:none; padding-bottom:5px;">
-                                <img src="${item.imageSrc}" style="width:50px; height:50px;">
-                                <div class="cart-item-info">
-                                    <h4 style="font-size:0.75rem;">${item.name}</h4>
-                                    ${item.option ? `<p style="font-size:0.65rem;">${item.option}</p>` : ''}
-                                    ${item.customText ? `<p style="font-size:0.65rem;"><strong>Custom Text:</strong> ${item.customText}</p>` : ''}
-                                </div>
-                            </div>
-                        `;
-                    });
-                    
-                    html += `<div class="order-total">Total: $${order.total.toFixed(2)}</div>`;
-                    html += `</div>`;
-                });
-                container.innerHTML = html;
-            }
-        }
     </script>
 </body>
 </html>
