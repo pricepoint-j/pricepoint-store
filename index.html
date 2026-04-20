@@ -14,7 +14,7 @@
       gtag('config', 'G-YOUR_MEASUREMENT_ID');
     </script>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=AV_4HlrgyD0Bc8vVhHoc30VpXeWcwHDXtyCddTkjDyvcu82fHY8T0enBh4E4ESUlfatJ83BB6Y7Kykt-&currency=USD"></script>
+    <script src="https://js.stripe.com/v3/"></script>
 
     <style>
         :root { 
@@ -157,7 +157,7 @@
         .sold-out-btn-modal { background: #eee !important; color: #888 !important; cursor: not-allowed !important; padding: 16px; width: 100%; border: none; border-radius: 4px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; }
 
         /* =========================================
-           SLIDING CART UI (FIXED SCROLLING FOR PAYPAL)
+           SLIDING CART UI
            ========================================= */
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: 0.3s; }
         
@@ -180,8 +180,9 @@
         .cart-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 900; color: var(--text-dark); margin-bottom: 15px; text-transform: uppercase; }
         .empty-cart-msg { text-align: center; color: var(--text-muted); margin-top: 50px; font-weight: 600; }
         
-        /* CLEAN BILLING WARNING CSS */
-        .billing-warning { font-size: 0.7rem; color: var(--text-dark); text-align: center; margin-bottom: 15px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.4; padding: 10px; background: #eee; border-radius: 4px; }
+        /* STRIPE CHECKOUT BUTTON */
+        .stripe-checkout-btn { width: 100%; padding: 18px; background: #635bff; color: #fff; border: none; border-radius: 4px; font-weight: 700; font-size: 0.9rem; font-family: 'Montserrat', sans-serif; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
+        .stripe-checkout-btn:hover { background: #000; }
 
         /* MODAL ORDER HISTORY CSS */
         #modal-order-history .order-item { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
@@ -591,8 +592,7 @@
                 <span>Total</span>
                 <span id="cart-total-price">$0.00</span>
             </div>
-            <p class="billing-warning" id="billing-warning" style="display: none;">To avoid declined payments, you must enter the exact billing address linked to your card.</p>
-            <div id="paypal-button-container" style="display: none;"></div>
+            <button id="stripe-checkout-btn" class="stripe-checkout-btn" style="display: none;">Checkout with Stripe</button>
         </div>
     </div>
 
@@ -607,7 +607,6 @@
             </div>
         </div>
     </div>
-
 
     <div id="modal-chopper" class="modal">
         <span class="close-btn" onclick="closeModal('modal-chopper')">&times;</span>
@@ -1268,7 +1267,7 @@
             <div style="font-size: 0.85rem; color: #555; line-height: 1.6;">
                 <p><strong>1. Sales are Final:</strong> All sales are final. We don't do returns if you pick the wrong size or change your mind.</p><br>
                 <p><strong>2. Shipping & Lost Packages:</strong> If the tracking number says your package was delivered, we are not legally responsible if it gets lost or stolen from your porch. Make sure your shipping address is secure.</p><br>
-                <p><strong>3. Fake Chargebacks:</strong> If you receive your item and file a fake chargeback with your bank or PayPal saying you didn't, we will submit your IP address, order history, and tracking delivery confirmation to dispute it.</p><br>
+                <p><strong>3. Fake Chargebacks:</strong> If you receive your item and file a fake chargeback with your bank or credit card saying you didn't, we will submit your IP address, order history, and tracking delivery confirmation to dispute it.</p><br>
                 <p><strong>4. Stock Issues:</strong> If you buy something and it sells out from our vendor before we can update the site, we will send you a full refund right away.</p>
             </div>
         </div>
@@ -1477,7 +1476,7 @@
             
             if (cart.length === 0) {
                 itemsHtml = '<p class="empty-cart-msg">Your cart is empty.</p>';
-                document.getElementById('paypal-button-container').style.display = 'none';
+                document.getElementById('stripe-checkout-btn').style.display = 'none';
                 document.getElementById('billing-warning').style.display = 'none';
             } else {
                 cart.forEach((item, i) => {
@@ -1495,7 +1494,7 @@
                         </div>
                     `;
                 });
-                document.getElementById('paypal-button-container').style.display = 'block';
+                document.getElementById('stripe-checkout-btn').style.display = 'block';
                 document.getElementById('billing-warning').style.display = 'block';
             }
             
@@ -1504,7 +1503,7 @@
             document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        /* ORDER HISTORY LOGIC */
+        /* NEW ORDER HISTORY LOGIC */
         function toggleOrderHistory() {
             let modal = document.getElementById('modal-order-history');
             if(modal.style.display === 'block') {
@@ -1553,56 +1552,68 @@
             }
         }
 
-        // PAYPAL INTEGRATION: REVERTED TO DIRECT MAPPING TO PREVENT FATAL API CLOSURES
-        paypal.Buttons({
-            createOrder: (d, a) => {
-                let total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
-                
-                let paypalItems = cart.map(item => {
-                    let itemName = item.name;
-                    if (item.option) itemName += " - " + item.option;
-                    if (item.customText) itemName += " - " + item.customText;
-                    return {
-                        name: itemName.substring(0, 120),
-                        unit_amount: { currency_code: "USD", value: item.price.toFixed(2) },
-                        quantity: "1"
-                    };
-                });
+        // STRIPE INTEGRATION: SEND CART TO YOUR NEW SECURE BACKEND
+        const stripeBtn = document.getElementById('stripe-checkout-btn');
+        if (stripeBtn) {
+            stripeBtn.addEventListener('click', async () => {
+                stripeBtn.innerHTML = 'Loading...';
+                stripeBtn.disabled = true;
 
-                return a.order.create({
-                    purchase_units: [{
-                        description: "Pricepoint Jewelry Order",
-                        amount: { 
-                            currency_code: "USD",
-                            value: total,
-                            breakdown: { item_total: { currency_code: "USD", value: total } }
-                        },
-                        items: paypalItems
-                    }]
-                });
-            },
-            onApprove: (d, a) => a.order.capture().then(x => {
+                try {
+                    const response = await fetch('/create-checkout-session', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ cart: cart })
+                    });
+                    
+                    const session = await response.json();
+                    
+                    if (session.error) {
+                        alert(session.error);
+                        stripeBtn.innerHTML = 'Checkout with Stripe';
+                        stripeBtn.disabled = false;
+                        return;
+                    }
+                    
+                    // Redirects customer to secure Stripe payment page
+                    window.location.href = session.url; 
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("Checkout failed to load. Make sure your Railway server is running.");
+                    stripeBtn.innerHTML = 'Checkout with Stripe';
+                    stripeBtn.disabled = false;
+                }
+            });
+        }
+
+        // HANDLE SUCCESS REDIRECT FROM STRIPE
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.location.search.includes('success=true')) {
+                // Record the order to local history
                 let orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
                 let total = cart.reduce((sum, item) => sum + item.price, 0);
-                orders.push({
-                    id: x.id, 
-                    date: new Date().toISOString(),
-                    total: total,
-                    items: cart
-                });
-                localStorage.setItem('pricepoint_orders', JSON.stringify(orders));
+                if(cart.length > 0) {
+                    orders.push({
+                        id: "Stripe-" + Math.floor(Math.random() * 1000000), 
+                        date: new Date().toISOString(),
+                        total: total,
+                        items: cart
+                    });
+                    localStorage.setItem('pricepoint_orders', JSON.stringify(orders));
+                }
                 
                 alert('SUCCESS! Your order has been placed.');
+                
+                // Clear the cart
                 cart = [];
-                updateCart();
-                toggleCart();
-            })
-        }).render('#paypal-button-container');
-
-        // INJECT "YOU MAY ALSO LIKE" & VIP CAPTURE DYNAMICALLY
-        document.addEventListener('DOMContentLoaded', () => {
+                localStorage.removeItem('pricepoint_cart');
+                
+                // Clean up the URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
             updateCart();
 
+            // INJECT "YOU MAY ALSO LIKE" & VIP CAPTURE DYNAMICALLY
             const modalInfos = document.querySelectorAll('.modal-info');
             modalInfos.forEach(info => {
                 if(info.querySelector('.trust-badges') && !info.classList.contains('vip-injected')) {
