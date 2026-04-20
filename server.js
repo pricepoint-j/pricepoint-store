@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-// Railway will securely inject your Secret Key here later
+// Railway securely injects your hidden Secret Key here
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); 
 
 const app = express();
@@ -8,38 +8,38 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.')); // Serves your index.html file
 
-app.post('/create-checkout-session', async (req, res) => {
+app.post('/create-payment-intent', async (req, res) => {
     const { cart } = req.body;
 
     try {
-        // Build the itemized list for the Stripe receipt
-        const lineItems = cart.map(item => {
-            let itemName = item.option ? `${item.name} (${item.option})` : item.name;
-            if (item.customText) itemName += ` - Text: ${item.customText}`;
+        let totalCents = 0;
+        let orderSummary = "";
 
-            return {
-                price_data: {
-                    currency: 'usd',
-                    product_data: { 
-                        name: itemName.substring(0, 250) // Stripe character limit
-                    },
-                    unit_amount: Math.round(item.price * 100), // Stripe reads prices in cents ($25.00 = 2500)
-                },
-                quantity: 1,
-            };
+        // Calculates exact math and builds the itemized receipt for your Stripe dashboard
+        cart.forEach((item, index) => {
+            totalCents += Math.round(item.price * 100);
+            let details = item.option ? `(${item.option})` : '';
+            if (item.customText) details += ` [Text: ${item.customText}]`;
+            orderSummary += `${index + 1}. ${item.name} ${details} | `;
         });
 
-        // Create the Stripe Checkout Session
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            mode: 'payment',
-            line_items: lineItems,
-            // Automatically redirects them back to your site after paying
-            success_url: `${req.headers.origin}/?success=true`,
-            cancel_url: `${req.headers.origin}/?canceled=true`,
+        // Stripe has a 500-character limit for metadata, this trims it safely if they buy 20 things
+        if (orderSummary.length > 500) {
+            orderSummary = orderSummary.substring(0, 497) + "...";
+        }
+
+        // Whispers to Stripe to lock in the payment amount and attach the order details
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: totalCents,
+            currency: 'usd',
+            description: 'Pricepoint Jewelry Order',
+            metadata: {
+                exact_order_details: orderSummary
+            }
         });
 
-        res.json({ url: session.url });
+        // Sends the green light back to the frontend to open the card box
+        res.json({ clientSecret: paymentIntent.client_secret });
     } catch (e) {
         console.error("Stripe Backend Error:", e);
         res.status(500).json({ error: e.message });
