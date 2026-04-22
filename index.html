@@ -599,7 +599,7 @@
         
         <div id="cart-view-container" class="cart-view-container">
             <div id="cart-items-container" style="flex: 1; display: flex; flex-direction: column; gap: 15px;">
-                <p class="empty-cart-msg">Your cart is empty.</p>
+                <p class="empty-cart-msg">Your cart is looking a little light.</p>
             </div>
             <div class="cart-footer">
                 <div class="cart-total">
@@ -1432,8 +1432,15 @@
         if(stockFilter) stockFilter.addEventListener('change', applyFilters);
         if(priceFilter) priceFilter.addEventListener('input', applyFilters);
 
-        /* CART LOGIC */
-        let cart = JSON.parse(localStorage.getItem('pricepoint_cart')) || [];
+        /* SAFE CART LOGIC */
+        let cart = [];
+        try {
+            cart = JSON.parse(localStorage.getItem('pricepoint_cart')) || [];
+            if (!Array.isArray(cart)) cart = [];
+        } catch(e) {
+            cart = [];
+            localStorage.removeItem('pricepoint_cart');
+        }
 
         function toggleCart() {
             let sidebar = document.getElementById('cart-sidebar');
@@ -1473,8 +1480,7 @@
             
             if (isBuyNow) {
                 toggleCart();
-                // Auto trigger checkout if they clicked Buy Now
-                setTimeout(initStripeCheckout, 400); 
+                // NO MORE AUTO CHECKOUT. They must review cart first.
             } else {
                 let badge = document.getElementById('cart-badge');
                 badge.style.transform = 'scale(1.5)';
@@ -1504,7 +1510,6 @@
             
             if (isBuyNow) {
                 toggleCart();
-                setTimeout(initStripeCheckout, 400);
             } else {
                 let badge = document.getElementById('cart-badge');
                 badge.style.transform = 'scale(1.5)';
@@ -1529,7 +1534,7 @@
             let total = 0;
             
             if (cart.length === 0) {
-                itemsHtml = '<p class="empty-cart-msg">Your cart is empty.</p>';
+                itemsHtml = '<p class="empty-cart-msg">Your cart is looking a little light.</p>';
                 document.getElementById('proceed-checkout-btn').style.display = 'none';
             } else {
                 cart.forEach((item, i) => {
@@ -1555,7 +1560,7 @@
             document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        /* NEW STRIPE ELEMENTS LOGIC (WITH DIAGNOSTIC) */
+        /* STRIPE ELEMENTS LOGIC */
         function backToCart() {
             document.getElementById('checkout-view-container').style.display = 'none';
             document.getElementById('cart-view-container').style.display = 'flex';
@@ -1580,11 +1585,11 @@
                 try {
                     data = JSON.parse(text); 
                 } catch (parseErr) {
-                    throw new Error("Server returned HTML instead of secure data. Your server.js is likely disconnected or misconfigured. RAW HTML RESPONSE: " + text.substring(0, 150) + "...");
+                    throw new Error("Server connection lost. Try refreshing the page.");
                 }
                 
                 if (data.error) {
-                    alert("STRIPE BACKEND ERROR: " + data.error);
+                    alert("CHECKOUT ERROR: " + data.error);
                     btn.innerHTML = '<svg width="18" height="18"><use href="#lock-icon"></use></svg> Secure Checkout';
                     btn.disabled = false;
                     return;
@@ -1627,8 +1632,8 @@
                 btn.disabled = false;
 
             } catch (err) {
-                console.error("Exact Error:", err);
-                alert("DIAGNOSTIC ERROR: " + err.message);
+                console.error("Error:", err);
+                alert(err.message);
                 btn.innerHTML = '<svg width="18" height="18"><use href="#lock-icon"></use></svg> Secure Checkout';
                 btn.disabled = false;
             }
@@ -1657,10 +1662,77 @@
             }
         });
 
+        // ORDER HISTORY SAFE VAULT
+        function updateOrderHistory() {
+            let orders = [];
+            try {
+                orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
+                if (!Array.isArray(orders)) orders = [];
+            } catch (e) {
+                // If old paypal data corrupted the vault, this completely cleans it so it stops crashing
+                orders = [];
+                localStorage.removeItem('pricepoint_orders');
+            }
+
+            let container = document.getElementById('order-history-container');
+            
+            if (orders.length === 0) {
+                container.innerHTML = '<p class="empty-cart-msg">No orders found on this device.</p>';
+            } else {
+                let html = '';
+                orders.forEach(order => {
+                    html += `<div class="order-item">`;
+                    html += `<div class="order-header" style="display:flex; justify-content:space-between; margin-bottom:10px;">`;
+                    html += `<span class="order-id">Order ID: ${order.id}</span>`;
+                    html += `<span class="order-date">${new Date(order.date).toLocaleDateString()}</span>`;
+                    html += `</div>`;
+                    
+                    order.items.forEach(item => {
+                        html += `
+                            <div class="cart-item" style="border:none; padding-bottom:5px;">
+                                <img src="${item.imageSrc}" style="width:50px; height:50px;">
+                                <div class="cart-item-info">
+                                    <h4 style="font-size:0.75rem;">${item.name}</h4>
+                                    ${item.option ? `<p style="font-size:0.65rem;">${item.option}</p>` : ''}
+                                    ${item.customText ? `<p style="font-size:0.65rem;"><strong>Custom Text:</strong> ${item.customText}</p>` : ''}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    // Failsafe in case total is null
+                    let t = order.total ? order.total.toFixed(2) : "0.00";
+                    html += `<div class="order-total">Total: $${t}</div>`;
+                    html += `</div>`;
+                });
+                container.innerHTML = html;
+            }
+        }
+
+        function toggleOrderHistory() {
+            let modal = document.getElementById('modal-order-history');
+            if(modal.style.display === 'block') {
+                modal.style.display = 'none';
+                document.body.style.overflow = "auto";
+            } else {
+                updateOrderHistory(); 
+                modal.style.display = 'block';
+                modal.scrollTop = 0;
+                document.body.style.overflow = "hidden";
+            }
+        }
+
         // HANDLE PREMIUM SUCCESS REDIRECT FROM STRIPE
         document.addEventListener('DOMContentLoaded', () => {
             if (window.location.search.includes('success=true')) {
-                let orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
+                let orders = [];
+                try {
+                    orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
+                    if (!Array.isArray(orders)) orders = [];
+                } catch(e) {
+                    orders = [];
+                }
+
                 let total = cart.reduce((sum, item) => sum + item.price, 0);
                 if(cart.length > 0) {
                     orders.push({
@@ -1672,7 +1744,6 @@
                     localStorage.setItem('pricepoint_orders', JSON.stringify(orders));
                 }
                 
-                // Show the new premium HTML Success Modal instead of ugly browser alert
                 document.getElementById('success-modal').style.display = 'flex';
                 
                 cart = [];
@@ -1688,7 +1759,7 @@
                     info.classList.add('vip-injected');
                     const ymlHTML = `
                         <div class="modal-yml-section" style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">
-                            <h3 style="font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; color: var(--text-dark);">You May Also Like</h3>
+                            <h3 style="font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; color: var(--text-dark);">Complete The Fit</h3>
                             <div style="display: flex; gap: 10px; margin-bottom: 30px;">
                                 <img src="hk-rope-black.jpg" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="switchModal('modal-hk-rope-new')">
                                 <img src="cuban-link.jpg" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="switchModal('modal-cuban')">
