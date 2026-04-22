@@ -1443,6 +1443,7 @@
                 overlay.style.opacity = '0';
                 setTimeout(() => overlay.style.display = 'none', 300);
             } else {
+                if (typeof backToCart === "function") backToCart(); // RESET VIEW TO CART
                 overlay.style.display = 'block';
                 setTimeout(() => { overlay.style.opacity = '1'; sidebar.style.right = '0px'; }, 10);
             }
@@ -1472,8 +1473,6 @@
             
             if (isBuyNow) {
                 toggleCart();
-                // Auto trigger checkout if they clicked Buy Now
-                setTimeout(initStripeCheckout, 400); 
             } else {
                 let badge = document.getElementById('cart-badge');
                 badge.style.transform = 'scale(1.5)';
@@ -1503,7 +1502,6 @@
             
             if (isBuyNow) {
                 toggleCart();
-                setTimeout(initStripeCheckout, 400);
             } else {
                 let badge = document.getElementById('cart-badge');
                 badge.style.transform = 'scale(1.5)';
@@ -1554,7 +1552,7 @@
             document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        /* NEW STRIPE ELEMENTS LOGIC */
+        /* NEW STRIPE ELEMENTS LOGIC (WITH DIAGNOSTIC) */
         function backToCart() {
             document.getElementById('checkout-view-container').style.display = 'none';
             document.getElementById('cart-view-container').style.display = 'flex';
@@ -1579,7 +1577,7 @@
                 try {
                     data = JSON.parse(text); 
                 } catch (parseErr) {
-                    throw new Error("Server returned HTML instead of secure data. Your server.js is likely disconnected or misconfigured.");
+                    throw new Error("Server returned HTML instead of secure data. Your server.js is likely disconnected or misconfigured. RAW HTML RESPONSE: " + text.substring(0, 150) + "...");
                 }
                 
                 if (data.error) {
