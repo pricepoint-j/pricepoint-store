@@ -1473,6 +1473,8 @@
             
             if (isBuyNow) {
                 toggleCart();
+                // Auto trigger checkout if they clicked Buy Now
+                setTimeout(initStripeCheckout, 400); 
             } else {
                 let badge = document.getElementById('cart-badge');
                 badge.style.transform = 'scale(1.5)';
@@ -1502,6 +1504,7 @@
             
             if (isBuyNow) {
                 toggleCart();
+                setTimeout(initStripeCheckout, 400);
             } else {
                 let badge = document.getElementById('cart-badge');
                 badge.style.transform = 'scale(1.5)';
@@ -1561,7 +1564,7 @@
 
         async function initStripeCheckout() {
             const btn = document.getElementById('proceed-checkout-btn');
-            btn.innerHTML = 'Loading Secure Server...';
+            btn.innerHTML = '<svg width="18" height="18"><use href="#lock-icon"></use></svg> Loading...';
             btn.disabled = true;
 
             try {
