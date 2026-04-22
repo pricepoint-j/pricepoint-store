@@ -13,29 +13,30 @@ app.post('/create-payment-intent', async (req, res) => {
 
     try {
         let totalCents = 0;
-        let orderSummary = "";
+        let metadataObj = {};
 
-        // Calculates exact math and builds the itemized receipt for your Stripe dashboard
+        // Calculates exact math and builds a clean, itemized list for your Stripe dashboard
         cart.forEach((item, index) => {
             totalCents += Math.round(item.price * 100);
-            let details = item.option ? `(${item.option})` : '';
-            if (item.customText) details += ` [Text: ${item.customText}]`;
-            orderSummary += `${index + 1}. ${item.name} ${details} | `;
+            
+            let details = item.option ? `Size/Style: ${item.option}` : '';
+            if (item.customText) details += ` | Custom Text: ${item.customText}`;
+            
+            let val = `${item.name} ${details ? '- ' + details : ''}`;
+            
+            // Stripe limits metadata values to 500 characters per row.
+            if (val.length > 500) val = val.substring(0, 497) + "...";
+            
+            // Creates a clean vertical list in your dashboard: Item_1, Item_2, etc.
+            metadataObj[`Item_${index + 1}`] = val;
         });
 
-        // Stripe has a 500-character limit for metadata, this trims it safely if they buy 20 things
-        if (orderSummary.length > 500) {
-            orderSummary = orderSummary.substring(0, 497) + "...";
-        }
-
-        // Whispers to Stripe to lock in the payment amount and attach the order details
+        // Whispers to Stripe to lock in the payment amount and attach the clean order details
         const paymentIntent = await stripe.paymentIntents.create({
             amount: totalCents,
             currency: 'usd',
             description: 'Pricepoint Jewelry Order',
-            metadata: {
-                exact_order_details: orderSummary
-            }
+            metadata: metadataObj
         });
 
         // Sends the green light back to the frontend to open the card box
