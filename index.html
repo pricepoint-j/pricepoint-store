@@ -1311,8 +1311,8 @@
     </footer>
 
     <script>
-        // STRIPE INITIALIZATION
-        const stripe = Stripe('Pk_live_51MsLUtESkB3nACS7ipPdzGkOxo9onbuw3yso6vAAanFRZtfCAaTLrbTNqLI1b5Kpiio8iddh2Kj2pg1XoN85Ttmb00eKEbbeIz');
+        // STRIPE INITIALIZATION (FIXED CASE)
+        const stripe = Stripe('pk_live_51MsLUtESkB3nACS7ipPdzGkOxo9onbuw3yso6vAAanFRZtfCAaTLrbTNqLI1b5Kpiio8iddh2Kj2pg1XoN85Ttmb00eKEbbeIz');
         let elements;
 
         function openModal(id) { 
@@ -1462,6 +1462,7 @@
             
             if (isBuyNow) {
                 toggleCart();
+                // Auto trigger checkout if they clicked Buy Now
                 setTimeout(initStripeCheckout, 400); 
             } else {
                 let badge = document.getElementById('cart-badge');
@@ -1503,6 +1504,8 @@
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCart();
+            
+            // If they empty the cart while in checkout view, kick them back
             if(cart.length === 0 && document.getElementById('checkout-view-container').style.display === 'flex') {
                 backToCart();
             }
@@ -1541,7 +1544,7 @@
             document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        /* NEW STRIPE ELEMENTS LOGIC (WITH DIAGNOSTIC) */
+        /* NEW STRIPE ELEMENTS LOGIC */
         function backToCart() {
             document.getElementById('checkout-view-container').style.display = 'none';
             document.getElementById('cart-view-container').style.display = 'flex';
@@ -1554,6 +1557,7 @@
             btn.disabled = true;
 
             try {
+                // Call your Railway backend
                 const response = await fetch('/create-payment-intent', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1599,12 +1603,14 @@
                 
                 elements = stripe.elements({ appearance, clientSecret });
 
+                // 1. Mount the Address Element so you know where to ship
                 const addressElement = elements.create("address", {
                     mode: "shipping",
-                    allowedCountries: ['US', 'CA', 'GB', 'AU'], 
+                    allowedCountries: ['US', 'CA', 'GB', 'AU'], // Add countries you ship to
                 });
                 addressElement.mount("#shipping-address-element");
 
+                // 2. Mount the Credit Card Element
                 const paymentElementOptions = { layout: "tabs" };
                 const paymentElement = elements.create("payment", paymentElementOptions);
                 paymentElement.mount("#payment-element");
@@ -1630,6 +1636,7 @@
             const { error } = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
+                    // Stripe will automatically redirect here upon success
                     return_url: window.location.origin + "/?success=true",
                 },
             });
@@ -1646,6 +1653,7 @@
         // HANDLE SUCCESS REDIRECT FROM STRIPE
         document.addEventListener('DOMContentLoaded', () => {
             if (window.location.search.includes('success=true')) {
+                // Record the order to local history
                 let orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
                 let total = cart.reduce((sum, item) => sum + item.price, 0);
                 if(cart.length > 0) {
@@ -1660,8 +1668,11 @@
                 
                 alert('SUCCESS! Your payment is locked in and your order has been received.');
                 
+                // Clear the cart
                 cart = [];
                 localStorage.removeItem('pricepoint_cart');
+                
+                // Clean up the URL
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
             updateCart();
@@ -1706,7 +1717,11 @@
                     }).then(response => {
                         if (response.ok) {
                             form.innerHTML = '<p style="color: var(--gold); font-weight: 700; font-size: 0.85rem; margin: 0;">Successfully joined the drop list!</p>';
+                        } else {
+                            alert('Oops! There was a problem submitting your email.');
                         }
+                    }).catch(error => {
+                        alert('Oops! There was a problem submitting your email.');
                     });
                 });
             });
