@@ -485,6 +485,25 @@
     <h2 id="earrings" class="section-header">Earrings</h2>
     <section class="collection">
         <div class="grid">
+            
+            <div id="p-crown-hoops" class="product-card" data-price="25" data-stock="in" data-sales="85" onclick="openModal('modal-crown-hoops')">
+                <div class="image-container">
+                    <img src="crown-hoop.jpg" class="product-image" loading="lazy">
+                    <div class="quick-add-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+                </div>
+                <h3 class="product-title">Crown Hoop Earrings</h3>
+                <p class="product-price">From $25.00</p>
+            </div>
+
+            <div id="p-hk-hoops" class="product-card" data-price="25" data-stock="in" data-sales="110" onclick="openModal('modal-hk-hoops')">
+                <div class="image-container">
+                    <img src="hk-hoop.jpg" class="product-image" loading="lazy">
+                    <div class="quick-add-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+                </div>
+                <h3 class="product-title">18K Gold HK Hoops</h3>
+                <p class="product-price">From $25.00</p>
+            </div>
+
             <div id="p-hk-earrings" class="product-card" data-price="15" data-stock="in" data-sales="35" onclick="openModal('modal-hk-earrings')">
                 <div class="image-container">
                     <img src="hellokitty-earrings.jpg" class="product-image" loading="lazy">
@@ -644,6 +663,70 @@
             <p style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.5; font-weight: 600;">Your order has been officially received.</p>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 15px; line-height: 1.5;">We appreciate you shopping with Pricepoint Jewelry. Your heavy pieces are being prepared and we'll email you the tracking details soon.</p>
             <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 25px; background: var(--text-dark); color: #fff; border: none; padding: 12px 30px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 0.8rem;">Continue Shopping</button>
+        </div>
+    </div>
+
+    <div id="modal-crown-hoops" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-crown-hoops')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="crown-hoop.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="crown-hoop-box.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">Crown Hoop Earrings</h2>
+                <p id="crown-hoops-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
+                <p class="modal-desc">18K Gold Plated stainless steel crown hoops. Heavy duty rope twist border. Fade and tarnish resistant.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="crown-hoops-s" onchange="updatePrice('crown-hoops-s', 'crown-hoops-price', 25)">
+                        <option value="30mm" data-add="0">30mm ($25)</option>
+                        <option value="50mm" disabled>50mm (Out of Stock)</option>
+                        <option value="70mm" data-add="5">70mm ($30)</option>
+                        <option value="90mm" data-add="10">90mm ($35)</option>
+                    </select>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('p-crown-hoops', 'Crown Hoop Earrings', 'crown-hoops-price', 'crown-hoops-s', 'crown-hoop.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('p-crown-hoops', 'Crown Hoop Earrings', 'crown-hoops-price', 'crown-hoops-s', 'crown-hoop.jpg', true)">Buy Now</button>
+                </div>
+                <div class="trust-badges"><span>💧 Waterproof</span><span>✨ Sweat Resistant</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hk-hoops" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-hk-hoops')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="hk-hoop.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="hk-hoop-box.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">18K Gold HK Hoops</h2>
+                <p id="hk-hoops-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
+                <p class="modal-desc">18K Gold Plated stainless steel HK hoops. Heavy duty rope twist border. Water resistant and built to last.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="hk-hoops-s" onchange="updatePrice('hk-hoops-s', 'hk-hoops-price', 25)">
+                        <option value="30mm" data-add="0">30mm ($25)</option>
+                        <option value="50mm" data-add="5">50mm ($30)</option>
+                        <option value="70mm" data-add="10">70mm ($35)</option>
+                        <option value="90mm" data-add="15">90mm ($40)</option>
+                    </select>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('p-hk-hoops', '18K Gold HK Hoops', 'hk-hoops-price', 'hk-hoops-s', 'hk-hoop.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('p-hk-hoops', '18K Gold HK Hoops', 'hk-hoops-price', 'hk-hoops-s', 'hk-hoop.jpg', true)">Buy Now</button>
+                </div>
+                <div class="trust-badges"><span>💧 Waterproof</span><span>✨ Sweat Resistant</span></div>
+            </div>
         </div>
     </div>
 
@@ -1478,6 +1561,7 @@
             
             if (isBuyNow) {
                 toggleCart();
+                // NO MORE AUTO CHECKOUT. They must review cart first.
             } else {
                 let badge = document.getElementById('cart-badge');
                 badge.style.transform = 'scale(1.5)';
