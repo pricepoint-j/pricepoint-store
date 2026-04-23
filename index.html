@@ -103,6 +103,10 @@
         .original-price { color: #aaa; text-decoration: line-through; font-size: 0.75rem; font-weight: 500; margin-right: 6px; }
         .sale-badge { position: absolute; top: 10px; left: 10px; background: var(--pink-accent); color: white; padding: 4px 8px; font-size: 0.6rem; font-weight: 700; border-radius: 2px; z-index: 5; text-transform: uppercase; letter-spacing: 0.5px; }
         .sold-out-badge { background: #1A1A1A; }
+
+        /* VISUAL FILLER BANNER */
+        .filler-banner { max-width: 1400px; margin: 20px auto 40px; padding: 0 2%; width: 100%; }
+        .filler-banner img { width: 100%; height: 400px; object-fit: cover; border-radius: 4px; filter: contrast(1.05) saturate(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
         /* DUAL BUTTON CHECKOUT UI */
         .action-buttons { display: flex; gap: 10px; margin-top: 15px; width: 100%; }
@@ -157,7 +161,7 @@
         .sold-out-btn-modal { background: #eee !important; color: #888 !important; cursor: not-allowed !important; padding: 16px; width: 100%; border: none; border-radius: 4px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; }
 
         /* =========================================
-           SLIDING CART UI (NOW WITH STRIPE ELEMENTS)
+           SLIDING CART UI
            ========================================= */
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: 0.3s; }
         
@@ -252,6 +256,7 @@
             .vip-form button { width: 100%; }
             
             .cart-sidebar { right: -100%; max-width: 100%; }
+            .filler-banner img { height: 220px; }
         }
     </style>
 </head>
@@ -485,6 +490,10 @@
         </div>
     </section>
 
+    <section class="filler-banner">
+        <img src="display-case.jpg" alt="Pricepoint Jewelry Collection">
+    </section>
+
     <h2 id="earrings" class="section-header">Earrings</h2>
     <section class="collection">
         <div class="grid">
@@ -647,7 +656,6 @@
             <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 25px; background: var(--text-dark); color: #fff; border: none; padding: 12px 30px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 0.8rem;">Continue Shopping</button>
         </div>
     </div>
-
 
     <div id="modal-chopper" class="modal">
         <span class="close-btn" onclick="closeModal('modal-chopper')">&times;</span>
