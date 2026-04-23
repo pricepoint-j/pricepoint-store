@@ -504,6 +504,15 @@
                 <p class="product-price">From $25.00</p>
             </div>
 
+            <div id="p-barbie-hoops" class="product-card" data-price="25" data-stock="in" data-sales="95" onclick="openModal('modal-barbie-hoops')">
+                <div class="image-container">
+                    <img src="barbie-hoop.jpg" class="product-image" loading="lazy">
+                    <div class="quick-add-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+                </div>
+                <h3 class="product-title">18K Gold Barbie Hoops</h3>
+                <p class="product-price">From $25.00</p>
+            </div>
+
             <div id="p-hk-earrings" class="product-card" data-price="15" data-stock="in" data-sales="35" onclick="openModal('modal-hk-earrings')">
                 <div class="image-container">
                     <img src="hellokitty-earrings.jpg" class="product-image" loading="lazy">
@@ -724,6 +733,35 @@
                 <div class="action-buttons">
                     <button class="add-cart-btn" onclick="addToCart('p-hk-hoops', '18K Gold HK Hoops', 'hk-hoops-price', 'hk-hoops-s', 'hk-hoop.jpg', false)">Add To Cart</button>
                     <button class="buy-now-btn" onclick="addToCart('p-hk-hoops', '18K Gold HK Hoops', 'hk-hoops-price', 'hk-hoops-s', 'hk-hoop.jpg', true)">Buy Now</button>
+                </div>
+                <div class="trust-badges"><span>💧 Waterproof</span><span>✨ Sweat Resistant</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-barbie-hoops" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-barbie-hoops')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="barbie-hoop.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">18K Gold Barbie Hoops</h2>
+                <p id="barbie-hoops-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
+                <p class="modal-desc">18K Gold Plated stainless steel Barbie silhouette hoops. Heavy duty rope twist border. Water resistant and built to last.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="barbie-hoops-s" onchange="updatePrice('barbie-hoops-s', 'barbie-hoops-price', 25)">
+                        <option value="30mm" data-add="0">30mm ($25)</option>
+                        <option value="50mm" data-add="5">50mm ($30)</option>
+                        <option value="70mm" data-add="10">70mm ($35)</option>
+                        <option value="90mm" data-add="15">90mm ($40)</option>
+                    </select>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('p-barbie-hoops', '18K Gold Barbie Hoops', 'barbie-hoops-price', 'barbie-hoops-s', 'barbie-hoop.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('p-barbie-hoops', '18K Gold Barbie Hoops', 'barbie-hoops-price', 'barbie-hoops-s', 'barbie-hoop.jpg', true)">Buy Now</button>
                 </div>
                 <div class="trust-badges"><span>💧 Waterproof</span><span>✨ Sweat Resistant</span></div>
             </div>
@@ -1561,7 +1599,6 @@
             
             if (isBuyNow) {
                 toggleCart();
-                // NO MORE AUTO CHECKOUT. They must review cart first.
             } else {
                 let badge = document.getElementById('cart-badge');
                 badge.style.transform = 'scale(1.5)';
