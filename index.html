@@ -186,7 +186,7 @@
         .cart-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 900; color: var(--text-dark); margin-bottom: 15px; text-transform: uppercase; }
         .empty-cart-msg { text-align: center; color: var(--text-muted); margin-top: 50px; font-weight: 600; }
         
-        /* NEW SECURE CHECKOUT BUTTON */
+        /* CHECKOUT BUTTON */
         .secure-checkout-btn { width: 100%; padding: 18px; background: #000; color: #fff; border: none; border-radius: 4px; font-weight: 700; font-size: 0.9rem; font-family: 'Montserrat', sans-serif; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .secure-checkout-btn:hover { background: var(--gold); }
         .stripe-submit-btn { width: 100%; padding: 18px; background: #635bff; color: #fff; border: none; border-radius: 4px; font-weight: 700; font-size: 0.9rem; font-family: 'Montserrat', sans-serif; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; margin-top: 15px; }
@@ -337,6 +337,14 @@
     </section>
 
     <div id="lightbox"><span id="lightbox-close" onclick="closeLightbox()">&times;</span><img id="lightbox-img" src=""></div>
+
+    <svg style="display:none;">
+        <symbol id="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </symbol>
+    </svg>
 
     <h2 id="necklaces" class="section-header">Chains</h2>
     <section class="collection">
@@ -670,7 +678,7 @@
             <span onclick="document.getElementById('success-modal').style.display='none'" style="position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #aaa;">&times;</span>
             <h2 style="color: var(--gold); font-size: 1.8rem; margin-bottom: 10px; text-transform: uppercase; font-weight: 900;">Thank You!</h2>
             <p style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.5; font-weight: 600;">Your order has been officially received.</p>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 15px; line-height: 1.5;">We appreciate you shopping with Pricepoint Jewelry. Your heavy pieces are being prepared and we'll email you the tracking details soon.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 15px; line-height: 1.5;">We appreciate you shopping with Pricepoint Jewelry. Your pieces are being prepared and we'll email you the tracking details soon.</p>
             <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 25px; background: var(--text-dark); color: #fff; border: none; padding: 12px 30px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 0.8rem;">Continue Shopping</button>
         </div>
     </div>
@@ -688,7 +696,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">Crown Hoop Earrings</h2>
                 <p id="crown-hoops-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">18K Gold Plated stainless steel crown hoops. Heavy duty rope twist border. Fade and tarnish resistant.</p>
+                <p class="modal-desc">18K Gold Plated stainless steel crown hoops. Rope twist border. Fade and tarnish resistant.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="crown-hoops-s" onchange="updatePrice('crown-hoops-s', 'crown-hoops-price', 25)">
@@ -720,7 +728,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">18K Gold HK Hoops</h2>
                 <p id="hk-hoops-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">18K Gold Plated stainless steel HK hoops. Heavy duty rope twist border. Water resistant and built to last.</p>
+                <p class="modal-desc">18K Gold Plated stainless steel HK hoops. Rope twist border. Water resistant and non-tarnish.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="hk-hoops-s" onchange="updatePrice('hk-hoops-s', 'hk-hoops-price', 25)">
@@ -749,7 +757,7 @@
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">18K Gold Barbie Hoops</h2>
                 <p id="barbie-hoops-price" class="product-price" style="font-size: 1.6rem;">$25.00</p>
-                <p class="modal-desc">18K Gold Plated stainless steel Barbie silhouette hoops. Heavy duty rope twist border. Water resistant and built to last.</p>
+                <p class="modal-desc">18K Gold Plated stainless steel Barbie silhouette hoops. Rope twist border. Water resistant and non-tarnish.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="barbie-hoops-s" onchange="updatePrice('barbie-hoops-s', 'barbie-hoops-price', 25)">
@@ -1440,7 +1448,7 @@
     </footer>
 
     <script>
-        // STRIPE INITIALIZATION (FIXED CASE)
+        // STRIPE INITIALIZATION
         const stripe = Stripe('pk_live_51MsLUtESkB3nACS7ipPdzGkOxo9onbuw3yso6vAAanFRZtfCAaTLrbTNqLI1b5Kpiio8iddh2Kj2pg1XoN85Ttmb00eKEbbeIz');
         let elements;
 
@@ -1569,7 +1577,7 @@
                 overlay.style.opacity = '0';
                 setTimeout(() => overlay.style.display = 'none', 300);
             } else {
-                if (typeof backToCart === "function") backToCart(); // RESET VIEW TO CART
+                if (typeof backToCart === "function") backToCart(); 
                 overlay.style.display = 'block';
                 setTimeout(() => { overlay.style.opacity = '1'; sidebar.style.right = '0px'; }, 10);
             }
@@ -1639,7 +1647,6 @@
             cart.splice(index, 1);
             updateCart();
             
-            // If they empty the cart while in checkout view, kick them back
             if(cart.length === 0 && document.getElementById('checkout-view-container').style.display === 'flex') {
                 backToCart();
             }
@@ -1684,7 +1691,6 @@
             document.getElementById('cart-view-container').style.display = 'flex';
             document.querySelector('.cart-header h2').innerText = "Your Cart";
             
-            // Destroy Stripe elements so they cleanly rebuild if the user goes back to checkout
             document.getElementById("shipping-address-element").innerHTML = "";
             document.getElementById("payment-element").innerHTML = "";
             
@@ -1723,7 +1729,6 @@
                 
                 const clientSecret = data.clientSecret;
                 
-                // Populate the Order Summary Header
                 let total = cart.reduce((sum, item) => sum + item.price, 0);
                 document.getElementById('checkout-total-display').innerText = '$' + total.toFixed(2);
                 
@@ -1731,12 +1736,10 @@
                 if (summaryText.length > 60) summaryText = summaryText.substring(0, 57) + '...';
                 document.getElementById('checkout-items-summary').innerText = summaryText;
                 
-                // Switch the UI 
                 document.getElementById('cart-view-container').style.display = 'none';
                 document.getElementById('checkout-view-container').style.display = 'flex';
                 document.querySelector('.cart-header h2').innerText = "Checkout";
                 
-                // Mount Stripe Elements
                 const appearance = {
                     theme: 'stripe',
                     variables: {
@@ -1770,7 +1773,6 @@
             }
         }
 
-        // Handle the final payment click
         document.getElementById("payment-form").addEventListener("submit", async (e) => {
             e.preventDefault();
             const submitBtn = document.getElementById("submit-payment");
@@ -1800,7 +1802,6 @@
                 orders = JSON.parse(localStorage.getItem('pricepoint_orders')) || [];
                 if (!Array.isArray(orders)) orders = [];
             } catch (e) {
-                // If old paypal data corrupted the vault, this completely cleans it so it stops crashing
                 orders = [];
                 localStorage.removeItem('pricepoint_orders');
             }
@@ -1831,7 +1832,6 @@
                         `;
                     });
                     
-                    // Failsafe in case total is null
                     let t = order.total ? order.total.toFixed(2) : "0.00";
                     html += `<div class="order-total">Total: $${t}</div>`;
                     html += `</div>`;
