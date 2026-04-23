@@ -521,6 +521,15 @@
                 <p class="product-price">From $25.00</p>
             </div>
 
+            <div id="p-heart-link-hoops" class="product-card" data-price="45" data-stock="in" data-sales="90" onclick="openModal('modal-heart-link-hoops')">
+                <div class="image-container">
+                    <img src="heart-link-main.jpg" class="product-image" loading="lazy">
+                    <div class="quick-add-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+                </div>
+                <h3 class="product-title">18K Gold Heart Link Hoops</h3>
+                <p class="product-price">$45.00</p>
+            </div>
+
             <div id="p-hk-earrings" class="product-card" data-price="15" data-stock="in" data-sales="35" onclick="openModal('modal-hk-earrings')">
                 <div class="image-container">
                     <img src="hellokitty-earrings.jpg" class="product-image" loading="lazy">
@@ -680,6 +689,39 @@
             <p style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.5; font-weight: 600;">Your order has been officially received.</p>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 15px; line-height: 1.5;">We appreciate you shopping with Pricepoint Jewelry. Your pieces are being prepared and we'll email you the tracking details soon.</p>
             <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 25px; background: var(--text-dark); color: #fff; border: none; padding: 12px 30px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 0.8rem;">Continue Shopping</button>
+        </div>
+    </div>
+
+    <div id="modal-heart-link-hoops" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-heart-link-hoops')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="heart-link-main.jpg" class="modal-img" onclick="openLightbox(this.src)">
+                <div class="thumb-container">
+                    <img src="heart-link-hand.png" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                    <img src="heart-link-box.jpg" class="modal-img-secondary" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">18K Gold Heart Link Hoops</h2>
+                <p id="heart-link-hoops-price" class="product-price" style="font-size: 1.6rem;">$45.00</p>
+                <p class="modal-desc">18K Gold Plated stainless steel heart-shaped hoops. Unique chain-link design. Water resistant and non-tarnish.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="heart-link-hoops-s" onchange="updatePrice('heart-link-hoops-s', 'heart-link-hoops-price', 45)">
+                        <option value="30mm" data-add="0">30mm ($45)</option>
+                        <option value="50mm" data-add="0">50mm ($45)</option>
+                        <option value="70mm" disabled>70mm (Out of Stock)</option>
+                        <option value="90mm" disabled>90mm (Out of Stock)</option>
+                    </select>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('p-heart-link-hoops', '18K Gold Heart Link Hoops', 'heart-link-hoops-price', 'heart-link-hoops-s', 'heart-link-main.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('p-heart-link-hoops', '18K Gold Heart Link Hoops', 'heart-link-hoops-price', 'heart-link-hoops-s', 'heart-link-main.jpg', true)">Buy Now</button>
+                </div>
+                <div class="trust-badges"><span>💧 Waterproof</span><span>✨ Sweat Resistant</span></div>
+            </div>
         </div>
     </div>
 
