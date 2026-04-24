@@ -194,6 +194,9 @@
         
         #payment-message { font-size: 0.75rem; color: red; margin-top: 10px; text-align: center; font-weight: 600; }
 
+        /* STRIPE FORM PADDING FIX FOR MOBILE KEYBOARDS */
+        .checkout-view-container form { padding-bottom: 50px; }
+
         /* MODAL ORDER HISTORY CSS */
         #modal-order-history .order-item { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
         #modal-order-history .order-id { font-weight: 700; color: var(--gold); font-size: 0.8rem;}
@@ -337,14 +340,6 @@
     </section>
 
     <div id="lightbox"><span id="lightbox-close" onclick="closeLightbox()">&times;</span><img id="lightbox-img" src=""></div>
-
-    <svg style="display:none;">
-        <symbol id="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <path d="M16 10a4 4 0 0 1-8 0"></path>
-        </symbol>
-    </svg>
 
     <h2 id="necklaces" class="section-header">Chains</h2>
     <section class="collection">
@@ -728,16 +723,16 @@
             <div class="modal-info">
                 <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
                 <h2 class="modal-title">14K Gold Round Nugget Studs</h2>
-                <p id="round-nuggets-price" class="product-price" style="font-size: 1.6rem;">$35.00</p>
+                <p id="round-nuggets-price" class="product-price" style="font-size: 1.6rem;"><span class="original-price" style="font-size: 1rem;">$35.00</span>$35.00</p>
                 <p class="modal-desc">14K Gold Plated round nugget studs. Classic heavy texture with push back closures. Water resistant and non-tarnish.</p>
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="round-nuggets-s" onchange="updatePrice('round-nuggets-s', 'round-nuggets-price', 35)">
-                        <option value="8mm" data-add="0">8mm ($35)</option>
-                        <option value="10mm" data-add="5">10mm ($40)</option>
-                        <option value="12mm" data-add="10">12mm ($45)</option>
-                        <option value="14mm" data-add="15">14mm ($50)</option>
-                        <option value="16mm" data-add="20">16mm ($55)</option>
+                        <option value="8mm" data-add="0" data-orig="35.00">8mm ($35)</option>
+                        <option value="10mm" data-add="5" data-orig="40.00">10mm ($40)</option>
+                        <option value="12mm" data-add="10" data-orig="45.00">12mm ($45)</option>
+                        <option value="14mm" data-add="15" data-orig="50.00">14mm ($50)</option>
+                        <option value="16mm" data-add="20" data-orig="55.00">16mm ($55)</option>
                     </select>
                 </div>
                 <div class="action-buttons">
@@ -1605,6 +1600,8 @@
         // STRIPE INITIALIZATION
         const stripe = Stripe('pk_live_51MsLUtESkB3nACS7ipPdzGkOxo9onbuw3yso6vAAanFRZtfCAaTLrbTNqLI1b5Kpiio8iddh2Kj2pg1XoN85Ttmb00eKEbbeIz');
         let elements;
+        let paymentElement;
+        let addressElement;
 
         function openModal(id) { 
             document.body.style.overflow = "hidden";
@@ -1853,8 +1850,9 @@
             document.getElementById('cart-view-container').style.display = 'flex';
             document.querySelector('.cart-header h2').innerText = "Your Cart";
             
-            document.getElementById("shipping-address-element").innerHTML = "";
-            document.getElementById("payment-element").innerHTML = "";
+            if (paymentElement) { paymentElement.destroy(); paymentElement = null; }
+            if (addressElement) { addressElement.destroy(); addressElement = null; }
+            if (elements) { elements = null; }
             
             const btn = document.getElementById('proceed-checkout-btn');
             btn.innerHTML = 'Checkout';
@@ -1917,14 +1915,14 @@
                 
                 elements = stripe.elements({ appearance, clientSecret });
 
-                const addressElement = elements.create("address", {
+                addressElement = elements.create("address", {
                     mode: "shipping",
                     allowedCountries: ['US', 'CA', 'GB', 'AU'], 
                 });
                 addressElement.mount("#shipping-address-element");
 
                 const paymentElementOptions = { layout: "tabs" };
-                const paymentElement = elements.create("payment", paymentElementOptions);
+                paymentElement = elements.create("payment", paymentElementOptions);
                 paymentElement.mount("#payment-element");
 
             } catch (err) {
