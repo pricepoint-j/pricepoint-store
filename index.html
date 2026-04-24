@@ -264,7 +264,9 @@
 
     <div class="marquee-container">
         <div class="marquee-content">
-            <span>PRICEPOINT JEWELRY</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>14-18KT GOLD FILLED</span> ✦ <span>PRICEPOINT JEWELRY</span> ✦ <span>FREE SHIPPING ON ALL ORDERS</span> ✦ <span>NO GREEN NECKS</span> ✦ <span>14-18KT GOLD FILLED</span>
+            <span>✦ 14-18KT GOLD FILLED ✦ WATERPROOF & FADE RESISTANT ✦ BUILT FOR THE TRENCHES ✦</span>
+            <span>✦ 14-18KT GOLD FILLED ✦ WATERPROOF & FADE RESISTANT ✦ BUILT FOR THE TRENCHES ✦</span>
+            <span>✦ 14-18KT GOLD FILLED ✦ WATERPROOF & FADE RESISTANT ✦ BUILT FOR THE TRENCHES ✦</span>
         </div>
     </div>
 
@@ -948,10 +950,10 @@
                 <div class="size-selector">
                     <label>Size</label>
                     <select id="chopper-s" onchange="updatePrice('chopper-s', 'chopper-price', 25)">
-                        <option value="6" data-add="0">6</option>
-                        <option value="7" data-add="0">7</option>
-                        <option value="8" data-add="0">8</option>
-                        <option value="9" data-add="0">9</option>
+                        <option value="6" data-add="0" data-orig="45.00">6</option>
+                        <option value="7" data-add="0" data-orig="45.00">7</option>
+                        <option value="8" data-add="0" data-orig="45.00">8</option>
+                        <option value="9" data-add="0" data-orig="45.00">9</option>
                         <option value="10" disabled>10 (Out of Stock)</option>
                     </select>
                 </div>
@@ -981,9 +983,9 @@
                 <div class="size-selector">
                     <label>Chain Length</label>
                     <select id="hk-rope-new-s" onchange="updatePrice('hk-rope-new-s', 'hk-rope-new-price', 25)">
-                        <option value="18" data-add="0">18" ($25.00)</option>
-                        <option value="20" data-add="2">20" ($27.00)</option>
-                        <option value="22" data-add="4">22" ($29.00)</option>
+                        <option value="18" data-add="0" data-orig="45.00">18" ($25.00)</option>
+                        <option value="20" data-add="2" data-orig="45.00">20" ($27.00)</option>
+                        <option value="22" data-add="4" data-orig="45.00">22" ($29.00)</option>
                     </select>
                 </div>
                 <div class="action-buttons">
@@ -1239,11 +1241,11 @@
                     <label>Size</label>
                     <select id="heart-ring-s" onchange="updatePrice('heart-ring-s', 'heart-ring-price', 25)">
                         <option value="5" disabled>5 (Out of Stock)</option>
-                        <option value="6" data-add="0">6</option>
-                        <option value="7" data-add="0">7</option>
-                        <option value="8" data-add="0">8</option>
-                        <option value="9" data-add="0">9</option>
-                        <option value="10" data-add="0">10</option>
+                        <option value="6" data-add="0" data-orig="55.00">6</option>
+                        <option value="7" data-add="0" data-orig="55.00">7</option>
+                        <option value="8" data-add="0" data-orig="55.00">8</option>
+                        <option value="9" data-add="0" data-orig="55.00">9</option>
+                        <option value="10" data-add="0" data-orig="55.00">10</option>
                         <option value="11" disabled>11 (Out of Stock)</option>
                         <option value="12" disabled>12 (Out of Stock)</option>
                     </select>
@@ -1305,11 +1307,11 @@
                     <label>Size</label>
                     <select id="heart-ring-3-s" onchange="updatePrice('heart-ring-3-s', 'heart-ring-3-price', 25)">
                         <option value="5" disabled>5 (Out of Stock)</option>
-                        <option value="6" data-add="0">6</option>
-                        <option value="7" data-add="0">7</option>
-                        <option value="8" data-add="0">8</option>
-                        <option value="9" data-add="0">9</option>
-                        <option value="10" data-add="0">10</option>
+                        <option value="6" data-add="0" data-orig="55.00">6</option>
+                        <option value="7" data-add="0" data-orig="55.00">7</option>
+                        <option value="8" data-add="0" data-orig="55.00">8</option>
+                        <option value="9" data-add="0" data-orig="55.00">9</option>
+                        <option value="10" data-add="0" data-orig="55.00">10</option>
                         <option value="11" disabled>11 (Out of Stock)</option>
                         <option value="12" disabled>12 (Out of Stock)</option>
                     </select>
@@ -1642,7 +1644,13 @@
             let s = document.getElementById(selectId);
             let o = s.options[s.selectedIndex];
             let p = o.getAttribute('data-special') || (base + parseInt(o.getAttribute('data-add')));
-            document.getElementById(priceId).innerHTML = "$" + p + ".00";
+            let orig = o.getAttribute('data-orig');
+            
+            if(orig) {
+                document.getElementById(priceId).innerHTML = '<span class="original-price" style="font-size: 1rem;">$' + orig + '</span>$' + p + '.00';
+            } else {
+                document.getElementById(priceId).innerHTML = "$" + p + ".00";
+            }
         }
 
         /* FILTER SYSTEM */
@@ -1729,10 +1737,12 @@
             if(sidebar.style.right === '0px') {
                 sidebar.style.right = '-450px';
                 overlay.style.opacity = '0';
+                document.body.style.overflow = "auto";
                 setTimeout(() => overlay.style.display = 'none', 300);
             } else {
                 if (typeof backToCart === "function") backToCart(); 
                 overlay.style.display = 'block';
+                document.body.style.overflow = "hidden";
                 setTimeout(() => { overlay.style.opacity = '1'; sidebar.style.right = '0px'; }, 10);
             }
         }
