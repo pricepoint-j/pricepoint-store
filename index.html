@@ -1597,7 +1597,7 @@
     </footer>
 
     <script>
-        // STRIPE INITIALIZATION (FIXED CASE)
+        // STRIPE INITIALIZATION
         const stripe = Stripe('pk_live_51MsLUtESkB3nACS7ipPdzGkOxo9onbuw3yso6vAAanFRZtfCAaTLrbTNqLI1b5Kpiio8iddh2Kj2pg1XoN85Ttmb00eKEbbeIz');
         let elements;
         let paymentElement;
@@ -1943,21 +1943,8 @@
                 
                 addressElement.mount(actualAddressDiv);
 
-                // CREATE PAYMENT ELEMENT WITH FORCED FULL BILLING ADDRESS
-                const paymentElementOptions = { 
-                    layout: "tabs",
-                    fields: {
-                        billingDetails: {
-                            address: {
-                                country: 'always',
-                                line1: 'always',
-                                city: 'always',
-                                state: 'always',
-                                postalCode: 'always'
-                            }
-                        }
-                    }
-                };
+                // REVERTED PAYMENT ELEMENT TO DEFAULT
+                const paymentElementOptions = { layout: "tabs" };
                 
                 // Add a visual separator for the payment
                 let paymentWrapper = document.createElement("div");
