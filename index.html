@@ -338,6 +338,14 @@
 
     <div id="lightbox"><span id="lightbox-close" onclick="closeLightbox()">&times;</span><img id="lightbox-img" src=""></div>
 
+    <svg style="display:none;">
+        <symbol id="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </symbol>
+    </svg>
+
     <h2 id="necklaces" class="section-header">Chains</h2>
     <section class="collection">
         <div class="grid">
@@ -486,6 +494,15 @@
     <section class="collection">
         <div class="grid">
             
+            <div id="p-round-nuggets" class="product-card" data-price="35" data-stock="in" data-sales="85" onclick="openModal('modal-round-nuggets')">
+                <div class="image-container">
+                    <img src="round-nuggets.jpg" class="product-image" loading="lazy">
+                    <div class="quick-add-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+                </div>
+                <h3 class="product-title">14K Gold Round Nugget Studs</h3>
+                <p class="product-price">From $35.00</p>
+            </div>
+
             <div id="p-nugget-studs" class="product-card" data-price="20" data-stock="in" data-sales="65" onclick="openModal('modal-nugget-studs')">
                 <div class="image-container">
                     <img src="nugget-studs.jpg" class="product-image" loading="lazy">
@@ -699,6 +716,36 @@
             <p style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.5; font-weight: 600;">Your order has been officially received.</p>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 15px; line-height: 1.5;">We appreciate you shopping with Pricepoint Jewelry. Your pieces are being prepared and we'll email you the tracking details soon.</p>
             <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 25px; background: var(--text-dark); color: #fff; border: none; padding: 12px 30px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 0.8rem;">Continue Shopping</button>
+        </div>
+    </div>
+
+    <div id="modal-round-nuggets" class="modal">
+        <span class="close-btn" onclick="closeModal('modal-round-nuggets')">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-gallery">
+                <img src="round-nuggets.jpg" class="modal-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="modal-info">
+                <img src="pricepoint-logo.png" alt="Pricepoint Jewelry" class="modal-header-logo">
+                <h2 class="modal-title">14K Gold Round Nugget Studs</h2>
+                <p id="round-nuggets-price" class="product-price" style="font-size: 1.6rem;">$35.00</p>
+                <p class="modal-desc">14K Gold Plated round nugget studs. Classic heavy texture with push back closures. Water resistant and non-tarnish.</p>
+                <div class="size-selector">
+                    <label>Size</label>
+                    <select id="round-nuggets-s" onchange="updatePrice('round-nuggets-s', 'round-nuggets-price', 35)">
+                        <option value="8mm" data-add="0">8mm ($35)</option>
+                        <option value="10mm" data-add="5">10mm ($40)</option>
+                        <option value="12mm" data-add="10">12mm ($45)</option>
+                        <option value="14mm" data-add="15">14mm ($50)</option>
+                        <option value="16mm" data-add="20">16mm ($55)</option>
+                    </select>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-cart-btn" onclick="addToCart('p-round-nuggets', '14K Gold Round Nugget Studs', 'round-nuggets-price', 'round-nuggets-s', 'round-nuggets.jpg', false)">Add To Cart</button>
+                    <button class="buy-now-btn" onclick="addToCart('p-round-nuggets', '14K Gold Round Nugget Studs', 'round-nuggets-price', 'round-nuggets-s', 'round-nuggets.jpg', true)">Buy Now</button>
+                </div>
+                <div class="trust-badges"><span>💧 Waterproof</span><span>✨ Sweat Resistant</span></div>
+            </div>
         </div>
     </div>
 
