@@ -1597,7 +1597,7 @@
     </footer>
 
     <script>
-        // STRIPE INITIALIZATION
+        // STRIPE INITIALIZATION (FIXED CASE)
         const stripe = Stripe('pk_live_51MsLUtESkB3nACS7ipPdzGkOxo9onbuw3yso6vAAanFRZtfCAaTLrbTNqLI1b5Kpiio8iddh2Kj2pg1XoN85Ttmb00eKEbbeIz');
         let elements;
         let paymentElement;
@@ -1915,15 +1915,60 @@
                 
                 elements = stripe.elements({ appearance, clientSecret });
 
+                // INJECT LINK AUTHENTICATION FOR EMAIL
+                const linkAuthenticationElement = elements.create("linkAuthentication");
+                linkAuthenticationElement.mount("#shipping-address-element");
+
+                // CREATE SHIPPING ADDRESS WITH PHONE NUMBER REQUIRED
                 addressElement = elements.create("address", {
                     mode: "shipping",
                     allowedCountries: ['US', 'CA', 'GB', 'AU'], 
+                    fields: {
+                        phone: 'always',
+                    },
+                    validation: {
+                        phone: {
+                            required: 'always',
+                        },
+                    },
                 });
-                addressElement.mount("#shipping-address-element");
+                
+                // Add a visual separator for the address
+                let addressWrapper = document.createElement("div");
+                addressWrapper.style.marginTop = "15px";
+                addressWrapper.innerHTML = '<h4 style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Shipping Details</h4>';
+                let actualAddressDiv = document.createElement("div");
+                addressWrapper.appendChild(actualAddressDiv);
+                document.getElementById("shipping-address-element").appendChild(addressWrapper);
+                
+                addressElement.mount(actualAddressDiv);
 
-                const paymentElementOptions = { layout: "tabs" };
+                // CREATE PAYMENT ELEMENT WITH FORCED FULL BILLING ADDRESS
+                const paymentElementOptions = { 
+                    layout: "tabs",
+                    fields: {
+                        billingDetails: {
+                            address: {
+                                country: 'always',
+                                line1: 'always',
+                                city: 'always',
+                                state: 'always',
+                                postalCode: 'always'
+                            }
+                        }
+                    }
+                };
+                
+                // Add a visual separator for the payment
+                let paymentWrapper = document.createElement("div");
+                paymentWrapper.style.marginTop = "15px";
+                paymentWrapper.innerHTML = '<h4 style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Payment</h4>';
+                let actualPaymentDiv = document.createElement("div");
+                paymentWrapper.appendChild(actualPaymentDiv);
+                document.getElementById("payment-element").appendChild(paymentWrapper);
+
                 paymentElement = elements.create("payment", paymentElementOptions);
-                paymentElement.mount("#payment-element");
+                paymentElement.mount(actualPaymentDiv);
 
             } catch (err) {
                 console.error("Error:", err);
